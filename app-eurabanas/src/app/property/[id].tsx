@@ -1,17 +1,21 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import * as Linking from "expo-linking";
+import { ScrollView, Share, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppButton } from "@/components/AppButton";
 import { EmptyState } from "@/components/States";
-import { fallbackProperties } from "@/data/catalog";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { useCatalog } from "@/hooks/useCatalog";
 import { colors, radius, shadow, spacing } from "@/lib/theme";
 
 export default function PropertyDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const property = fallbackProperties.find((item) => item.id === id);
+  const { properties } = useCatalog();
+  const { formatPrice, isFavorite, toggleFavorite } = useAppPreferences();
+  const property = properties.find((item) => item.id === id);
 
   if (!property) return <SafeAreaView style={styles.safe}><EmptyState title="Alojamiento no encontrado" detail="Este alojamiento ya no está disponible en el catálogo." actionLabel="Volver a buscar" onAction={() => router.replace("/(tabs)/search")} /></SafeAreaView>;
 
@@ -31,6 +35,10 @@ export default function PropertyDetailScreen() {
             <Ionicons name="star" size={17} color="#F3A81B" />
             <Text style={styles.rating}>{property.rating.toFixed(1)} · {property.reviewCount} comentarios</Text>
           </View>
+          <View style={styles.quickActions}>
+            <AppButton label={isFavorite(property.id) ? "Guardado" : "Guardar"} icon={isFavorite(property.id) ? "heart" : "heart-outline"} variant="ghost" onPress={() => void toggleFavorite(property.id)} style={styles.quickButton} />
+            <AppButton label="Compartir" icon="share-social-outline" variant="ghost" onPress={() => void Share.share({ message: `${property.title} — https://www.estadiasurbanas.com/#propiedades` })} style={styles.quickButton} />
+          </View>
           <Text style={styles.description}>{property.description}</Text>
 
           <Text style={styles.sectionTitle}>Lo que ofrece</Text>
@@ -42,6 +50,7 @@ export default function PropertyDetailScreen() {
               </View>
             ))}
           </View>
+          <AppButton label="Abrir ubicación en el mapa" icon="map-outline" variant="secondary" onPress={() => void Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${property.title}, ${property.city}, ${property.country}`)}`)} style={styles.mapButton} />
 
           {property.options.length ? (
             <>
@@ -51,7 +60,7 @@ export default function PropertyDetailScreen() {
                   <View key={option.id} style={styles.option}>
                     <View style={styles.optionTop}>
                       <Text style={styles.optionTitle}>{option.title}</Text>
-                      <Text style={styles.optionPrice}>USD ${option.priceUsd}</Text>
+                      <Text style={styles.optionPrice}>{formatPrice(option.priceUsd)}</Text>
                     </View>
                     <Text style={styles.optionMeta}>{option.occupancy} · {option.rooms} · {option.baths}</Text>
                     <AppButton label="Elegir" variant="secondary" onPress={() => router.push({ pathname: "/booking/[id]", params: { id: property.id, option: option.id } })} />
@@ -65,7 +74,7 @@ export default function PropertyDetailScreen() {
       <View style={styles.footer}>
         <View>
           <Text style={styles.from}>Desde</Text>
-          <Text style={styles.footerPrice}>USD ${property.priceUsd}<Text style={styles.perNight}> / noche</Text></Text>
+          <Text style={styles.footerPrice}>{formatPrice(property.priceUsd)}<Text style={styles.perNight}> / noche</Text></Text>
         </View>
         <AppButton label="Reservar" onPress={() => router.push({ pathname: "/booking/[id]", params: { id: property.id } })} style={styles.reserveButton} />
       </View>
@@ -83,11 +92,14 @@ const styles = StyleSheet.create({
   title: { color: colors.text, fontSize: 29, lineHeight: 35, fontWeight: "900", marginTop: spacing.sm },
   ratingRow: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: spacing.sm },
   rating: { color: colors.text, fontWeight: "700" },
+  quickActions: { flexDirection: "row", gap: spacing.sm, marginTop: spacing.md },
+  quickButton: { flex: 1, minHeight: 46, paddingHorizontal: spacing.sm },
   description: { color: colors.textMuted, fontSize: 15, lineHeight: 23, marginTop: spacing.lg },
   sectionTitle: { color: colors.text, fontSize: 21, fontWeight: "900", marginTop: spacing.xl, marginBottom: spacing.md },
   amenities: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   amenity: { backgroundColor: colors.surface, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 9, flexDirection: "row", alignItems: "center", gap: 6 },
   amenityText: { color: colors.text, fontWeight: "600", fontSize: 13 },
+  mapButton: { marginTop: spacing.md },
   options: { gap: spacing.md },
   option: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.md, gap: spacing.md, ...shadow },
   optionTop: { flexDirection: "row", justifyContent: "space-between", gap: spacing.md },

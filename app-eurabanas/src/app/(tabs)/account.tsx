@@ -22,6 +22,12 @@ export default function AccountScreen() {
           <Text style={styles.guestTitle}>Tu cuenta Estadías Urbanas</Text>
           <Text style={styles.guestText}>Consulta puntos, reservas y datos personales sincronizados con la web.</Text>
           <AppButton label="Iniciar sesión o registrarme" onPress={() => router.push("/auth")} style={styles.guestButton} />
+          <View style={styles.guestLinks}>
+            <AppButton label="Publica tu alojamiento" icon="business-outline" variant="ghost" onPress={() => router.push("/host-request")} />
+            <AppButton label="Alertas y ofertas" icon="notifications-outline" variant="ghost" onPress={() => router.push("/newsletter")} />
+            <AppButton label="Moneda" icon="cash-outline" variant="ghost" onPress={() => router.push("/preferences")} />
+            <AppButton label="Ayuda, FAQ y políticas" icon="information-circle-outline" variant="ghost" onPress={() => router.push("/information")} />
+          </View>
         </View>
       </Screen>
     );
@@ -65,6 +71,11 @@ export default function AccountScreen() {
       <View style={styles.actions}>
         <AppButton label="Ver mis reservas" icon="calendar-outline" variant="ghost" onPress={() => router.push("/(tabs)/reservations")} />
         <AppButton label="Buscar alojamiento" icon="search-outline" variant="ghost" onPress={() => router.push("/(tabs)/search")} />
+        <AppButton label="Datos personales y facturación" icon="person-outline" variant="ghost" onPress={() => router.push("/profile")} />
+        <AppButton label="Publica tu alojamiento" icon="business-outline" variant="ghost" onPress={() => router.push("/host-request")} />
+        <AppButton label="Alertas y ofertas" icon="notifications-outline" variant="ghost" onPress={() => router.push("/newsletter")} />
+        <AppButton label="Moneda de visualización" icon="cash-outline" variant="ghost" onPress={() => router.push("/preferences")} />
+        <AppButton label="Ayuda, FAQ y políticas" icon="information-circle-outline" variant="ghost" onPress={() => router.push("/information")} />
         <AppButton label="Cerrar sesión" icon="log-out-outline" variant="danger" onPress={() => Alert.alert("Cerrar sesión", "¿Quieres salir de tu cuenta?", [{ text: "Cancelar", style: "cancel" }, { text: "Cerrar sesión", style: "destructive", onPress: () => void logout() }])} />
       </View>
     </Screen>
@@ -76,6 +87,7 @@ const styles = StyleSheet.create({
   guestTitle: { color: colors.text, fontSize: 27, fontWeight: "900", textAlign: "center" },
   guestText: { color: colors.textMuted, fontSize: 15, lineHeight: 22, textAlign: "center" },
   guestButton: { marginTop: spacing.sm, alignSelf: "stretch" },
+  guestLinks: { alignSelf: "stretch", gap: spacing.sm, marginTop: spacing.lg },
   profileRow: { flexDirection: "row", alignItems: "center", gap: spacing.md, marginTop: spacing.md },
   avatar: { width: 58, height: 58, borderRadius: 29, backgroundColor: colors.navy, alignItems: "center", justifyContent: "center" },
   avatarText: { color: colors.surface, fontSize: 24, fontWeight: "900" },

@@ -105,3 +105,16 @@ export type ApiErrorShape = {
   status?: string;
   message?: string;
 };
+
+export type HostRequest = {
+  nombre: string;
+  email: string;
+  telefono: string;
+  ciudad: string;
+  tipo_vivienda: string;
+  capacidad: string;
+  direccion: string;
+  mensaje: string;
+  fotos_url?: string;
+  precio_noche?: string;
+};

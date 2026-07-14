@@ -1,4 +1,4 @@
-import { AccountSummary, ApiErrorShape, AuthResponse, BookingInput, Property, Reservation, UserProfile } from "@/types";
+import { AccountSummary, ApiErrorShape, AuthResponse, BookingInput, HostRequest, Property, Reservation, UserProfile } from "@/types";
 
 export const API_BASE_URL = (process.env.EXPO_PUBLIC_API_BASE_URL || "https://www.estadiasurbanas.com").replace(/\/$/, "");
 
@@ -94,6 +94,20 @@ export const api = {
       method: "POST",
       token,
       body: JSON.stringify(profile),
+    });
+  },
+
+  subscribeNewsletter(email: string, city: string, currency = "USD") {
+    return apiRequest<{ status: "success"; message: string; duplicate?: boolean }>("newsletter_subscribe.php", {
+      method: "POST",
+      body: JSON.stringify({ email, city, language: "es", currency, source: "mobile_app", company: "" }),
+    });
+  },
+
+  createHostRequest(input: HostRequest) {
+    return apiRequest<{ status: "success"; message: string; id: number }>("solicitud_anfitrion.php", {
+      method: "POST",
+      body: JSON.stringify(input),
     });
   },
 

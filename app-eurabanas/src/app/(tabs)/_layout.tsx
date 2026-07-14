@@ -6,6 +6,7 @@ import { colors } from "@/lib/theme";
 const icons: Record<string, [keyof typeof Ionicons.glyphMap, keyof typeof Ionicons.glyphMap]> = {
   index: ["home-outline", "home"],
   search: ["search-outline", "search"],
+  favorites: ["heart-outline", "heart"],
   reservations: ["calendar-outline", "calendar"],
   account: ["person-circle-outline", "person-circle"],
 };
@@ -33,6 +34,7 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="index" options={{ title: "Inicio" }} />
       <Tabs.Screen name="search" options={{ title: "Buscar" }} />
+      <Tabs.Screen name="favorites" options={{ title: "Guardados" }} />
       <Tabs.Screen name="reservations" options={{ title: "Reservas" }} />
       <Tabs.Screen name="account" options={{ title: "Mi cuenta" }} />
     </Tabs>

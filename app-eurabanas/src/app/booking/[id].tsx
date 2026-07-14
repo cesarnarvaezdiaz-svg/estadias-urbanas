@@ -7,17 +7,20 @@ import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { AppButton } from "@/components/AppButton";
 import { AppInput } from "@/components/AppInput";
 import { Screen } from "@/components/Screen";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useAuth } from "@/context/AuthContext";
-import { fallbackProperties } from "@/data/catalog";
+import { useCatalog } from "@/hooks/useCatalog";
 import { addDaysIso, isIsoDate, nightsBetween, todayIso } from "@/lib/dates";
 import { api } from "@/lib/api";
 import { colors, radius, spacing } from "@/lib/theme";
 import { BookingInput } from "@/types";
 
 export default function BookingScreen() {
+  const { formatPrice } = useAppPreferences();
   const { id, option: optionId } = useLocalSearchParams<{ id: string; option?: string }>();
   const { user } = useAuth();
-  const property = fallbackProperties.find((item) => item.id === id);
+  const { properties } = useCatalog();
+  const property = properties.find((item) => item.id === id);
   const option = property?.options.find((item) => item.id === optionId) ?? property?.options[0];
   const [checkIn, setCheckIn] = useState(addDaysIso(todayIso(), 1));
   const [checkOut, setCheckOut] = useState(addDaysIso(todayIso(), 2));
@@ -100,7 +103,7 @@ export default function BookingScreen() {
       <View style={styles.summary}>
         <Text style={styles.property}>{property.title}</Text>
         <Text style={styles.option}>{option?.title ?? property.type}</Text>
-        <Text style={styles.price}>USD ${nightlyPrice} por noche</Text>
+        <Text style={styles.price}>{formatPrice(nightlyPrice)} por noche</Text>
       </View>
 
       <Text style={styles.sectionTitle}>Fechas</Text>
@@ -130,7 +133,7 @@ export default function BookingScreen() {
 
       <View style={styles.totalCard}>
         <View><Text style={styles.totalLabel}>{nights || 0} noche(s)</Text><Text style={styles.totalHint}>El precio final en CLP se confirma en Mercado Pago.</Text></View>
-        <Text style={styles.total}>USD ${total}</Text>
+        <Text style={styles.total}>{formatPrice(total)}</Text>
       </View>
 
       <View style={styles.actions}>

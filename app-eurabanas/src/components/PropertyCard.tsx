@@ -5,8 +5,11 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { colors, radius, shadow, spacing } from "@/lib/theme";
 import { Property } from "@/types";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
 
 export function PropertyCard({ property, compact = false }: { property: Property; compact?: boolean }) {
+  const { formatPrice, isFavorite, toggleFavorite } = useAppPreferences();
+  const favorite = isFavorite(property.id);
   return (
     <Pressable
       accessibilityRole="button"
@@ -15,6 +18,18 @@ export function PropertyCard({ property, compact = false }: { property: Property
       style={({ pressed }) => [styles.card, compact && styles.compact, pressed && styles.pressed]}
     >
       <Image source={{ uri: property.image }} style={[styles.image, compact && styles.imageCompact]} contentFit="cover" transition={250} />
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={favorite ? "Quitar de guardados" : "Guardar alojamiento"}
+        hitSlop={10}
+        onPress={(event) => {
+          event.stopPropagation();
+          void toggleFavorite(property.id);
+        }}
+        style={styles.favorite}
+      >
+        <Ionicons name={favorite ? "heart" : "heart-outline"} size={22} color={favorite ? colors.danger : colors.navy} />
+      </Pressable>
       <View style={styles.body}>
         <View style={styles.locationRow}>
           <Ionicons name="location-outline" size={16} color={colors.blue} />
@@ -26,7 +41,7 @@ export function PropertyCard({ property, compact = false }: { property: Property
             <Ionicons name="star" size={14} color="#F3A81B" />
             <Text style={styles.ratingText}>{property.rating.toFixed(1)}</Text>
           </View>
-          <Text style={styles.price}>USD ${property.priceUsd}<Text style={styles.night}> / noche</Text></Text>
+          <Text style={styles.price}>{formatPrice(property.priceUsd)}<Text style={styles.night}> / noche</Text></Text>
         </View>
       </View>
     </Pressable>
@@ -39,6 +54,7 @@ const styles = StyleSheet.create({
   pressed: { opacity: 0.86, transform: [{ scale: 0.99 }] },
   image: { width: "100%", height: 174, backgroundColor: colors.surfaceMuted },
   imageCompact: { width: 132, height: "100%" },
+  favorite: { position: "absolute", top: 10, right: 10, width: 38, height: 38, borderRadius: 19, backgroundColor: "rgba(255,255,255,0.94)", alignItems: "center", justifyContent: "center", zIndex: 2 },
   body: { flex: 1, padding: spacing.md, gap: spacing.sm },
   locationRow: { flexDirection: "row", alignItems: "center", gap: 4 },
   location: { color: colors.textMuted, fontSize: 13, flex: 1 },

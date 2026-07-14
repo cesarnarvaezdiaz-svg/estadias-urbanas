@@ -7,15 +7,22 @@ Aplicación móvil para Android e iOS construida con React Native, Expo SDK 57, 
 - Inicio y catálogo de alojamientos.
 - Búsqueda por destino y cantidad de huéspedes.
 - Ficha del alojamiento y tipos de departamento.
+- Favoritos persistentes en el dispositivo.
+- Filtros por destino, fechas, adultos, niños, habitaciones, camas, tipo y precio.
+- Visualización de precios en USD, EUR, CLP, MXN o COP con las tasas referenciales de la web.
 - Registro e inicio de sesión tradicional.
 - Flujo OAuth con Google mediante PKCE.
 - Inicio de sesión con Apple en iOS.
 - Sesión móvil protegida en `SecureStore`.
 - Consulta de puntos, nivel, noches y reservas.
+- Edición de datos personales y de facturación sincronizados.
 - Reservas con folio usando la tabla `reservas` de la web.
 - Consulta de disponibilidad y bloqueo anti-overbooking.
 - Checkout Pro de Mercado Pago abierto en el navegador seguro del sistema, no en WebView.
 - Actualización del estado de la reserva mediante el webhook que ya utiliza la web.
+- Suscripción a newsletter mediante `newsletter_subscribe.php`.
+- Solicitud de anfitrión mediante `solicitud_anfitrion.php` y la misma tabla MySQL de la web.
+- Acceso a ubicación, soporte, FAQ, información corporativa y política de reembolso.
 
 ## Requisitos
 

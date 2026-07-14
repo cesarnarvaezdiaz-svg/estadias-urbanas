@@ -1,0 +1,37 @@
+name: Verificar app Eurabanas
+
+on:
+  push:
+    paths:
+      - "app-eurabanas/**"
+      - ".github/workflows/app-eurabanas-ci.yml"
+  pull_request:
+    paths:
+      - "app-eurabanas/**"
+      - ".github/workflows/app-eurabanas-ci.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app-eurabanas
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app-eurabanas/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar TypeScript, PHP y Expo
+        run: npm run check
+
+      - name: Verificar empaquetado
+        run: npx expo export --platform web --output-dir /tmp/app-eurabanas-web

@@ -13,7 +13,7 @@ type AuthContextValue = {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string, phone: string) => Promise<void>;
-  completeOAuth: (provider: "google" | "apple", data: Record<string, string>) => Promise<void>;
+  completeOAuth: (provider: "google" | "apple" | "facebook", data: Record<string, string>) => Promise<void>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
 };

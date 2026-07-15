@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as AppleAuthentication from "expo-apple-authentication";
+import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import { router } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
@@ -23,6 +24,7 @@ export default function AuthScreen() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState<string | null>(null);
   const googleClientId = process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || "";
+  const facebookAppId = process.env.EXPO_PUBLIC_FACEBOOK_APP_ID || "";
   const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || googleClientId;
   const androidClientId = process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID || googleClientId;
   const webClientId = process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID || googleClientId;
@@ -65,6 +67,36 @@ export default function AuthScreen() {
       router.back();
     } catch (cause) {
       Alert.alert(mode === "login" ? "No pudimos iniciar sesión" : "No pudimos crear la cuenta", cause instanceof Error ? cause.message : "Intenta nuevamente.");
+    } finally {
+      setLoading(null);
+    }
+  }
+
+
+  async function facebookLogin() {
+    if (!facebookAppId) {
+      Alert.alert("Facebook pendiente", "Configura el App ID de Facebook para habilitar este acceso.");
+      return;
+    }
+    setLoading("facebook");
+    try {
+      const redirectUri = AuthSession.makeRedirectUri({ scheme: "estadiasurbanas" });
+      const authUrl = `https://www.facebook.com/v20.0/dialog/oauth?${new URLSearchParams({
+        client_id: facebookAppId,
+        redirect_uri: redirectUri,
+        response_type: "token",
+        scope: "email,public_profile",
+        display: Platform.OS === "web" ? "page" : "touch",
+      }).toString()}`;
+      const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
+      if (result.type !== "success") return;
+      const tokenPart = result.url.split("#")[1] || result.url.split("?")[1] || "";
+      const accessToken = (new URLSearchParams(tokenPart).get("access_token") || "").toString();
+      if (!accessToken) throw new Error("Facebook no entregó una credencial válida.");
+      await completeOAuth("facebook", { access_token: accessToken });
+      router.back();
+    } catch (cause) {
+      Alert.alert("Facebook", cause instanceof Error ? cause.message : "No se pudo iniciar sesión.");
     } finally {
       setLoading(null);
     }
@@ -125,9 +157,17 @@ export default function AuthScreen() {
             else void promptAsync();
           }}
         />
+        <AppButton
+          label="Facebook"
+          icon="logo-facebook"
+          variant="ghost"
+          loading={loading === "facebook"}
+          disabled={Boolean(loading) || !facebookAppId}
+          onPress={() => void facebookLogin()}
+        />
         {Platform.OS === "ios" ? <AppButton label="Apple" icon="logo-apple" variant="ghost" loading={loading === "apple"} disabled={Boolean(loading)} onPress={() => void appleLogin()} /> : null}
       </View>
-      {!configuredGoogleId ? <Text style={styles.configNote}>Google quedará habilitado cuando agregues los Client ID reales para Android e iOS.</Text> : null}
+      {!configuredGoogleId || !facebookAppId ? <Text style={styles.configNote}>Google y Facebook quedarán habilitados cuando agregues los Client ID/App ID reales para cada plataforma.</Text> : null}
     </Screen>
   );
 }

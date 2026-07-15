@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
@@ -82,12 +83,24 @@ export default function BookingScreen() {
     try {
       const availability = await api.availability(input);
       if (!availability.available) throw new Error(availability.message);
-      const result = await api.createPayment(input);
-      await WebBrowser.openBrowserAsync(result.init_point, {
+      const returnUrl = Linking.createURL("payment-result");
+      const result = await api.createPayment(input, {
+        success_url: `${returnUrl}?status=success`,
+        failure_url: `${returnUrl}?status=failure`,
+        pending_url: `${returnUrl}?status=pending`,
+      });
+      const checkoutUrl = result.init_point || result.sandbox_init_point;
+      if (!checkoutUrl) throw new Error("Mercado Pago no entregó una URL de checkout.");
+      const browserResult = await WebBrowser.openAuthSessionAsync(checkoutUrl, returnUrl, {
         presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
         controlsColor: colors.navy,
       });
-      router.replace({ pathname: "/payment-result", params: { hold: result.hold_token } });
+      const params = { hold: result.hold_token };
+      if (browserResult.type === "success") {
+        router.replace({ pathname: "/payment-result", params: { ...params, url: browserResult.url } });
+      } else {
+        router.replace({ pathname: "/payment-result", params });
+      }
     } catch (cause) {
       Alert.alert("No pudimos iniciar el pago", cause instanceof Error ? cause.message : "Intenta nuevamente.");
     } finally {

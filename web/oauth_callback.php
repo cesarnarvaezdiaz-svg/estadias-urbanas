@@ -4,7 +4,9 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/security.php';
 require_once __DIR__ . '/oauth_config.php';
-require_once __DIR__ . '/db.php';
+if (file_exists(__DIR__ . '/config.php')) {
+    require_once __DIR__ . '/config.php';
+}
 
 security_send_common_headers();
 security_no_store();
@@ -14,6 +16,61 @@ security_rate_limit('oauth_callback', 30, 300);
 function oauth_redirect_error(string $code): void {
     header('Location: /index.html?auth_error=' . rawurlencode($code));
     exit;
+}
+
+
+function oauth_get_db_connection(): ?PDO {
+    $host = oauth_env('DB_HOST', defined('DB_HOST') ? DB_HOST : 'localhost');
+    $dbname = oauth_env('DB_NAME', defined('DB_NAME') ? DB_NAME : '');
+    $username = oauth_env('DB_USER', defined('DB_USER') ? DB_USER : '');
+    $password = oauth_env('DB_PASS', defined('DB_PASS') ? DB_PASS : '');
+
+    if ($dbname === '' || $username === '' || $password === '' || $username === 'TU_USUARIO' || $password === 'TU_PASSWORD') {
+        error_log('oauth_db_config_missing');
+        return null;
+    }
+
+    try {
+        return new PDO(
+            "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+            $username,
+            $password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+    } catch (PDOException $e) {
+        error_log('oauth_db_connection_error: ' . $e->getMessage());
+        return null;
+    }
+}
+
+function oauth_bootstrap_users_table(PDO $pdo): void {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `users` (
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(190) NOT NULL,
+        email VARCHAR(190) NOT NULL,
+        password_hash VARCHAR(255) NOT NULL,
+        phone VARCHAR(60) NOT NULL DEFAULT '',
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        UNIQUE KEY uniq_users_email (email)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    foreach ([
+        "ALTER TABLE `users` ADD COLUMN phone VARCHAR(60) NOT NULL DEFAULT '' AFTER password_hash",
+        "ALTER TABLE `users` ADD COLUMN created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER phone",
+        "ALTER TABLE `users` ADD COLUMN updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER created_at",
+        "ALTER TABLE `users` ADD UNIQUE KEY uniq_users_email (email)",
+    ] as $sql) {
+        try {
+            $pdo->exec($sql);
+        } catch (Throwable $e) {
+            // HostGator tables may already have this column/key.
+        }
+    }
 }
 
 function oauth_http_post(string $url, array $fields): ?array {
@@ -109,7 +166,13 @@ if (!$email) {
 
 if ($name === '') $name = explode('@', $email)[0];
 
+$pdo = oauth_get_db_connection();
+if (!$pdo) {
+    oauth_redirect_error('oauth_db');
+}
+
 try {
+    oauth_bootstrap_users_table($pdo);
     $usersTable = "`users`";
     $stmt = $pdo->prepare("SELECT id, name, email FROM $usersTable WHERE email = :email LIMIT 1");
     $stmt->execute([':email' => $email]);
@@ -135,6 +198,6 @@ try {
     exit;
 } catch (PDOException $e) {
     error_log('oauth_callback_error: ' . $e->getMessage());
-    oauth_redirect_error('oauth_token');
+    oauth_redirect_error('oauth_db');
 }
 ?>

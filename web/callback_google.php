@@ -1,82 +1,121 @@
 <?php
-// Iniciamos la sesión para poder guardar al usuario logueado más adelante
-session_start();
+ini_set('display_errors', '0');
+error_reporting(E_ALL);
 
-// 1. Verificamos que Google nos haya devuelto un código en la URL
-if (!isset($_GET['code'])) {
-    die("Error: No se recibió la autorización de Google.");
+require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/oauth_config.php';
+if (file_exists(__DIR__ . '/config.php')) {
+    require_once __DIR__ . '/config.php';
 }
-$codigo_temporal = $_GET['code'];
+require_once __DIR__ . '/oauth_db.php';
 
-// 2. Coloca aquí tus claves exactas
-// Usa variables de entorno o configuraciones seguras en lugar de hardcoded
-$cliente_id = getenv('GOOGLE_CLIENT_ID') ?: '';
-$secreto_cliente = getenv('GOOGLE_CLIENT_SECRET') ?: '';
-$public_base = getenv('PUBLIC_BASE_URL') ?: ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
-$ruta_redireccion = rtrim($public_base, '/') . '/callback_google.php';
+security_send_common_headers();
+security_no_store();
+security_start_session();
+security_rate_limit('google_legacy_callback', 30, 300);
 
-// 3. Intercambiamos el código temporal por un Token de Acceso (usando cURL)
-$url_token = 'https://oauth2.googleapis.com/token';
-$datos_post = "code=" . $codigo_temporal . "&client_id=" . $cliente_id . "&client_secret=" . $secreto_cliente . "&redirect_uri=" . $ruta_redireccion . "&grant_type=authorization_code";
-
-$curl = curl_init();
-curl_setopt($curl, CURLOPT_URL, $url_token);
-curl_setopt($curl, CURLOPT_POST, true);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $datos_post);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-$respuesta_token = curl_exec($curl);
-curl_close($curl);
-
-// Transformamos el texto que nos da Google en un arreglo de PHP
-$arreglo_token = json_decode($respuesta_token, true);
-
-// Validamos que el token exista
-if (!isset($arreglo_token['access_token'])) {
-    die("Error: No se pudo obtener el token de Google.");
-}
-$token_acceso = $arreglo_token['access_token'];
-
-// 4. Pedimos los datos del perfil usando el Token que acabamos de conseguir
-$url_perfil = "https://www.googleapis.com/oauth2/v2/userinfo";
-$curl_perfil = curl_init();
-curl_setopt($curl_perfil, CURLOPT_URL, $url_perfil);
-curl_setopt($curl_perfil, CURLOPT_RETURNTRANSFER, true);
-// Enviamos el token como una llave de autorización
-curl_setopt($curl_perfil, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token_acceso));
-$respuesta_perfil = curl_exec($curl_perfil);
-curl_close($curl_perfil);
-
-$perfil_usuario = json_decode($respuesta_perfil, true);
-
-$email_obtenido = $perfil_usuario['email'];
-$nombre_obtenido = $perfil_usuario['name'];
-
-// 5. Conexión a la Base de Datos para registrar al usuario
-// Según tu imagen, tu base de datos se llama 'cesamar_estadiasurbanas'
-// 5. Conexión a la Base de Datos para registrar al usuario (usa env)
-$dbHost = getenv('DB_HOST') ?: 'localhost';
-$dbUser = getenv('DB_USER') ?: 'root';
-$dbPass = getenv('DB_PASS') ?: '';
-$dbName = getenv('DB_NAME') ?: 'estadias';
-$conexion = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
-
-// Buscamos si este correo ya existe en tu tabla real 'users'
-$consulta = "SELECT id FROM users WHERE email = '$email_obtenido'";
-$resultado = $conexion->query($consulta);
-
-if ($resultado->num_rows == 0) {
-    // Si el usuario no existe, preparamos datos por defecto para los campos que Google no tiene
-    $clave_por_defecto = "registro_google_sin_clave"; 
-    $telefono_por_defecto = "Sin registro";
-    
-    // Lo guardamos directamente en tu tabla 'users'
-    $sql_insertar = "INSERT INTO users (name, email, password_hash, phone) 
-                     VALUES ('$nombre_obtenido', '$email_obtenido', '$clave_por_defecto', '$telefono_por_defecto')";
-    $conexion->query($sql_insertar);
+function google_legacy_redirect_error(string $code): void {
+    header('Location: /index.html?auth_error=' . rawurlencode($code));
+    exit;
 }
 
-// 6. Dejamos al usuario logueado usando las variables que ya maneja tu página
-$_SESSION['usuario_sesion'] = $email_obtenido;
-header("Location: index.php");
-exit();
+$code = trim((string)($_GET['code'] ?? ''));
+if ($code === '') {
+    google_legacy_redirect_error('oauth_token');
+}
+
+$clientId = oauth_env('GOOGLE_CLIENT_ID', '211056906904-j0fo6gmarci60n9g73f4ksrccua3ub23.apps.googleusercontent.com');
+$clientSecret = oauth_env('GOOGLE_CLIENT_SECRET');
+$publicBase = oauth_env('PUBLIC_BASE_URL', oauth_env('OAUTH_BASE_URL', 'https://www.estadiasurbanas.com'));
+$redirectUri = rtrim($publicBase, '/') . '/callback_google.php';
+
+if ($clientId === '' || $clientSecret === '') {
+    error_log('google_legacy_config_missing');
+    google_legacy_redirect_error('oauth_config');
+}
+
+$tokenCurl = curl_init('https://oauth2.googleapis.com/token');
+curl_setopt_array($tokenCurl, [
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => http_build_query([
+        'code' => $code,
+        'client_id' => $clientId,
+        'client_secret' => $clientSecret,
+        'redirect_uri' => $redirectUri,
+        'grant_type' => 'authorization_code',
+    ]),
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 12,
+    CURLOPT_HTTPHEADER => ['Accept: application/json'],
+]);
+$tokenResponse = curl_exec($tokenCurl);
+$tokenStatus = (int)curl_getinfo($tokenCurl, CURLINFO_RESPONSE_CODE);
+curl_close($tokenCurl);
+$token = json_decode((string)$tokenResponse, true);
+
+if (!is_array($token) || $tokenStatus < 200 || $tokenStatus >= 300 || empty($token['access_token'])) {
+    error_log('google_legacy_token_error: HTTP ' . $tokenStatus . ' ' . substr((string)$tokenResponse, 0, 300));
+    google_legacy_redirect_error('oauth_token');
+}
+
+$profileCurl = curl_init('https://www.googleapis.com/oauth2/v3/userinfo');
+curl_setopt_array($profileCurl, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 12,
+    CURLOPT_HTTPHEADER => [
+        'Accept: application/json',
+        'Authorization: Bearer ' . $token['access_token'],
+    ],
+]);
+$profileResponse = curl_exec($profileCurl);
+$profileStatus = (int)curl_getinfo($profileCurl, CURLINFO_RESPONSE_CODE);
+curl_close($profileCurl);
+$profile = json_decode((string)$profileResponse, true);
+
+if (!is_array($profile) || $profileStatus < 200 || $profileStatus >= 300 || ($profile['email_verified'] ?? true) === false) {
+    google_legacy_redirect_error('oauth_email');
+}
+
+$email = filter_var($profile['email'] ?? '', FILTER_VALIDATE_EMAIL);
+$name = trim((string)($profile['name'] ?? $profile['given_name'] ?? 'Huésped'));
+if (!$email) {
+    google_legacy_redirect_error('oauth_email');
+}
+if ($name === '') {
+    $name = explode('@', $email)[0];
+}
+
+$pdo = oauth_get_db_connection();
+if (!$pdo) {
+    google_legacy_redirect_error('oauth_db');
+}
+
+try {
+    oauth_bootstrap_users_table($pdo);
+    $stmt = $pdo->prepare('SELECT id, name, email FROM `users` WHERE email = :email LIMIT 1');
+    $stmt->execute([':email' => $email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        $passwordHash = password_hash(bin2hex(random_bytes(32)), PASSWORD_DEFAULT);
+        $insert = $pdo->prepare("INSERT INTO `users` (name, email, password_hash, phone) VALUES (:name, :email, :password_hash, '')");
+        $insert->execute([
+            ':name' => $name,
+            ':email' => $email,
+            ':password_hash' => $passwordHash,
+        ]);
+        $user = ['id' => $pdo->lastInsertId(), 'name' => $name, 'email' => $email];
+    }
+
+    session_regenerate_id(true);
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_email'] = $user['email'];
+    $_SESSION['user_name'] = $user['name'] ?: $name;
+
+    header('Location: /index.html?auth=success');
+    exit;
+} catch (PDOException $e) {
+    error_log('google_legacy_db_error: ' . $e->getMessage());
+    google_legacy_redirect_error('oauth_db');
+}
 ?>

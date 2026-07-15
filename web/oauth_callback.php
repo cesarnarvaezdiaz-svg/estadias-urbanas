@@ -4,7 +4,9 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/security.php';
 require_once __DIR__ . '/oauth_config.php';
-require_once __DIR__ . '/db.php';
+if (file_exists(__DIR__ . '/config.php')) {
+    require_once __DIR__ . '/config.php';
+}
 
 security_send_common_headers();
 security_no_store();
@@ -15,6 +17,8 @@ function oauth_redirect_error(string $code): void {
     header('Location: /index.html?auth_error=' . rawurlencode($code));
     exit;
 }
+
+require_once __DIR__ . '/oauth_db.php';
 
 function oauth_http_post(string $url, array $fields): ?array {
     if (!function_exists('curl_init')) return null;
@@ -109,7 +113,13 @@ if (!$email) {
 
 if ($name === '') $name = explode('@', $email)[0];
 
+$pdo = oauth_get_db_connection();
+if (!$pdo) {
+    oauth_redirect_error('oauth_db');
+}
+
 try {
+    oauth_bootstrap_users_table($pdo);
     $usersTable = "`users`";
     $stmt = $pdo->prepare("SELECT id, name, email FROM $usersTable WHERE email = :email LIMIT 1");
     $stmt->execute([':email' => $email]);
@@ -135,6 +145,6 @@ try {
     exit;
 } catch (PDOException $e) {
     error_log('oauth_callback_error: ' . $e->getMessage());
-    oauth_redirect_error('oauth_token');
+    oauth_redirect_error('oauth_db');
 }
 ?>

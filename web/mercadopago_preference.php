@@ -15,32 +15,8 @@ if (!is_array($input)) {
 }
 
 $accessToken = getenv('MP_ACCESS_TOKEN') ?: (defined('MP_ACCESS_TOKEN') ? MP_ACCESS_TOKEN : '');
-// Modo mock para pruebas locales: si MP_MOCK=1 se devuelve un init_point fictivo y se evita la llamada a Mercado Pago
 $mpMock = getenv('MP_MOCK') ?: '0';
-if ($mpMock === '1' || $accessToken === 'MOCK') {
-    $fakeId = 'MOCK-' . bin2hex(random_bytes(6));
-    $fakeInit = ($publicBaseUrl ?? '') . '/mock-pay?pref_id=' . $fakeId;
-    echo json_encode([
-        'status' => 'success',
-        'id' => $fakeId,
-        'hold_token' => $hold['hold_token'],
-        'hold_expires_at' => $hold['expires_at'],
-        'availability_storage' => $hold['storage'],
-        'server_price_usd' => $priceUsd,
-        'commission' => [
-            'gross_usd' => $grossUsd,
-            'commission_rate' => $commissionRate,
-            'iva_rate' => $ivaRate,
-            'commission_usd' => $commissionUsd,
-            'commission_iva_usd' => $commissionIvaUsd,
-            'host_net_usd' => $hostNetUsd
-        ],
-        'init_point' => $fakeInit,
-        'sandbox_init_point' => $fakeInit
-    ]);
-    exit;
-}
-if (!$accessToken) {
+if (!$accessToken && $mpMock !== '1') {
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
@@ -116,6 +92,42 @@ if ($publicBaseUrl !== '') {
 }
 $backUrl = $baseUrl . '/index.html';
 $webhookUrl = $baseUrl . '/mercadopago_webhook.php';
+
+
+if ($mpMock === '1' || $accessToken === 'MOCK') {
+    $fakeId = 'MOCK-' . bin2hex(random_bytes(6));
+    $fakeInit = $baseUrl . '/mock-pay?pref_id=' . rawurlencode($fakeId);
+    try {
+        $pdo = estadias_get_db_connection();
+        if ($pdo) {
+            estadias_mark_reservation_payment($pdo, $hold['hold_token'], [
+                'status' => 'pending',
+                'preference_id' => $fakeId,
+            ]);
+        }
+    } catch (Throwable $e) {
+        error_log('mp_mock_mark_payment: ' . $e->getMessage());
+    }
+    echo json_encode([
+        'status' => 'success',
+        'id' => $fakeId,
+        'hold_token' => $hold['hold_token'],
+        'hold_expires_at' => $hold['expires_at'],
+        'availability_storage' => $hold['storage'],
+        'server_price_usd' => $priceUsd,
+        'commission' => [
+            'gross_usd' => $grossUsd,
+            'commission_rate' => $commissionRate,
+            'iva_rate' => $ivaRate,
+            'commission_usd' => $commissionUsd,
+            'commission_iva_usd' => $commissionIvaUsd,
+            'host_net_usd' => $hostNetUsd
+        ],
+        'init_point' => $fakeInit,
+        'sandbox_init_point' => $fakeInit
+    ]);
+    exit;
+}
 
 $descriptionParts = [$property, $nights . ' noche(s)', $guests . ' huesped(es)'];
 if ($checkIn && $checkOut) {
@@ -207,6 +219,21 @@ if ($response === false || $httpCode < 200 || $httpCode >= 300) {
 }
 
 $data = json_decode($response, true);
+$preferenceId = $data['id'] ?? null;
+if ($preferenceId) {
+    try {
+        $pdo = estadias_get_db_connection();
+        if ($pdo) {
+            estadias_mark_reservation_payment($pdo, $hold['hold_token'], [
+                'status' => 'pending',
+                'preference_id' => $preferenceId,
+            ]);
+        }
+    } catch (Throwable $e) {
+        error_log('mp_preference_mark_payment: ' . $e->getMessage());
+    }
+}
+
 if (empty($data['init_point'])) {
     estadias_release_hold($hold['hold_token']);
     http_response_code(502);
@@ -220,7 +247,7 @@ if (empty($data['init_point'])) {
 
 echo json_encode([
     'status' => 'success',
-    'id' => $data['id'] ?? null,
+    'id' => $preferenceId,
     'hold_token' => $hold['hold_token'],
     'hold_expires_at' => $hold['expires_at'],
     'availability_storage' => $hold['storage'],

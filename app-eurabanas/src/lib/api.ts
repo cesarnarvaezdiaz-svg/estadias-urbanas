@@ -56,7 +56,7 @@ export const api = {
     });
   },
 
-  oauth(provider: "google" | "apple", data: Record<string, string>) {
+  oauth(provider: "google" | "apple" | "facebook", data: Record<string, string>) {
     return apiRequest<AuthResponse>("mobile_auth.php", {
       method: "POST",
       body: JSON.stringify({ action: `oauth_${provider}`, ...data, device_name: "Estadías Urbanas App" }),
@@ -111,7 +111,7 @@ export const api = {
     );
   },
 
-  createPayment(input: BookingInput) {
+  createPayment(input: BookingInput, callbacks?: { success_url: string; failure_url: string; pending_url: string }) {
     return apiRequest<{
       status: "success";
       id: string;
@@ -119,6 +119,6 @@ export const api = {
       hold_expires_at: string;
       init_point: string;
       sandbox_init_point?: string | null;
-    }>("mercadopago_preference.php", { method: "POST", body: JSON.stringify(input) });
+    }>("mercadopago_preference.php", { method: "POST", body: JSON.stringify({ ...input, ...(callbacks ?? {}) }) });
   },
 };

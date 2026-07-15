@@ -134,13 +134,20 @@ function estadias_bootstrap_booking_schema(PDO $pdo) {
         check_out DATE NOT NULL,
         huespedes INT NOT NULL,
         estado VARCHAR(30) NOT NULL DEFAULT 'pendiente',
+        payment_status VARCHAR(40) NULL,
+        payment_provider VARCHAR(40) NULL,
+        payment_preference_id VARCHAR(120) NULL,
+        mp_payment_id VARCHAR(120) NULL,
+        paid_at DATETIME NULL,
         hold_token CHAR(64) NULL,
         source VARCHAR(60) NOT NULL DEFAULT 'web',
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         KEY idx_reservas_propiedad_fechas (propiedad_nombre, check_in, check_out),
         KEY idx_reservas_email (email_cliente),
-        KEY idx_reservas_hold_token (hold_token)
+        KEY idx_reservas_hold_token (hold_token),
+        KEY idx_reservas_payment_status (payment_status),
+        KEY idx_reservas_mp_payment_id (mp_payment_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
     $optionalColumns = [
@@ -149,10 +156,17 @@ function estadias_bootstrap_booking_schema(PDO $pdo) {
         "ALTER TABLE reserva_bloqueos ADD COLUMN updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER created_at",
         "ALTER TABLE reserva_bloqueos ADD KEY idx_guest_email (guest_email)",
         "ALTER TABLE reservas ADD COLUMN telefono_cliente VARCHAR(60) NULL AFTER email_cliente",
-        "ALTER TABLE reservas ADD COLUMN hold_token CHAR(64) NULL AFTER estado",
+        "ALTER TABLE reservas ADD COLUMN payment_status VARCHAR(40) NULL AFTER estado",
+        "ALTER TABLE reservas ADD COLUMN payment_provider VARCHAR(40) NULL AFTER payment_status",
+        "ALTER TABLE reservas ADD COLUMN payment_preference_id VARCHAR(120) NULL AFTER payment_provider",
+        "ALTER TABLE reservas ADD COLUMN mp_payment_id VARCHAR(120) NULL AFTER payment_preference_id",
+        "ALTER TABLE reservas ADD COLUMN paid_at DATETIME NULL AFTER mp_payment_id",
+        "ALTER TABLE reservas ADD COLUMN hold_token CHAR(64) NULL AFTER paid_at",
         "ALTER TABLE reservas ADD COLUMN source VARCHAR(60) NOT NULL DEFAULT 'web' AFTER hold_token",
         "ALTER TABLE reservas ADD COLUMN updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER created_at",
         "ALTER TABLE reservas ADD KEY idx_reservas_hold_token (hold_token)",
+        "ALTER TABLE reservas ADD KEY idx_reservas_payment_status (payment_status)",
+        "ALTER TABLE reservas ADD KEY idx_reservas_mp_payment_id (mp_payment_id)",
     ];
 
     foreach ($optionalColumns as $sql) {
@@ -351,6 +365,32 @@ function estadias_create_file_hold(array $payload, $source, $ttlMinutes, $record
         'reservation_id' => $recordReservation ? $token : null,
         'warning' => 'Base de datos no configurada; se uso bloqueo local con archivo protegido.',
     ];
+}
+
+
+function estadias_mark_reservation_payment(PDO $pdo, $holdToken, array $payment) {
+    if ($holdToken === '') return false;
+    estadias_bootstrap_booking_schema($pdo);
+    $status = (string)($payment['status'] ?? '');
+    $estado = $status === 'approved' ? 'pagada' : (in_array($status, ['cancelled', 'rejected', 'refunded', 'charged_back'], true) ? 'cancelada' : 'pendiente');
+    $stmt = $pdo->prepare("UPDATE reservas SET
+        estado = :estado,
+        payment_status = :payment_status,
+        payment_provider = 'mercadopago',
+        payment_preference_id = COALESCE(:preference_id, payment_preference_id),
+        mp_payment_id = COALESCE(:payment_id, mp_payment_id),
+        paid_at = CASE WHEN :paid = 1 THEN COALESCE(paid_at, UTC_TIMESTAMP()) ELSE paid_at END,
+        updated_at = UTC_TIMESTAMP()
+        WHERE hold_token = :token");
+    $stmt->execute([
+        ':estado' => $estado,
+        ':payment_status' => $status ?: null,
+        ':preference_id' => $payment['preference_id'] ?? null,
+        ':payment_id' => $payment['payment_id'] ?? null,
+        ':paid' => $status === 'approved' ? 1 : 0,
+        ':token' => $holdToken,
+    ]);
+    return $stmt->rowCount() > 0;
 }
 
 function estadias_create_booking_hold(array $input, $source = 'web', $ttlMinutes = 1440, $recordReservation = true) {

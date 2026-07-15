@@ -214,7 +214,7 @@ const propertyCopy = {
   }
 };
 
-const properties = [
+const baseProperties = [
   {
     title: "Apart Hotel Agustinas Plaza",
     city: "Santiago",
@@ -263,6 +263,27 @@ const properties = [
     unavailableRanges: []
   }
 ];
+
+function readHostProperties() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("urban.hostProperties") || "[]");
+    if (!Array.isArray(saved)) return [];
+    return saved.map((item) => ({
+      ...item,
+      gallery: Array.isArray(item.gallery) ? item.gallery.slice(0, 15) : [],
+      features: Array.isArray(item.features) ? item.features : ["Reserva por fechas", "Calendario disponible"],
+      unavailableRanges: Array.isArray(item.unavailableRanges) ? item.unavailableRanges : []
+    }));
+  } catch (error) {
+    return [];
+  }
+}
+
+let properties = [...readHostProperties(), ...baseProperties];
+
+function refreshHostProperties() {
+  properties = [...readHostProperties(), ...baseProperties];
+}
 
 function escapeHtml(value) {
   return String(value || "")
@@ -496,7 +517,7 @@ function renderProperties() {
   const savedIds = savedPropertyIds();
 
   container.innerHTML = properties.map((p) => {
-    const features = copy[p.featuresKey] || [];
+    const features = p.features || copy[p.featuresKey] || [];
     const id = propertyId(p);
     const isSaved = savedIds.includes(id);
     const stats = propertyStats(p);
@@ -536,7 +557,7 @@ function renderProperties() {
             <span aria-hidden="true">⌖</span>
             <strong>${escapeHtml(p.distanceKm ? copy.distanceCenter.replace("{distance}", p.distanceKm) : p.distance || "A poca distancia del centro")}</strong>
           </div>
-          <p>${escapeHtml(copy[p.descriptionKey])}</p>
+          <p>${escapeHtml(p.description || copy[p.descriptionKey])}</p>
 
           <div class="features">
             <span>${escapeHtml(p.guests)} ${escapeHtml(copy.guests)}</span>
@@ -571,6 +592,7 @@ function renderProperties() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  refreshHostProperties();
   renderProperties();
   bindSearchFormCityFilter();
   bindPropertyFilters();
@@ -619,6 +641,11 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("urban:language-applied", renderProperties);
+document.addEventListener("urban:host-property-created", () => {
+  refreshHostProperties();
+  renderProperties();
+  document.querySelector("#propiedades")?.scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
 document.addEventListener("urban:search", (event) => {
   const city = event.detail?.matchedCity || event.detail?.destino || "";

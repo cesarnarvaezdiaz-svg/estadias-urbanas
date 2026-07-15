@@ -1,0 +1,1376 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estadías Urbanas | Departamentos equipados en Santiago y Latam</title>
+    <meta
+      name="description"
+      content="Reserva departamentos equipados para estadías cortas, viajes corporativos y relocalización. Atención por WhatsApp, check-in flexible y tarifas directas."
+    />
+    <link rel="canonical" href="https://www.estadiasurbanas.com/" />
+    <meta property="og:title" content="Estadías Urbanas | Departamentos equipados" />
+    <meta property="og:description" content="Reserva directa con soporte humano, departamentos equipados y opciones para empresas." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.estadiasurbanas.com/" />
+    <meta property="og:image" content="https://www.estadiasurbanas.com/assets/logo-estadiasurbanas.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="conversion.css?v=20260520-celeste-real" />
+    <link rel="stylesheet" href="theme-celeste.css?v=20260520-restore-old" />
+    <style id="force-celeste-theme">
+      :root { --brand: #8dd8ff !important; --brand-dark: #43dfff !important; --vivid-mint: #43dfff !important; --urban-mint: #43dfff !important; --success: #43dfff !important; }
+      .brand-logo { display: none !important; visibility: hidden !important; width: 0 !important; height: 0 !important; }
+      .brand-fallback { position: static !important; width: auto !important; height: auto !important; clip: auto !important; clip-path: none !important; overflow: visible !important; display: inline-flex !important; color: #8dd8ff !important; -webkit-text-fill-color: #8dd8ff !important; font-weight: 950 !important; text-transform: uppercase !important; text-shadow: 0 0 18px rgba(141,216,255,.45) !important; }
+      .topbar, .account-summary-bar, .hero-search, .card, .kpi, .property-card-pro, .auth-panel, .account-panel-card, .account-panel-section, .booking-date-group, .guest-selector-trigger, .hero-search input, .hero-search select { border-color: rgba(141,216,255,.38) !important; }
+      .topbar::after, .brand::before { background: linear-gradient(90deg, transparent, #43dfff, #8dd8ff, #6ca9ff, transparent) !important; }
+      .btn-primary, .booking-search-submit, .btn-reservar, .property-card-pro .btn-reservar, .auth-action.register-header-btn, .register-header-btn, .account-summary-link, .option-pay, .property-modal-reserve { background: linear-gradient(135deg, #8dd8ff 0%, #43dfff 52%, #6ca9ff 100%) !important; color: #06142e !important; border-color: rgba(141,216,255,.55) !important; box-shadow: 0 14px 28px rgba(67,223,255,.18) !important; }
+      .section-eyebrow, .account-secure-note, .review-score, .property-card-pro .price strong, .footer-brand strong { color: #8dd8ff !important; }
+      .topbar .locale-controls select, .topbar .top-actions .locale-controls select { border-color: rgba(141,216,255,.5) !important; background-image: linear-gradient(45deg, transparent 50%, #8dd8ff 50%), linear-gradient(135deg, #8dd8ff 50%, transparent 50%), linear-gradient(180deg, rgba(17,48,91,.98), rgba(8,27,58,.98)) !important; }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "Estadías Urbanas",
+        "url": "https://www.estadiasurbanas.com/",
+        "email": "contacto@estadiasurbanas.com",
+        "telephone": "+56973787720",
+        "priceRange": "$$",
+        "areaServed": ["Santiago", "Chile", "Colombia"],
+        "makesOffer": {
+          "@type": "Offer",
+          "name": "Departamentos equipados en Santiago Centro",
+          "price": "70",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="payment-return-banner" class="payment-return-banner" hidden></div>
+      
+      
+    <div id="scroll-progress" class="scroll-progress"></div>
+    <header class="topbar">
+      <div class="container nav-wrap">
+          
+        <a class="brand" href="#inicio" aria-label="Inicio Estadías Urbanas">
+  <img class="brand-logo" src="assets/logo-estadiasurbanas.png" alt="Estadías Urbanas" style="display:none !important;" aria-hidden="true" />
+  <span class="brand-fallback">Estadías Urbanas</span>
+</a>
+
+
+        <button id="menu-btn" class="menu-btn" aria-label="Abrir navegación">☰</button>
+        <nav id="menu" class="menu">
+          <a href="#propiedades" data-i18n="navProperties">Propiedades</a>
+          <a href="#servicios" data-i18n="navServices">Servicios</a>
+          <a href="#faq" data-i18n="navFaq">FAQ</a>
+          <a href="#contacto" data-i18n="navContact">Contacto</a>
+          <span class="menu-auth-actions">
+            <button class="auth-link" type="button" data-auth-action="open-login">Iniciar sesión</button>
+          </span>
+        </nav>
+        <div class="top-actions">
+          
+         
+          
+            
+            <div class="auth-actions" aria-label="Cuenta de usuario">
+
+  <button
+  class="auth-action register-header-btn"
+  type="button"
+  data-auth-action="open-register">
+
+  Registrarse
+
+</button>
+
+<button
+  class="auth-action auth-action-secondary login-btn"
+  type="button"
+  data-auth-action="open-login">
+
+  Iniciar sesión
+
+</button>
+
+</div>
+            
+            <div class="locale-controls" aria-label="Idioma y moneda">
+            <select id="language-select">
+              <option value="es">Español</option>
+              <option value="en">English</option>
+              <option value="pt">Português</option>
+            </select>
+            
+            
+            <select id="currency-select">
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="CLP">CLP</option>
+              <option value="MXN">MXN</option>
+              <option value="COP">COP</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      
+    </header>
+
+    
+    <main id="inicio">
+        
+
+        <section class="hero section">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <p class="kicker" data-i18n="heroKicker">Reserva directa • Santiago Centro • Estadías flexibles</p>
+            <h1 data-i18n="heroTitle"> Alojamientos equipados listos para reservar</h1>
+            <p data-i18n="heroText">
+              Ahorra tiempo reservando con atención humana por WhatsApp, tarifas claras
+              y opciones para turismo, trabajo, empresas y relocalización.
+            </p>
+            
+            <div class="hero-kpis">
+                
+              <article class="kpi card"><strong data-i18n="kpiDirect">Reserva directa</strong><span data-i18n="kpiDirectText">sin vueltas ni intermediarios</span></article>
+              
+              <article class="kpi card"><strong data-i18n="kpiPrice">Desde USD 70</strong><span data-i18n="kpiPriceText">por noche en Santiago</span></article>
+              
+              <article class="kpi card"><strong data-i18n="kpiWhatsApp">WhatsApp</strong><span data-i18n="kpiWhatsAppText">respuesta rápida para reservar</span></article>
+              
+            </div>
+            
+          </div>
+
+          <aside class="search-panel booking-search-panel">
+            <form id="search-form" class="booking-search-box">
+              <label class="booking-search-field booking-search-destination">
+                <span class="booking-search-icon" aria-hidden="true">⌂</span>
+                <select name="destino" id="destino-select" required aria-label="Destino">
+                  <option value="" data-i18n="searchDestinationPlaceholder">Selecciona un destino</option>
+                  <option value="Santiago">Santiago</option>
+                  <option value="Guatavita">Guatavita</option>
+                </select>
+              </label>
+
+              <label class="booking-search-field booking-search-date">
+                <span class="booking-search-icon" aria-hidden="true">▦</span>
+                <span class="booking-date-group">
+                  <input type="date" id="checkin-date" name="checkin" aria-label="Fecha de entrada">
+                  <span aria-hidden="true">—</span>
+                  <input type="date" id="checkout-date" name="checkout" aria-label="Fecha de salida">
+                </span>
+              </label>
+
+              <div class="booking-search-field booking-guests-field">
+                <span class="booking-search-icon" aria-hidden="true">♙</span>
+                <button id="guest-picker-toggle" class="guest-picker-toggle" type="button" aria-expanded="false">
+                  <span id="guest-picker-summary">2 adultos · 0 niños · 1 habitación</span>
+                  <span aria-hidden="true">⌄</span>
+                </button>
+                <div id="guest-picker-popover" class="guest-picker-popover" hidden>
+                  <div class="guest-row">
+                    <span data-i18n="searchAdultsPlural">Adultos</span>
+                    <div class="stepper" data-stepper="adults">
+                      <button type="button" data-step="-1">−</button>
+                      <strong data-count>2</strong>
+                      <button type="button" data-step="1">+</button>
+                    </div>
+                  </div>
+                  <div class="guest-row">
+                    <span data-i18n="searchChildrenPlural">Niños</span>
+                    <div class="stepper" data-stepper="children">
+                      <button type="button" data-step="-1">−</button>
+                      <strong data-count>0</strong>
+                      <button type="button" data-step="1">+</button>
+                    </div>
+                  </div>
+                  <div class="guest-row">
+                    <span data-i18n="searchRoomsPlural">Habitaciones</span>
+                    <div class="stepper" data-stepper="rooms">
+                      <button type="button" data-step="-1">−</button>
+                      <strong data-count>1</strong>
+                      <button type="button" data-step="1">+</button>
+                    </div>
+                  </div>
+                  <div class="guest-row">
+                    <span data-i18n="searchBedsPlural">Camas</span>
+                    <div class="stepper" data-stepper="beds">
+                      <button type="button" data-step="-1">−</button>
+                      <strong data-count>1</strong>
+                      <button type="button" data-step="1">+</button>
+                    </div>
+                  </div>
+                  <label class="popover-field">
+                    <span data-i18n="searchMaxPrice">Precio máximo por noche</span>
+                    <input id="search-price-max" name="price" type="text" inputmode="numeric" placeholder="USD">
+                  </label>
+                  <label class="popover-field">
+                    <span data-i18n="searchLodgingType">Tipo de alojamiento</span>
+                    <select id="search-type" name="type">
+                      <option value="" data-i18n="searchLodgingAll">Todos</option>
+                      <option value="Departamento" data-i18n="searchLodgingApartment">Departamento</option>
+                      <option value="Hospedaje" data-i18n="searchLodgingStay">Hospedaje</option>
+                    </select>
+                  </label>
+                  <label class="toggle-row">
+                    <span data-i18n="searchPets">¿Viajas con mascotas?</span>
+                    <input id="search-pets" name="pets" type="checkbox">
+                  </label>
+                  <button class="guest-done-btn" type="button" data-i18n="searchDone">Listo</button>
+                </div>
+              </div>
+
+              <input id="search-adults" name="adults" type="hidden" value="2">
+              <input id="search-children" name="children" type="hidden" value="0">
+              <input id="search-rooms" name="rooms" type="hidden" value="1">
+              <input id="search-beds" name="beds" type="hidden" value="1">
+              <input id="search-guests-value" name="huespedes" type="hidden" value="2">
+
+              <button class="booking-search-submit" type="submit" data-i18n="searchSubmit">Buscar</button>
+            </form>
+            <div class="booking-search-options">
+              <label><input id="search-business" name="business" type="checkbox"> <span data-i18n="searchBusiness">Viajo por trabajo</span></label>
+              <label><input id="search-vacation" name="vacation" type="checkbox"> <span data-i18n="searchVacation">Viajo por vacaciones</span></label>
+            </div>
+            <p id="search-msg" class="msg" aria-live="polite"></p>
+          </aside>
+        </div>
+      </section>
+      
+      <section id="propiedades" class="section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-eyebrow" data-i18n="propertyEyebrow">Reserva destacada</span>
+      <h2 data-i18n="propertyTitle">Propiedades disponibles</h2>
+      <p data-i18n="propertyIntro">Empieza por Apart Hotel Agustinas Plaza: departamentos equipados en Santiago Centro con fotos reales y reserva asistida.</p>
+    </div>
+    <p id="property-filter-summary" class="property-filter-summary" aria-live="polite"></p>
+    <div id="propiedades-lista"></div>
+  </div>
+</section>
+
+      <section class="section alt">
+        <div class="container conversion-grid">
+          <article class="conversion-copy">
+            <span class="section-eyebrow" data-i18n="directEyebrow">Por qué reservar directo</span>
+            <h2 data-i18n="directTitle">Menos fricción, más confirmaciones.</h2>
+            <p data-i18n="directText">Centralizamos consulta, disponibilidad y seguimiento para que el huésped no abandone antes de reservar. Ideal para viajes de trabajo, familias y empresas que necesitan respuesta rápida.</p>
+          </article>
+          <div class="conversion-points">
+            <article class="card"><strong>1</strong><h3 data-i18n="directStep1">Consulta fechas</h3><p data-i18n="directStep1Text">El huésped envía destino, entrada, salida y cantidad de personas.</p></article>
+            <article class="card"><strong>2</strong><h3 data-i18n="directStep2">Bloqueo anti-overbooking</h3><p data-i18n="directStep2Text">El sistema bloquea cada noche por propiedad antes de cobrar y rechaza fechas cruzadas.</p></article>
+            <article class="card"><strong>3</strong><h3 data-i18n="directStep3">Pago y check-in</h3><p data-i18n="directStep3Text">Se coordina pago, comprobante e instrucciones de ingreso por canal directo.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="trust-strip card">
+            <div class="trust-item"><strong data-i18n="trustAvailability">Cupo protegido</strong><span data-i18n="trustNights">bloqueo por fechas antes de cobrar</span></div>
+            <div class="trust-item"><strong>4.9/5</strong><span data-i18n="trustGuests">promedio huéspedes</span></div>
+            <div class="trust-item"><strong>24/7</strong><span data-i18n="trustSupport">soporte especializado</span></div>
+            <div class="trust-item"><strong>100%</strong><span data-i18n="trustCheckin">check-in digital</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="experience-rail card">
+            <article class="experience-item">
+              <h3 data-i18n="feature1Title">Check-in autónomo</h3>
+              <p data-i18n="feature1Text">Accede con códigos temporales y soporte remoto para ingreso rápido.</p>
+              
+            </article>
+            <article class="experience-item">
+              <h3 data-i18n="feature2Title">Trabajo + descanso</h3>
+              <p data-i18n="feature2Text">Espacios con escritorio, Wi-Fi estable y zonas cercanas de servicios.</p>
+              
+            </article>
+            <article class="experience-item">
+              <h3 data-i18n="feature3Title">Contratos flexibles</h3>
+              <p data-i18n="feature3Text">Opciones por semanas o meses según tu proyecto o estadía temporal.</p>
+              
+            </article>
+          </div>
+        </div>
+      </section>
+
+     <section id="servicios" class="servicios">
+  <h2 data-i18n="servicesTitle">Servicios incluidos</h2>
+
+  <div class="servicios-container">
+    <div class="servicios-box">
+      <ul>
+        <li data-i18n="serviceItem1">Check-in flexible y soporte por WhatsApp</li>
+        <li data-i18n="serviceItem2">Facturación para empresas y equipos de RRHH</li>
+        <li data-i18n="serviceItem3">Gestión de estadías cortas y largas</li>
+        <li data-i18n="serviceItem4">Asistencia con traslados y onboarding de ciudad</li>
+        <li data-i18n="serviceItem5">Opcionales: limpieza extra, packs corporativos, tours</li>
+</ul>
+    </div>
+  </div>
+</section>
+
+      <section id="seguridad" class="section alt">
+        <div class="container">
+          <h2 data-i18n="securityTitle">Tu seguridad es nuestra prioridad</h2>
+          <div class="grid grid-3">
+            <article class="card"><h3 data-i18n="paymentsSafe">Pagos seguros</h3><p data-i18n="paymentsSafeText">Pasarelas confiables con cifrado SSL.</p></article>
+            <article class="card"><h3 data-i18n="verified">Verificación</h3><p data-i18n="verifiedText">Propiedades auditadas y anfitriones validados.</p></article>
+            <article class="card"><h3 data-i18n="support247">Soporte 24/7</h3><p data-i18n="support247Text">Canal humano siempre disponible.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonios" class="section">
+        <div class="container">
+          <h2 data-i18n="testimonialsTitle">Testimonios reales</h2>
+          <div class="grid grid-3">
+            <blockquote class="card"><span data-i18n="testimonial1">“Excelente servicio. Reservé en minutos y todo fue impecable.”</span> <cite data-i18n="testimonial1Author">— Camila, Chile</cite></blockquote>
+            <blockquote class="card"><span data-i18n="testimonial2">“Muy cómodo para viajes de trabajo. Internet rápido y buena ubicación.”</span> <cite data-i18n="testimonial2Author">— Diego, Colombia</cite></blockquote>
+            <blockquote class="card"><span data-i18n="testimonial3">“Atención súper rápida ante cualquier duda. Repetiría sin dudar.”</span> <cite data-i18n="testimonial3Author">— Sofía, Argentina</cite></blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="section alt">
+        <div class="container">
+          <h2 data-i18n="faqTitle">Preguntas frecuentes</h2>
+          <details class="card"><summary data-i18n="faq1">¿Cómo es el proceso de reserva?</summary><p data-i18n="faq1Text">Completas búsqueda, eliges propiedad y confirmas pago.</p></details>
+          <details class="card"><summary data-i18n="faq2">¿Puedo extender la estadía?</summary><p data-i18n="faq2Text">Sí, sujeto a disponibilidad y confirmación de operación.</p></details>
+          <details class="card"><summary data-i18n="faq3">¿Trabajan con empresas?</summary><p data-i18n="faq3Text">Sí, ofrecemos soluciones corporativas y facturación.</p></details>
+        </div>
+      </section>
+
+      <section id="newsletter" class="section">
+        <div class="container newsletter card">
+          <h2 data-i18n="newsletterTitle">Recibe alertas de precios y ofertas especiales</h2>
+          <p class="muted" data-i18n="newsletterText">Captamos oportunidades nuevas cada semana en Latam.</p>
+          <form id="newsletter-form" class="newsletter-form">
+            <input type="email" name="email" placeholder="tu@email.com" data-i18n-placeholder="newsletterPlaceholder" required />
+            <label class="form-trap" aria-hidden="true">
+              <span>Empresa</span>
+              <input name="company" tabindex="-1" autocomplete="off" />
+            </label>
+            <button class="btn btn-primary" type="submit" data-i18n="newsletterButton">SUSCRIBIRME</button>
+          </form>
+          <p id="newsletter-msg" class="msg" aria-live="polite"></p>
+        </div>
+      </section>
+
+      
+
+
+      <section id="mapa-precios" class="section alt city-map-section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="section-eyebrow" data-i18n="mapEyebrow">Mapa interactivo</span>
+            <h2 data-i18n="mapTitle">Ciudades con precios estimados</h2>
+            <p data-i18n="mapIntro">Explora ciudades disponibles, filtra por presupuesto y compara precios referenciales por noche.</p>
+          </div>
+          <div class="grid grid-2 map-layout">
+            <aside class="card map-controls">
+              <label><span data-i18n="mapCityFilter">Filtrar por ciudad</span>
+                <select id="map-city-filter">
+                  <option value="all">Todos</option>
+                </select>
+              </label>
+              <label><span data-i18n="mapBudget">Presupuesto máximo (USD)</span>
+                <input id="map-price-filter" type="number" min="30" max="300" value="140" />
+              </label>
+              <p class="muted"><span data-i18n="mapShowing">Mostrando opciones hasta</span> <strong id="map-price-value">USD 140</strong> por noche.</p>
+              <button id="map-reset" class="btn btn-ghost" type="button" data-i18n="mapReset">Resetear filtros</button>
+              <p id="map-summary" class="muted"></p>
+              <div class="map-insights" aria-live="polite">
+                <div class="map-insight">
+                  <span>Mejor tarifa visible</span>
+                  <strong id="map-best-price">USD 0</strong>
+                </div>
+                <div class="map-insight">
+                  <span>Destino destacado</span>
+                  <strong id="map-best-city">-</strong>
+                </div>
+                <div class="map-insight map-insight-wide">
+                  <span>Recomendacion</span>
+                  <strong id="map-recommendation">Ajusta ciudad o presupuesto para comparar opciones</strong>
+                </div>
+              </div>
+            </aside>
+            <div class="card map-canvas-wrap">
+              <div id="map-canvas" class="map-canvas" aria-label="Mapa interactivo de ciudades"></div>
+              <div class="map-legend">
+                <span><i class="legend-dot chile"></i> Chile</span>
+                <span><i class="legend-dot colombia"></i> Colombia</span>
+                <span><i class="legend-dot other"></i> Otras ciudades</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="fidelizacion" class="section loyalty-section">
+        <div class="container loyalty-grid">
+          <article class="loyalty-copy">
+            <span class="section-eyebrow" data-i18n="loyaltyEyebrow">Club Estadías Urbanas</span>
+            <h2 data-i18n="loyaltyTitle">Cada reserva suma beneficios reales</h2>
+            <p data-i18n="loyaltyText">Los huéspedes registrados acumulan puntos por noche reservada para acceder a upgrades, late check-out y descuentos directos en próximas estadías.</p>
+          </article>
+          <div class="loyalty-benefits">
+            <article class="card loyalty-card">
+              <strong>100</strong>
+              <span data-i18n="loyaltyPoint1">puntos por noche reservada</span>
+            </article>
+            <article class="card loyalty-card">
+              <strong>250</strong>
+              <span data-i18n="loyaltyPoint2">puntos de bienvenida en la primera reserva</span>
+            </article>
+            <article class="card loyalty-card">
+              <strong data-i18n="loyaltyTier">Club</strong>
+              <span data-i18n="loyaltyPoint3">nivel automático según historial de estadías</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" class="section contact-section">
+        <div class="container contact-form-wrap card">
+          <h2 data-i18n="contactTitle">Solicitud de anfitrión</h2>
+          <p class="host-form-intro" data-i18n="contactIntro">Registra tu vivienda para que nuestro equipo evalúe si puede publicarse en Estadías Urbanas y recibir reservas como anfitrión.</p>
+          <form id="contact-form" class="contact-form">
+            <div class="grid grid-2">
+              <label><span data-i18n="contactName">Nombre del propietario</span><input name="nombre" autocomplete="name" required /></label>
+              <label><span data-i18n="contactEmail">Email de contacto</span><input type="email" name="email" autocomplete="email" required /></label>
+            </div>
+            <div class="grid grid-2">
+              <label><span data-i18n="contactPhone">Teléfono / WhatsApp</span><input type="tel" name="telefono" autocomplete="tel" placeholder="+56 9 1234 5678" required /></label>
+              <label><span data-i18n="contactCity">Ciudad y comuna</span><input name="ciudad" placeholder="Ej: Santiago Centro" required /></label>
+            </div>
+            <div class="grid grid-2">
+              <label><span data-i18n="contactPropertyType">Tipo de vivienda</span><input name="tipo_vivienda" placeholder="Departamento, casa, apart hotel..." required /></label>
+              <label><span data-i18n="contactCapacity">Capacidad</span><input name="capacidad" placeholder="Ej: 2 habitaciones, 4 huéspedes" required /></label>
+            </div>
+            <div class="grid grid-2">
+              <label><span>Precio sugerido por noche (USD)</span><input name="precio_noche" type="number" min="0" step="0.01" placeholder="Ej: 70" /></label>
+              <label><span>Links de fotos</span><input name="fotos_url" placeholder="Pega links separados por coma o salto de linea" /></label>
+            </div>
+            <label><span data-i18n="contactAddress">Dirección o sector del inmueble</span><input name="direccion" placeholder="No publiques datos sensibles si prefieres evaluación previa" required /></label>
+            <label><span data-i18n="contactMessage">Descripción del inmueble</span><textarea name="mensaje" rows="4" placeholder="Cuenta si está amoblado, servicios incluidos, disponibilidad, estacionamiento, fotos disponibles y condiciones para arrendarlo." required></textarea></label>
+            <button class="btn btn-primary" type="submit" data-i18n="contactButton">Enviar solicitud de anfitrión</button>
+            <p id="contact-msg" class="msg" aria-live="polite"></p>
+          </form>
+        </div>
+        
+        
+      </section>
+
+     
+    </main>
+
+    <div id="auth-modal" class="auth-modal booking-auth-modal" aria-hidden="true">
+  <div class="booking-auth-container">
+
+    <button id="auth-close"
+            class="booking-auth-close"
+            type="button"
+            aria-label="Cerrar">
+
+      <svg class="close-icon"
+           aria-hidden="true"
+           viewBox="0 0 24 24"
+           focusable="false">
+
+        <path d="M6 6l12 12M18 6 6 18"></path>
+
+      </svg>
+    </button>
+
+    <h2 id="auth-title" class="booking-auth-title">
+      Inicia sesión o crea una cuenta
+    </h2>
+
+    <p id="auth-text" class="booking-auth-text">
+      Puedes iniciar sesión con tu cuenta de Estadías Urbanas
+      para acceder a nuestros servicios
+    </p>
+
+    <form id="auth-form" class="booking-auth-form">
+
+      <div id="auth-name-field" class="hidden">
+        <label class="booking-label">
+          Nombre completo
+        </label>
+
+        <input
+          type="text"
+          name="name"
+          autocomplete="name"
+          placeholder="Ingresa tu nombre"
+          class="booking-input"
+        />
+      </div>
+
+      <div id="auth-phone-field" class="hidden">
+        <label class="booking-label">
+          Celular
+        </label>
+
+        <input
+          type="tel"
+          name="phone"
+          autocomplete="tel"
+          placeholder="+56912345678"
+          class="booking-input"
+        />
+      </div>
+
+      <label class="booking-label">
+        E-mail
+      </label>
+
+      <input
+        type="email"
+        name="email"
+        autocomplete="email"
+        placeholder="Indica tu dirección de email"
+        required
+        class="booking-input"
+      />
+<label class="booking-label">
+  Contraseña
+</label>
+
+<div class="password-input-wrap">
+  <input
+    id="auth-password"
+    type="password"
+    name="password"
+    placeholder="Ingresa tu contraseña"
+    required
+    class="booking-input password-input"
+  />
+  <button
+    id="auth-password-toggle"
+    class="password-toggle-btn"
+    type="button"
+    aria-label="Mostrar contraseña"
+    aria-pressed="false"
+    title="Mostrar contraseña">
+    <svg class="password-eye-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+      <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+  </button>
+</div>
+      <button
+        id="auth-submit"
+        class="booking-primary-btn"
+        type="submit">
+
+        Continuar con email
+
+      </button>
+
+      <div class="booking-divider">
+        <span>o usar una de estas opciones</span>
+      </div>
+
+      <div class="booking-socials" aria-label="Inicio de sesión social">
+        <button type="button" class="booking-social-btn" data-social-provider="google" aria-label="Continuar con Google" title="Continuar con Google">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="" />
+        </button>
+
+        <button type="button" class="booking-social-btn" data-social-provider="apple" aria-label="Continuar con Apple" title="Continuar con Apple">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="" />
+        </button>
+
+        <button type="button" class="booking-social-btn" data-social-provider="facebook" aria-label="Continuar con Facebook" title="Continuar con Facebook">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="" />
+        </button>
+      </div>
+
+      <p class="booking-help">
+        ¿Has perdido el acceso a tu email?
+        <a href="#">Recupera tu cuenta</a>
+      </p>
+
+      <p id="auth-msg"
+         class="booking-auth-msg"
+         aria-live="polite"></p>
+
+    </form>
+
+  </div>
+</div>
+
+    <div id="reservation-modal" class="auth-modal" aria-hidden="true">
+      <div class="auth-panel card">
+        <div class="auth-header">
+          <h3 data-i18n="reserveModalTitle">Reservar propiedad</h3>
+          <button id="reservation-close" class="btn btn-ghost" type="button" aria-label="Cerrar reserva">
+            <svg class="close-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+              <path d="M6 6l12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </div>
+        <form id="reservation-form" class="auth-form" data-reservation-form>
+    <label><span data-i18n="reserveProperty">Propiedad</span><input id="reservation-property" name="property" readonly /></label>
+    <label><span data-i18n="reserveName">Nombre completo</span><input id="nombre_input" name="name" required /></label>
+    <label><span data-i18n="reserveEmail">Email</span><input type="email" id="email_input" name="email" required /></label>
+    <label><span>Celular</span><input type="tel" id="telefono_input" name="phone" placeholder="+56912345678" required /></label>
+    <label><span data-i18n="reserveCheckin">Check-in</span><input type="date" id="checkin_input" name="checkin" required /></label>
+    <label><span data-i18n="reserveCheckout">Check-out</span><input type="date" id="checkout_input" name="checkout" required /></label>
+    <label><span data-i18n="reserveGuests">Huéspedes</span><input type="number" id="huespedes_input" name="guests" min="1" max="8" value="2" required /></label>
+    
+    <button id="btn-enviar-reserva" class="btn btn-primary" type="submit" data-i18n="reserveSubmit">Confirmar solicitud</button>
+    
+    <p id="reservation-msg" class="msg" aria-live="polite"></p>
+</form>
+      </div>
+    </div>
+
+    <div id="my-reservations-modal" class="auth-modal" aria-hidden="true">
+      <div class="auth-panel card reservation-lookup-panel">
+        <div class="auth-header">
+          <h3>Mis reservas</h3>
+          <button id="my-reservations-close" class="btn btn-ghost" type="button" aria-label="Cerrar mis reservas">
+            <svg class="close-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+              <path d="M6 6l12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </div>
+        <form id="my-reservations-form" class="auth-form reservation-lookup-form">
+          <label>
+            <span>Email usado en la reserva</span>
+            <input id="my-reservations-email" type="email" autocomplete="email" placeholder="tu@email.com" required />
+          </label>
+          <button class="btn btn-primary" type="submit">Consultar reservas</button>
+        </form>
+        <div id="my-reservations-result" class="reservation-lookup-result" aria-live="polite"></div>
+      </div>
+    </div>
+
+
+    <div id="property-modal" class="property-modal" aria-hidden="true">
+      <div class="property-modal-card">
+        <button id="property-modal-close" class="property-modal-close" type="button" aria-label="Cerrar detalles">
+          <svg class="close-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <path d="M6 6l12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+
+        <img id="property-modal-img" class="property-modal-img" src="" alt="Imagen de la propiedad" />
+        <div id="property-modal-gallery" class="property-modal-gallery" aria-label="Galeria de fotos"></div>
+
+        <h2 id="property-modal-title">Detalle de propiedad</h2>
+        <p id="property-modal-location" class="muted"></p>
+        <p id="property-modal-description"></p>
+
+        <div class="property-booking-strip" aria-label="Datos de la reserva">
+          <label>Entrada<input type="date" id="modal-checkin-date"></label>
+          <label>Salida<input type="date" id="modal-checkout-date"></label>
+          <label>Huéspedes
+            <select id="modal-guests">
+              <option value="1">1 huésped</option>
+              <option value="2" selected>2 huéspedes</option>
+              <option value="3">3 huéspedes</option>
+              <option value="4">4 huéspedes</option>
+            </select>
+          </label>
+        </div>
+
+        <ul id="property-modal-features"></ul>
+
+        <section id="property-modal-options" class="property-modal-options" aria-label="Opciones disponibles"></section>
+        <p id="payment-status" class="payment-status" aria-live="polite"></p>
+
+        <div class="property-modal-footer">
+          <strong id="property-modal-price"></strong>
+        </div>
+      </div>
+    </div>
+
+    <button id="scroll-top-btn" class="scroll-top-btn" type="button" aria-label="Volver arriba">↑</button>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <small>© 2026 Estadías Urbanas</small>
+          <small id="footer-email">contacto@estadiasurbanas.com</small>
+          <a class="footer-policy-link" href="politica-reembolso.html" data-i18n="footerRefund">Política de reembolso</a>
+          <a class="footer-policy-link" href="quienes-somos.html" data-i18n="footerAbout">Quiénes somos</a>
+          <button class="footer-policy-link footer-button-link" type="button" data-open-reservations data-i18n="footerReservations">Mis reservas</button>
+        </div>
+        
+        <div class="footer-payments" aria-label="Métodos de pago">
+          <button class="pay-chip" type="button" data-pay="visa" aria-label="Pago con Visa">
+            <svg viewBox="0 0 120 40" role="img" aria-label="Visa"><rect width="120" height="40" rx="8" fill="#1a1f71"/><text x="60" y="26" text-anchor="middle" fill="white" font-size="18" font-family="Arial" font-weight="700">VISA</text></svg>
+          </button>
+          
+          <button class="pay-chip" type="button" data-pay="mastercard" aria-label="Pago con Mastercard">
+            <svg viewBox="0 0 120 40" role="img" aria-label="Mastercard"><rect width="120" height="40" rx="8" fill="#101010"/><circle cx="52" cy="20" r="11" fill="#eb001b"/><circle cx="68" cy="20" r="11" fill="#f79e1b"/><text x="60" y="35" text-anchor="middle" fill="#fff" font-size="8" font-family="Arial">mastercard</text></svg>
+          </button>
+          
+          <button class="pay-chip pay-chip--mercadopago" type="button" data-pay="mercado_pago" aria-label="Pago con Mercado Pago">
+            <img class="payment-logo payment-logo--mercadopago" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Mercado_Pago.svg" alt="Mercado Pago" loading="lazy" referrerpolicy="no-referrer" />
+          </button>
+        </div>
+        
+        <div class="footer-social" aria-label="Redes sociales">
+          <a class="social-chip social-chip--instagram" href="https://www.instagram.com/estadiasurbanas/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Estadias Urbanas">
+            <svg class="social-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+          </a>
+          <a class="social-chip social-chip--facebook" href="https://www.facebook.com/profile.php?id=61577428358028" target="_blank" rel="noopener noreferrer" aria-label="Facebook Estadias Urbanas">
+            <svg class="social-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5H16V5c-.2 0-.9-.1-1.9-.1-2.6 0-4.1 1.4-4.1 4V11H8v3h2v7h3.5z" fill="currentColor"/></svg>
+          </a>
+          <a class="social-chip social-chip--tiktok" href="https://www.tiktok.com/@estadias.urbanas" target="_blank" rel="noopener noreferrer" aria-label="TikTok Estadias Urbanas">
+            <svg class="social-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.8 4h2.6c.3 1.5 1.1 2.7 2.6 3.3v2.7c-1.2-.1-2.4-.5-3.4-1.1v5.3a5.2 5.2 0 1 1-5.2-5.2c.4 0 .9.1 1.2.2v2.8a2.3 2.3 0 1 0 1.9 2.2V4z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="main.js?v=20260520-i18n-search"></script>
+    <script src="app.js"></script>
+    <script src="data/languages.js?v=20260520-footer-i18n"></script>
+    <script src="properties.js?v=20260520-card-i18n"></script>
+    <script src="data/currency.js"></script>
+    <script src="auth.js?v=20260520-oauth-social-ready"></script>
+    
+    <script>
+  const escapeInlineHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+
+  const requireBookingAuth = (message = "Para reservar, inicia sesión o crea una cuenta. Así protegemos tus datos y tu solicitud") => {
+    if (window.UrbanAuth?.requireAuth) return window.UrbanAuth.requireAuth(message);
+    window.UrbanAuth?.openModal?.("login");
+    return false;
+  };
+
+  document.addEventListener("click", (event) => {
+    const btn = event.target.closest(".btn-ver, .property-entry");
+    if (!btn) return;
+
+    const card = btn.closest(".property-card-pro");
+    if (!card) return;
+
+    const modal = document.getElementById("property-modal");
+    if (!modal) return;
+
+    const title = card.querySelector("h3")?.textContent?.trim() || "Propiedad";
+    const location = card.querySelector(".location")?.textContent?.trim() || "";
+    const description = card.querySelector(".info p")?.textContent?.trim() || card.querySelector("p")?.textContent?.trim() || "";
+    const price = card.querySelector(".price strong")?.textContent?.trim() || card.querySelector(".price")?.textContent?.trim() || "";
+    const image = card.querySelector("img")?.getAttribute("src") || "";
+    let gallery = [];
+    try {
+      gallery = JSON.parse(card.dataset.gallery || "[]");
+    } catch {
+      gallery = [];
+    }
+
+    let options = [];
+    try {
+      options = JSON.parse(card.dataset.options || "[]");
+    } catch {
+      options = [];
+    }
+
+    const features = Array.from(card.querySelectorAll(".features span"))
+      .map((span) => span.textContent.trim())
+      .filter(Boolean);
+
+    document.getElementById("property-modal-title").textContent = title;
+    document.getElementById("property-modal-location").textContent = location;
+    document.getElementById("property-modal-description").textContent = description;
+    document.getElementById("property-modal-price").textContent = price || "Precio disponible al reservar";
+
+    const modalImage = document.getElementById("property-modal-img");
+    modalImage.src = image;
+    modalImage.alt = title;
+
+    const galleryNode = document.getElementById("property-modal-gallery");
+    if (galleryNode) {
+      const photos = gallery.length ? gallery : [image].filter(Boolean);
+      galleryNode.innerHTML = photos
+        .map((src, idx) => `<button type="button" class="property-gallery-thumb${idx === 0 ? " active" : ""}" data-src="${src}"><img src="${src}" alt="${title} foto ${idx + 1}" loading="lazy"></button>`)
+        .join("");
+    }
+
+    document.getElementById("property-modal-features").innerHTML = features.length
+      ? features.map((feature) => `<li>${feature}</li>`).join("")
+      : "<li>WiFi gratis</li><li>Estadía equipada</li><li>Soporte por WhatsApp</li>";
+
+
+    const optionsNode = document.getElementById("property-modal-options");
+    if (optionsNode) {
+      optionsNode.innerHTML = options.length
+        ? `<div class="booking-options-head"><span>Opciones disponibles</span><strong>Elige tu departamento</strong></div>` + options.map((option, idx) => {
+            const highlights = Array.isArray(option.highlights) ? option.highlights : [];
+            const optionPhotos = Array.isArray(option.gallery) && option.gallery.length ? option.gallery : [option.image || image].filter(Boolean);
+            const optionImage = optionPhotos[0] || image;
+            const optionAlt = option.title || title;
+            const optionThumbs = optionPhotos.map((src, photoIdx) => `
+              <button type="button" class="option-gallery-thumb${photoIdx === 0 ? " active" : ""}" data-src="${escapeInlineHtml(src)}" aria-label="Ver foto ${photoIdx + 1} de ${escapeInlineHtml(optionAlt)}">
+                <img src="${escapeInlineHtml(src)}" alt="${escapeInlineHtml(optionAlt)} foto ${photoIdx + 1}" loading="lazy">
+              </button>
+            `).join("");
+            return `
+              <article class="property-option-card">
+                <div class="property-option-photo">
+                  <img class="property-option-main-image" src="${escapeInlineHtml(optionImage)}" alt="${escapeInlineHtml(optionAlt)}" loading="lazy">
+                  ${optionPhotos.length > 1 ? `<div class="property-option-gallery" aria-label="Fotos de ${escapeInlineHtml(optionAlt)}">${optionThumbs}</div>` : ""}
+                </div>
+                <div class="property-option-info">
+                  <h3>${option.title || "Opcion de departamento"}</h3>
+                  <div class="property-option-meta">
+                    <span>${option.occupancy || ""}</span>
+                    <span>${option.beds || ""}</span>
+                    <span>${option.rooms || ""}</span>
+                    <span>${option.baths || ""}</span>
+                  </div>
+                  <ul>${highlights.map((item) => `<li>${item}</li>`).join("")}</ul>
+                </div>
+                <div class="property-option-action">
+                  <small>Desde</small>
+                  <strong class="precio-dinamico" data-price-usd="${option.price || 0}" data-precio="${option.price || 0}"><span data-price-output>USD $${option.price || ""}</span></strong>
+                  <button class="btn btn-primary option-pay" type="button" data-option-title="${title} - ${option.title || ("Opcion " + (idx + 1))}" data-price-usd="${option.price || 0}" data-option-property="${title}">Pagar ahora</button>
+                  <button class="btn btn-ghost option-reserve" type="button" data-option-title="${title} - ${option.title || ("Opcion " + (idx + 1))}">Reservar sin pagar</button>
+                </div>
+              </article>
+            `;
+          }).join("")
+        : "";
+      if (typeof window.updatePrices === "function") window.updatePrices();
+    }
+
+    const propertyModalReserve = document.getElementById("property-modal-reserve");
+    if (propertyModalReserve) propertyModalReserve.onclick = () => {
+      if (!requireBookingAuth()) return;
+
+      const reservationModal = document.getElementById("reservation-modal");
+      const reservationProperty = document.getElementById("reservation-property");
+
+      if (reservationProperty) reservationProperty.value = title;
+
+      if (reservationModal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        reservationModal.classList.add("open");
+        reservationModal.setAttribute("aria-hidden", "false");
+      }
+    };
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+  });
+
+  document.addEventListener("click", async (event) => {
+    const optionPay = event.target.closest(".option-pay");
+    if (optionPay) {
+      if (!requireBookingAuth("Para pagar o reservar, inicia sesión o crea una cuenta. Así protegemos tus datos y tu solicitud")) return;
+      if (optionPay.dataset.processing === "true") return;
+
+      const status = document.getElementById("payment-status");
+      const checkin = document.getElementById("modal-checkin-date")?.value || document.getElementById("checkin-date")?.value || document.getElementById("checkin_input")?.value || "";
+      const checkout = document.getElementById("modal-checkout-date")?.value || document.getElementById("checkout-date")?.value || document.getElementById("checkout_input")?.value || "";
+      const guests = document.getElementById("modal-guests")?.value || document.querySelector("[name='huespedes']")?.value || document.getElementById("huespedes_input")?.value || "1";
+      let nights = 1;
+      if (checkin && checkout) {
+        const start = new Date(checkin);
+        const end = new Date(checkout);
+        const diff = Math.round((end - start) / 86400000);
+        if (diff > 0) nights = diff;
+      }
+
+      if (!checkin || !checkout || checkout <= checkin) {
+        if (status) {
+          status.textContent = "Completa entrada y salida antes de pagar.";
+          status.className = "payment-status error";
+        }
+        document.getElementById("modal-checkin-date")?.focus();
+        return;
+      }
+
+      if (status) {
+        status.textContent = "Creando pago seguro en Mercado Pago...";
+        status.className = "payment-status";
+      }
+      const previousText = optionPay.textContent;
+      optionPay.dataset.processing = "true";
+      optionPay.disabled = true;
+      optionPay.textContent = "Conectando con Mercado Pago...";
+
+      try {
+        const user = window.UrbanAuth?.getUser?.() || {};
+        const isLocalStaticPreview = window.location.protocol === "file:" || window.location.port === "4177";
+        const paymentEndpoint = window.UrbanApp?.endpoint
+          ? window.UrbanApp.endpoint("mercadopago_preference.php")
+          : isLocalStaticPreview
+          ? "http://127.0.0.1:4188/mercadopago_preference.php"
+          : "mercadopago_preference.php";
+        const paymentController = new AbortController();
+        const paymentTimeout = setTimeout(() => paymentController.abort(), 18000);
+        const response = await fetch(paymentEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: paymentController.signal,
+          body: JSON.stringify({
+            title: optionPay.dataset.optionTitle,
+            property: optionPay.dataset.optionProperty || document.getElementById("property-modal-title")?.textContent?.trim() || "Estadias Urbanas",
+            price_usd: Number(optionPay.dataset.priceUsd || 0),
+            check_in: checkin,
+            check_out: checkout,
+            guests: Number(guests || 1),
+            nights,
+            payer_name: user.name || "",
+            payer_email: user.email || "",
+            payer_phone: user.phone || "",
+            source: window.Capacitor ? "app" : "web"
+          })
+        });
+        clearTimeout(paymentTimeout);
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          throw new Error(isLocalStaticPreview
+            ? "Para pagar, abre la previsualizacion PHP: http://127.0.0.1:4188/index.html"
+            : "El servidor no esta ejecutando PHP para crear el pago.");
+        }
+        const data = await response.json();
+        if (!response.ok || data.status !== "success" || !data.init_point) {
+          const provider = data.provider_message ? ` ${data.provider_message}` : "";
+          throw new Error((data.message || "No se pudo iniciar el pago.") + provider);
+        }
+        if (data.hold_token && status) {
+          status.textContent = "Disponibilidad bloqueada. Redirigiendo a pago seguro...";
+        }
+        window.location.href = data.init_point;
+      } catch (error) {
+        if (status) {
+          status.textContent = error.name === "AbortError"
+            ? "Mercado Pago tardó demasiado en responder. Inténtalo nuevamente."
+            : (error.message || "No se pudo iniciar Mercado Pago.");
+          status.className = "payment-status error";
+        }
+        optionPay.dataset.processing = "false";
+        optionPay.disabled = false;
+        optionPay.textContent = previousText;
+      }
+      return;
+    }
+
+    const optionReserve = event.target.closest(".option-reserve");
+    if (optionReserve) {
+      if (!requireBookingAuth()) return;
+
+      const reservationModal = document.getElementById("reservation-modal");
+      const reservationProperty = document.getElementById("reservation-property");
+      const modal = document.getElementById("property-modal");
+      if (reservationProperty) reservationProperty.value = optionReserve.dataset.optionTitle || document.getElementById("property-modal-title")?.textContent?.trim() || "Propiedad";
+      if (modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+      if (reservationModal) {
+        reservationModal.classList.add("open");
+        reservationModal.setAttribute("aria-hidden", "false");
+      }
+      return;
+    }
+
+    const thumb = event.target.closest(".property-gallery-thumb");
+    if (thumb) {
+      const modalImage = document.getElementById("property-modal-img");
+      if (modalImage && thumb.dataset.src) modalImage.src = thumb.dataset.src;
+      document.querySelectorAll(".property-gallery-thumb").forEach((item) => item.classList.remove("active"));
+      thumb.classList.add("active");
+      return;
+    }
+
+    const optionThumb = event.target.closest(".option-gallery-thumb");
+    if (optionThumb) {
+      const optionCard = optionThumb.closest(".property-option-card");
+      const optionImage = optionCard?.querySelector(".property-option-main-image");
+      const modalImage = document.getElementById("property-modal-img");
+      if (optionImage && optionThumb.dataset.src) optionImage.src = optionThumb.dataset.src;
+      if (modalImage && optionThumb.dataset.src) modalImage.src = optionThumb.dataset.src;
+      optionCard?.querySelectorAll(".option-gallery-thumb").forEach((item) => item.classList.remove("active"));
+      optionThumb.classList.add("active");
+      return;
+    }
+
+    const modal = document.getElementById("property-modal");
+    if (!modal) return;
+
+    const clickedPropertyClose = event.target.closest?.("#property-modal-close");
+    if (clickedPropertyClose || event.target === modal) {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+
+    const modal = document.getElementById("property-modal");
+    if (!modal) return;
+
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const payment = params.get("pago") || params.get("status") || "";
+    if (!payment) return;
+
+    const banner = document.getElementById("payment-return-banner");
+    if (!banner) return;
+
+    const messages = {
+      success: "Pago aprobado. Recibimos tu solicitud y protegeremos tu reserva.",
+      approved: "Pago aprobado. Recibimos tu solicitud y protegeremos tu reserva.",
+      pending: "Pago pendiente. Te avisaremos apenas Mercado Pago confirme el estado.",
+      failure: "El pago no se completo. Puedes intentarlo nuevamente o reservar sin pagar.",
+      rejected: "Mercado Pago rechazó el pago. Puedes probar otro medio de pago."
+    };
+
+    banner.textContent = messages[payment] || "Volviste desde Mercado Pago. Revisa el estado de tu reserva.";
+    banner.classList.toggle("error", ["failure", "rejected"].includes(payment));
+    banner.hidden = false;
+    setTimeout(() => {
+      banner.hidden = true;
+      const cleanUrl = window.location.pathname + window.location.hash;
+      history.replaceState(null, "", cleanUrl || "index.html");
+    }, 9000);
+  });
+</script>
+
+<a class="whatsapp-float" href="https://wa.me/56973787720?text=Hola%20Estadias%20Urbanas%2C%20quiero%20hacer%20una%20reserva" target="_blank" rel="noopener" onclick="openWhatsAppProperty(event)" aria-label="Reservar por WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<script>
+function openWhatsAppProperty(event) {
+  if (event) event.preventDefault();
+  if (window.UrbanAuth && !window.UrbanAuth.requireAuth('Para reservar por WhatsApp, inicia sesión o crea una cuenta. Así podremos asociar la solicitud a tus datos de reserva.')) {
+    return;
+  }
+  const phone = "56973787720";
+  const property = document.getElementById("reservation-property")?.value || document.getElementById("property-modal-title")?.textContent?.trim() || "";
+  const destination = document.querySelector("[name='destino']")?.value || document.getElementById("map-city-filter")?.value || "";
+  const checkin = document.querySelector("[name='checkin']")?.value || document.getElementById("checkin-date")?.value || "";
+  const checkout = document.querySelector("[name='checkout']")?.value || document.getElementById("checkout-date")?.value || "";
+  const guests = document.querySelector("[name='guests']")?.value || document.querySelector("[name='huespedes']")?.value || "";
+  let mensaje = "Hola Estadias Urbanas, quiero hacer una reserva";
+  if (property) mensaje += " en " + property;
+  if (!property && destination && destination !== "all") mensaje += " en " + destination;
+  if (checkin) mensaje += ". Entrada: " + checkin;
+  if (checkout) mensaje += ". Salida: " + checkout;
+  if (guests) mensaje += ". Huéspedes: " + guests;
+  mensaje += ". Me pueden confirmar disponibilidad y valor total?";
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(mensaje), "_blank");
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("my-reservations-modal");
+  const openers = document.querySelectorAll("[data-open-reservations]");
+  const close = document.getElementById("my-reservations-close");
+  const form = document.getElementById("my-reservations-form");
+  const emailInput = document.getElementById("my-reservations-email");
+  const resultBox = document.getElementById("my-reservations-result");
+  if (!modal || !form || !emailInput || !resultBox) return;
+
+  const openLookup = () => {
+    const userEmail = window.UrbanAuth?.getUser?.()?.email || "";
+    if (userEmail && !emailInput.value) emailInput.value = userEmail;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    setTimeout(() => emailInput.focus(), 50);
+  };
+
+  const closeLookup = () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  };
+
+  const renderReservations = (items) => {
+    if (!items.length) {
+      resultBox.innerHTML = '<p class="reservation-lookup-empty">No hay reservas realizadas.</p>';
+      return;
+    }
+
+    resultBox.innerHTML = items.map((item) => `
+      <article class="reservation-lookup-card">
+        <div>
+          <strong>${escapeInlineHtml(item.property)}</strong>
+          <span>${escapeInlineHtml(item.folio)} · ${escapeInlineHtml(item.status)}</span>
+        </div>
+        <p>${escapeInlineHtml(item.check_in)} al ${escapeInlineHtml(item.check_out)} · ${escapeInlineHtml(item.guests)} huésped(es)</p>
+      </article>
+    `).join("");
+  };
+
+  openers.forEach((button) => button.addEventListener("click", openLookup));
+  close?.addEventListener("click", closeLookup);
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeLookup();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("open")) closeLookup();
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = emailInput.value.trim().toLowerCase();
+    if (!email) return;
+    const button = form.querySelector("button[type='submit']");
+    const previousText = button?.textContent || "";
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Consultando...";
+    }
+    resultBox.innerHTML = '<p class="reservation-lookup-empty">Buscando reservas...</p>';
+
+    try {
+      const isLocalStaticPreview = window.location.protocol === "file:" || window.location.port === "4177";
+      const endpoint = isLocalStaticPreview
+        ? "http://127.0.0.1:4188/mis_reservas.php"
+        : "mis_reservas.php";
+      const response = await fetch(`${endpoint}?email=${encodeURIComponent(email)}`, {
+        method: "GET",
+        credentials: endpoint === "mis_reservas.php" ? "same-origin" : "omit",
+        headers: { Accept: "application/json" }
+      });
+      const data = await response.json();
+      if (!response.ok || data.status === "error") throw new Error(data.message || "No se pudo consultar.");
+      renderReservations(Array.isArray(data.reservations) ? data.reservations : []);
+    } catch (error) {
+      console.warn("No se pudo consultar reservas", error);
+      resultBox.innerHTML = '<p class="reservation-lookup-empty">No hay reservas realizadas.</p>';
+    } finally {
+      if (button) {
+        button.disabled = false;
+        button.textContent = previousText;
+      }
+    }
+  });
+});
+</script>
+
+
+
+<script>
+// reservation modal robust close
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("reservation-modal");
+  const close = document.getElementById("reservation-close");
+  if (!modal || !close) return;
+
+  const closeReservation = () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  };
+
+  close.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeReservation();
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeReservation();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("open")) closeReservation();
+  });
+});
+</script>
+
+<div id="loader"></div>
+
+<script>
+window.onload = () => {
+  document.getElementById("loader").style.display = "none";
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const todayIso = new Date().toISOString().slice(0, 10);
+
+    function blockPastDates(checkinInput, checkoutInput) {
+        if (!checkinInput || !checkoutInput) return;
+
+        checkinInput.min = todayIso;
+        checkoutInput.min = todayIso;
+
+        if (checkinInput.value && checkinInput.value < todayIso) checkinInput.value = '';
+        if (checkoutInput.value && checkoutInput.value < todayIso) checkoutInput.value = '';
+
+        checkinInput.addEventListener('change', function() {
+            const nextMin = this.value && this.value >= todayIso ? this.value : todayIso;
+            checkoutInput.min = nextMin;
+            if (checkoutInput.value && checkoutInput.value <= nextMin) {
+                checkoutInput.value = '';
+            }
+        });
+    }
+
+    blockPastDates(document.getElementById('checkin_input'), document.getElementById('checkout_input'));
+    blockPastDates(document.getElementById('checkin-date'), document.getElementById('checkout-date'));
+    blockPastDates(document.getElementById('modal-checkin-date'), document.getElementById('modal-checkout-date'));
+
+
+    // Envio real de la solicitud de reserva.
+    const formReserva = document.getElementById('reservation-form');
+    
+    if (formReserva) {
+        formReserva.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            e.stopPropagation(); 
+
+            if (!formReserva.checkValidity()) {
+                formReserva.reportValidity(); 
+                return; 
+            }
+
+            const msgDiv = document.getElementById('reservation-msg');
+            msgDiv.textContent = 'Procesando tu solicitud...';
+            msgDiv.style.color = 'white'; 
+
+            const formData = {
+                propiedad: document.getElementById('reservation-property').value, 
+                nombre: document.getElementById('nombre_input').value,
+                email: document.getElementById('email_input').value,
+                telefono: document.getElementById('telefono_input').value,
+                check_in: document.getElementById('checkin_input').value,
+                check_out: document.getElementById('checkout_input').value,
+                huespedes: document.getElementById('huespedes_input').value,
+                source: 'web'
+            };
+
+            const isLocalStaticPreview = window.location.protocol === 'file:' || window.location.port === '4177';
+            const reservationEndpoint = isLocalStaticPreview
+                ? 'http://127.0.0.1:4188/procesar_reserva.php'
+                : 'procesar_reserva.php';
+            const availabilityEndpoint = isLocalStaticPreview
+                ? 'http://127.0.0.1:4188/disponibilidad.php'
+                : 'disponibilidad.php';
+
+            const checkAvailability = () => fetch(availabilityEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+                signal: controller.signal
+            })
+            .then(async response => {
+                if (!response.ok) return;
+                const data = await response.json();
+                if (data.status === 'success' && data.available === false) {
+                    throw new Error('Estas fechas ya fueron bloqueadas para esta propiedad. Prueba otras fechas.');
+                }
+            })
+            .catch(error => {
+                if (error.message && error.message.includes('bloqueadas')) throw error;
+                console.warn('No se pudo verificar disponibilidad antes de reservar', error);
+            });
+
+            const submitBtn = formReserva.querySelector('button[type="submit"]');
+            const previousText = submitBtn ? submitBtn.textContent : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviando solicitud...';
+            }
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 18000);
+
+            checkAvailability().then(() => fetch(reservationEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+                signal: controller.signal
+            }))
+            .then(async response => {
+                const text = await response.text();
+                let data = null;
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    throw new Error('El servidor no respondió correctamente. Revisa que procesar_reserva.php esté actualizado en la web.');
+                }
+                if (!response.ok || data.status === 'error') {
+                    throw new Error(data.message || 'No se pudo completar la solicitud.');
+                }
+                return data;
+            })
+            .then(data => {
+                const loyalty = data.loyalty && data.loyalty.points_awarded
+                    ? ` Nivel ${data.loyalty.tier}: ${data.loyalty.total_points} puntos acumulados.`
+                    : '';
+                const folio = data.reservation_folio ? ` Folio: ${data.reservation_folio}.` : '';
+                msgDiv.textContent = (data.message || 'Reserva creada correctamente.') + folio + loyalty;
+                if (data.status === 'success') {
+                    msgDiv.style.color = '#4CAF50'; 
+                    formReserva.reset();
+                } else {
+                    msgDiv.style.color = '#f44336'; 
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const fallbackText = `Hola Estadías Urbanas, quiero reservar ${formData.propiedad} desde ${formData.check_in} hasta ${formData.check_out} para ${formData.huespedes} huéspedes. Mi nombre es ${formData.nombre}, email ${formData.email}, celular ${formData.telefono}.`;
+                const fallbackUrl = `https://wa.me/56973787720?text=${encodeURIComponent(fallbackText)}`;
+                msgDiv.innerHTML = `No pudimos confirmar online en este momento. <a href="${fallbackUrl}" target="_blank" rel="noopener">Enviar por WhatsApp</a>`;
+                msgDiv.style.color = '#ffffff';
+            })
+            .finally(() => {
+                clearTimeout(timeoutId);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = previousText;
+                }
+            });
+        });
+    }
+});
+</script>
+
+  </body>
+</html>
+

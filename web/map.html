@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa de Ciudades | Estadias Urbanas</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body { background: #0b1326; }
+      #real-map { height: 78vh; border-radius: 14px; border: 1px solid #2b3d63; }
+      .map-page { padding: 1rem 0 2rem; }
+      .map-top { display: flex; justify-content: space-between; align-items: center; gap: .8rem; }
+    </style>
+  </head>
+  <body>
+    <main class="container map-page">
+      <div class="map-top">
+        <h1>Mapa de ciudades</h1>
+        <a class="btn btn-ghost" href="index.html">Volver</a>
+      </div>
+      <p id="map-page-msg" class="muted">Cargando ciudades...</p>
+      <div id="real-map"></div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="cities.js"></script>
+    <script src="map.js"></script>
+  </body>
+</html>

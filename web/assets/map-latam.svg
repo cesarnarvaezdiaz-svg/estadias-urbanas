@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-label="Mapa estilizado de Sudamérica">
+  <defs>
+    <linearGradient id="ocean" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1f4b87"/>
+      <stop offset="100%" stop-color="#14335f"/>
+    </linearGradient>
+    <linearGradient id="land" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#8dcf95"/>
+      <stop offset="100%" stop-color="#4ea56d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" fill="url(#ocean)"/>
+  <path fill="url(#land)" opacity="0.92" d="M505 84l43 53 11 71 40 39 45 9 29 58-24 59-43 22-14 65-71 69-40-9-8-54 33-66-35-39-63-18-26-48 25-51-43-81 18-79z"/>
+  <path fill="url(#land)" opacity="0.92" d="M735 113l55 11 29 41 53 12 53 47-15 45 34 61-24 57-63 8-41 31-64 5-40 43-63-24 11-72-27-45 13-57 49-56 21-66z"/>
+  <circle cx="742" cy="201" r="5" fill="#f8fffd"/>
+  <circle cx="712" cy="292" r="4" fill="#f8fffd"/>
+  <circle cx="680" cy="356" r="4" fill="#f8fffd"/>
+  <circle cx="572" cy="436" r="4" fill="#f8fffd"/>
+  <circle cx="620" cy="266" r="4" fill="#f8fffd"/>
+  <circle cx="541" cy="330" r="4" fill="#f8fffd"/>
+</svg>

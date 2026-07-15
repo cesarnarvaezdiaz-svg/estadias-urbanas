@@ -1,0 +1,4746 @@
+﻿.section-heading {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.section-heading p,
+.conversion-copy p,
+.conversion-points p {
+  color: var(--muted);
+}
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #92ffc4;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.conversion-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.conversion-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.conversion-points .card strong {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #6ca9ff;
+  color: #071833;
+  margin-bottom: 10px;
+}
+
+.property-badge {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  background: rgba(146, 255, 196, 0.92);
+  color: #071833;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 800;
+  font-size: 0.78rem;
+}
+
+.property-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.btn-reservar {
+  background: #92ffc4;
+  color: #071833;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#search-msg,
+#global-search-msg,
+#properties-msg {
+  display: block !important;
+}
+
+@media (max-width: 900px) {
+  .conversion-grid,
+  .conversion-points {
+    grid-template-columns: 1fr;
+  }
+
+  .property-card-actions,
+  .property-card-actions button {
+    width: 100%;
+  }
+}
+
+
+/* Estadias Urbanas conversion polish 2026 */
+:root {
+  --urban-ink: #10202f;
+  --urban-muted: #5e6b78;
+  --urban-line: rgba(16, 32, 47, 0.12);
+  --urban-surface: #ffffff;
+  --urban-soft: #f5f7f2;
+  --urban-mint: #25d987;
+  --urban-gold: #f5b84b;
+  --urban-blue: #315f9f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    linear-gradient(180deg, rgba(245, 247, 242, 0.96) 0%, #ffffff 42%, #f7f8fa 100%);
+  color: var(--urban-ink);
+}
+
+.topbar {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--urban-line);
+  box-shadow: 0 16px 40px rgba(16, 32, 47, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.topbar-utils {
+  background: #10202f;
+}
+
+.locale-controls select,
+.hero-search select,
+.hero-search input,
+.contact-form input,
+.contact-form textarea,
+.newsletter-form input,
+.auth-form input {
+  border: 1px solid var(--urban-line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--urban-ink);
+  box-shadow: none;
+}
+
+.menu a {
+  color: var(--urban-ink);
+  font-weight: 750;
+}
+
+.menu a:hover {
+  color: var(--urban-blue);
+}
+
+.btn,
+.btn-reservar,
+.btn-ver,
+.chip-link,
+.mobile-booking-bar a {
+  border-radius: 8px;
+}
+
+.btn-primary,
+.btn-reservar,
+.mobile-booking-bar a:last-child {
+  background: linear-gradient(135deg, var(--urban-mint), #87efba);
+  color: #082018;
+  box-shadow: 0 12px 28px rgba(37, 217, 135, 0.25);
+}
+
+.btn-primary:hover,
+.btn-reservar:hover,
+.mobile-booking-bar a:last-child:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(37, 217, 135, 0.34);
+}
+
+.btn-ghost,
+.btn-ver,
+.mobile-booking-bar a:first-child {
+  border: 1px solid var(--urban-line);
+  background: #fff;
+  color: var(--urban-ink);
+}
+
+.hero.section {
+  padding-top: 56px;
+}
+
+.hero-grid {
+  gap: 30px;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 760px;
+}
+
+.hero-content h1 {
+  max-width: 780px;
+  color: var(--urban-ink);
+  letter-spacing: 0;
+}
+
+.hero-content > p {
+  color: var(--urban-muted);
+  font-size: 1.08rem;
+}
+
+.kicker,
+.section-eyebrow {
+  color: #0b8f62;
+  letter-spacing: 0.04em;
+}
+
+.hero-kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card,
+.hero-search,
+.newsletter,
+.contact-form-wrap,
+.experience-rail,
+.property-card-pro,
+.auth-panel,
+.property-modal-card {
+  border: 1px solid var(--urban-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 20px 50px rgba(16, 32, 47, 0.08);
+}
+
+.hero-search {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-search::before {
+  content: "";
+  display: block;
+  height: 158px;
+  margin: -24px -24px 20px;
+  background:
+    linear-gradient(180deg, rgba(16, 32, 47, 0) 0%, rgba(16, 32, 47, 0.68) 100%),
+    url("fotos agustinas plaza/fotos generales/WhatsApp Image 2026-02-05 at 17.40.29.jpeg") center / cover;
+}
+
+.hero-search h2 {
+  color: var(--urban-ink);
+}
+
+.hero-quick-links {
+  gap: 10px;
+}
+
+.chip-link {
+  border: 1px solid var(--urban-line);
+  background: #fff;
+  color: var(--urban-ink);
+  font-weight: 750;
+}
+
+.chip-link:hover {
+  border-color: rgba(37, 217, 135, 0.55);
+  color: #0b6d4a;
+}
+
+.conversion-grid {
+  align-items: stretch;
+}
+
+.conversion-copy.card {
+  background: #10202f;
+  color: #fff;
+}
+
+.conversion-copy.card p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.conversion-points .card strong {
+  background: var(--urban-gold);
+  color: #2c1c02;
+}
+
+.property-grid-pro {
+  gap: 24px;
+}
+
+.property-card-pro {
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.property-card-pro:hover {
+  transform: translateY(-3px);
+  border-color: rgba(49, 95, 159, 0.28);
+  box-shadow: 0 26px 60px rgba(16, 32, 47, 0.12);
+}
+
+.property-card-pro img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.property-badge {
+  border-radius: 8px;
+  background: rgba(245, 184, 75, 0.95);
+  color: #271b04;
+}
+
+.property-card-pro .price strong,
+.property-modal-footer strong {
+  color: #0b6d4a;
+}
+
+.features span {
+  border-radius: 8px;
+  background: #f0f6f0;
+  color: #334155;
+}
+
+.trust-strip {
+  border-radius: 8px;
+  background: #10202f;
+  color: #fff;
+}
+
+.trust-strip span,
+.experience-item p,
+.section-heading p,
+.conversion-points p {
+  color: var(--urban-muted);
+}
+
+.trust-strip span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.servicios,
+#faq,
+.contact-section {
+  background: transparent;
+}
+
+#faq details {
+  margin-bottom: 10px;
+}
+
+#faq summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.contact-form-wrap {
+  max-width: 880px;
+}
+
+.newsletter {
+  display: grid;
+  gap: 10px;
+  background: linear-gradient(135deg, #10202f, #315f9f);
+  color: #fff;
+}
+
+.newsletter .muted {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer {
+  padding-bottom: 88px;
+}
+
+.mobile-booking-bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1200;
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--urban-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 44px rgba(16, 32, 47, 0.18);
+  backdrop-filter: blur(16px);
+}
+
+.mobile-booking-bar a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.whatsapp-float {
+  bottom: 92px;
+}
+
+@media (max-width: 960px) {
+  .hero-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .top-actions {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero.section {
+    padding-top: 34px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.15rem, 9vw, 3.3rem);
+  }
+
+  .menu.open {
+    background: #fff;
+    border: 1px solid var(--urban-line);
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(16, 32, 47, 0.14);
+  }
+
+  .mobile-booking-bar {
+    display: grid;
+  }
+
+  .footer {
+    padding-bottom: 108px;
+  }
+}
+
+
+/* Estadias Urbanas restore blue/map/logo */
+body {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(80, 130, 255, 0.24), transparent 28%),
+    linear-gradient(180deg, #071833 0%, #0b1f43 46%, #071833 100%) !important;
+  color: #f7fbff;
+}
+
+.topbar {
+  background: rgba(7, 24, 51, 0.92) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.topbar-utils {
+  background: #061225 !important;
+}
+
+.brand-logo {
+  display: block !important;
+  width: clamp(150px, 18vw, 245px) !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+.menu a,
+.hero-content h1,
+.hero-search h2,
+.section-heading h2,
+.card h2,
+.card h3,
+#faq summary {
+  color: #f7fbff;
+}
+
+.menu a:hover {
+  color: #92ffc4;
+}
+
+.hero-content > p,
+.section-heading p,
+.experience-item p,
+.conversion-points p,
+.muted {
+  color: rgba(247, 251, 255, 0.76) !important;
+}
+
+.card,
+.hero-search,
+.newsletter,
+.contact-form-wrap,
+.experience-rail,
+.property-card-pro,
+.auth-panel,
+.property-modal-card,
+.map-controls,
+.map-canvas-wrap {
+  background: rgba(11, 31, 67, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #f7fbff;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22) !important;
+}
+
+.btn-ghost,
+.btn-ver,
+.chip-link,
+.mobile-booking-bar a:first-child {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: #f7fbff !important;
+}
+
+.locale-controls select,
+.hero-search select,
+.hero-search input,
+.contact-form input,
+.contact-form textarea,
+.newsletter-form input,
+.auth-form input,
+.map-controls select,
+.map-controls input {
+  background: #ffffff !important;
+  color: #102040 !important;
+}
+
+.property-card-pro .info p,
+.property-card-pro .location,
+.currency-label,
+.trust-strip span {
+  color: rgba(247, 251, 255, 0.72) !important;
+}
+
+.map-layout {
+  align-items: stretch;
+}
+
+.map-canvas-wrap {
+  min-height: 520px;
+}
+
+.map-canvas {
+  position: relative;
+  min-height: 460px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #061225;
+}
+
+.map-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+.map-backdrop {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 24, 51, 0.12), rgba(7, 24, 51, 0.38));
+  pointer-events: none;
+}
+
+.map-dot {
+  position: absolute;
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #92ffc4;
+  box-shadow: 0 0 0 8px rgba(146, 255, 196, 0.16);
+  cursor: pointer;
+}
+
+.map-dot.colombia {
+  background: #f6cb6e;
+  box-shadow: 0 0 0 8px rgba(246, 203, 110, 0.16);
+}
+
+.map-city-label {
+  position: absolute;
+  z-index: 4;
+  display: inline-flex;
+  max-width: 190px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #102040;
+  font-size: 0.82rem;
+  font-weight: 850;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  pointer-events: none;
+}
+
+.map-city-label.active,
+.map-dot:hover + .map-city-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  color: rgba(247, 251, 255, 0.76);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: #92ffc4;
+}
+
+.legend-dot.colombia {
+  background: #f6cb6e;
+}
+
+.legend-dot.other {
+  background: #7ca8ff;
+}
+
+@media (max-width: 760px) {
+  .map-canvas-wrap,
+  .map-canvas {
+    min-height: 360px;
+  }
+}
+
+
+/* Estadias Urbanas vivid visual lift */
+:root {
+  --vivid-night: #06142e;
+  --vivid-blue: #123d8f;
+  --vivid-sky: #4da3ff;
+  --vivid-mint: #65ffbf;
+  --vivid-coral: #ffb15c;
+  --vivid-card: rgba(14, 38, 86, 0.82);
+  --vivid-card-strong: rgba(18, 55, 124, 0.9);
+}
+
+body {
+  background:
+    radial-gradient(circle at 16% 9%, rgba(101, 255, 191, 0.22), transparent 23%),
+    radial-gradient(circle at 84% 8%, rgba(77, 163, 255, 0.28), transparent 25%),
+    radial-gradient(circle at 72% 48%, rgba(255, 177, 92, 0.12), transparent 28%),
+    linear-gradient(135deg, #06142e 0%, #0c2d68 42%, #0a1b3b 100%) !important;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 78%);
+}
+
+.topbar {
+  background: rgba(4, 18, 42, 0.82) !important;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28) !important;
+  backdrop-filter: blur(22px);
+}
+
+.brand {
+  gap: 12px;
+}
+
+.brand-logo {
+  filter: drop-shadow(0 10px 24px rgba(101, 255, 191, 0.18));
+}
+
+.menu a {
+  position: relative;
+  opacity: 0.92;
+}
+
+.menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--vivid-mint), var(--vivid-sky));
+  opacity: 0;
+  transform: scaleX(0.55);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.menu a:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.hero.section {
+  position: relative;
+  padding-top: clamp(42px, 7vw, 92px);
+  padding-bottom: clamp(36px, 6vw, 76px);
+}
+
+.hero.section::before {
+  content: "";
+  position: absolute;
+  inset: 18px 0 auto;
+  height: min(640px, 70vh);
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(6, 20, 46, 0.98) 0%, rgba(6, 20, 46, 0.82) 42%, rgba(6, 20, 46, 0.36) 100%),
+    url("fotos agustinas plaza/fotos generales/WhatsApp Image 2026-02-05 at 17.40.31.jpeg") right center / cover;
+  opacity: 0.94;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-content h1 {
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  line-height: 0.94;
+  max-width: 900px;
+  text-wrap: balance;
+  text-shadow: 0 22px 56px rgba(0, 0, 0, 0.44);
+}
+
+.hero-content > p {
+  max-width: 660px;
+  font-size: 1.14rem;
+}
+
+.kicker,
+.section-eyebrow {
+  color: var(--vivid-mint) !important;
+  text-shadow: 0 0 24px rgba(101, 255, 191, 0.2);
+}
+
+.hero-kpis .kpi,
+.hero-toolbox,
+.experience-rail {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.055)) !important;
+}
+
+.hero-kpis .kpi strong {
+  color: #ffffff;
+}
+
+.hero-kpis .kpi span {
+  color: rgba(247, 251, 255, 0.74);
+}
+
+.card,
+.hero-search,
+.newsletter,
+.contact-form-wrap,
+.property-card-pro,
+.auth-panel,
+.property-modal-card,
+.map-controls,
+.map-canvas-wrap {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
+    var(--vivid-card) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+.search-panel,
+.hero-search {
+  border: 1px solid rgba(101, 255, 191, 0.24) !important;
+}
+
+.hero-search::before {
+  height: 190px;
+  background:
+    linear-gradient(180deg, rgba(6, 20, 46, 0.06) 0%, rgba(6, 20, 46, 0.74) 100%),
+    url("fotos agustinas plaza/fotos generales/WhatsApp Image 2026-02-05 at 17.40.29.jpeg") center / cover !important;
+}
+
+.btn-primary,
+.btn-reservar,
+.mobile-booking-bar a:last-child {
+  background: linear-gradient(135deg, #65ffbf 0%, #43dfff 52%, #7ca8ff 100%) !important;
+  color: #04152f !important;
+  border: 0 !important;
+  box-shadow: 0 16px 40px rgba(67, 223, 255, 0.26) !important;
+}
+
+.btn-primary:hover,
+.btn-reservar:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+}
+
+.btn-ghost,
+.btn-ver,
+.chip-link,
+.mobile-booking-bar a:first-child {
+  background: rgba(255, 255, 255, 0.11) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.chip-link:hover,
+.btn-ghost:hover,
+.btn-ver:hover {
+  background: rgba(101, 255, 191, 0.14) !important;
+  border-color: rgba(101, 255, 191, 0.42) !important;
+}
+
+.property-grid-pro {
+  gap: 28px;
+}
+
+.property-card-pro {
+  position: relative;
+  overflow: hidden;
+}
+
+.property-card-pro::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(101, 255, 191, 0.11), transparent 36%, rgba(255, 177, 92, 0.08));
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.property-card-pro:hover::after {
+  opacity: 1;
+}
+
+.property-card-pro .img-wrap {
+  height: clamp(260px, 28vw, 340px);
+}
+
+.property-card-pro .img-wrap img {
+  filter: saturate(1.12) contrast(1.04);
+}
+
+.property-badge {
+  background: linear-gradient(135deg, #ffce73, #ff9f5c) !important;
+  color: #241303 !important;
+  box-shadow: 0 10px 24px rgba(255, 177, 92, 0.28);
+}
+
+.property-card-pro .rating {
+  background: rgba(6, 20, 46, 0.72);
+  color: #fff;
+  backdrop-filter: blur(12px);
+}
+
+.property-top-actions {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.property-card-pro .rating-stars {
+  position: static !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(6, 20, 46, 0.74);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+.property-card-pro .rating-stars strong {
+  color: #ffffff;
+  font-size: 0.92rem;
+  line-height: 1;
+}
+
+.property-card-pro .stars {
+  display: inline-flex;
+  gap: 1px;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.82rem;
+  line-height: 1;
+}
+
+.property-card-pro .stars .is-filled {
+  color: #ffcf5c;
+  text-shadow: 0 0 12px rgba(255, 207, 92, 0.34);
+}
+
+.save-property {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(6, 20, 46, 0.76);
+  color: #ffffff;
+  font-size: 1.06rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.save-property:hover {
+  transform: translateY(-1px) scale(1.04);
+  border-color: rgba(255, 207, 92, 0.52);
+  background: rgba(14, 38, 82, 0.92);
+}
+
+.save-property.is-saved {
+  color: #ff5f8f;
+  border-color: rgba(255, 95, 143, 0.58);
+  background: rgba(68, 14, 44, 0.82);
+}
+
+.property-card-pro .info {
+  display: grid;
+  gap: 8px;
+}
+
+.property-type-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(247, 251, 255, 0.72);
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.mini-stars {
+  display: inline-flex;
+  gap: 1px;
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 0.72rem;
+}
+
+.mini-stars .is-filled {
+  color: #ffcf5c;
+}
+
+.review-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(247, 251, 255, 0.88);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.review-row small {
+  color: rgba(247, 251, 255, 0.62);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.review-score {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 8px 8px 8px 2px;
+  background: #0f5de8;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.distance-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  color: rgba(247, 251, 255, 0.86);
+  font-size: 0.9rem;
+}
+
+.distance-row span {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(101, 255, 191, 0.28);
+  color: #65ffbf;
+  font-size: 0.88rem;
+}
+
+.distance-row strong {
+  font-weight: 800;
+}
+
+.about-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 760px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-card-pro .price strong,
+.property-modal-footer strong {
+  color: var(--vivid-mint) !important;
+  text-shadow: 0 0 22px rgba(101, 255, 191, 0.22);
+}
+
+.features span {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(247, 251, 255, 0.88) !important;
+}
+
+.conversion-copy {
+  background:
+    linear-gradient(135deg, rgba(101, 255, 191, 0.12), transparent 34%),
+    linear-gradient(145deg, #123d8f, #0b1f43) !important;
+  border: 1px solid rgba(101, 255, 191, 0.2);
+  border-radius: 8px;
+  padding: clamp(22px, 4vw, 36px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+}
+
+.conversion-points .card strong {
+  background: linear-gradient(135deg, #ffce73, #ff9f5c) !important;
+  color: #241303 !important;
+}
+
+.trust-strip {
+  background:
+    linear-gradient(90deg, rgba(101, 255, 191, 0.16), rgba(77, 163, 255, 0.16)),
+    rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.newsletter {
+  background:
+    linear-gradient(135deg, rgba(255, 177, 92, 0.18), transparent 34%),
+    linear-gradient(135deg, #123d8f, #0a1b3b) !important;
+}
+
+.map-canvas {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(77, 163, 255, 0.22), transparent 36%),
+    #061225 !important;
+}
+
+.map-image {
+  opacity: 0.95;
+  filter: drop-shadow(0 18px 42px rgba(77, 163, 255, 0.2));
+}
+
+.map-dot {
+  width: 22px;
+  height: 22px;
+  animation: urbanPulse 1.9s ease-in-out infinite;
+}
+
+.map-city-label {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes urbanPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 6px rgba(101, 255, 191, 0.14), 0 0 0 0 rgba(101, 255, 191, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(101, 255, 191, 0.08), 0 0 0 16px rgba(101, 255, 191, 0);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero.section::before {
+    height: 560px;
+    background-position: center top;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.45rem, 12vw, 3.8rem);
+  }
+
+  .menu.open {
+    background: rgba(6, 20, 46, 0.96) !important;
+  }
+}
+
+
+/* Estadias Urbanas real world map */
+.map-canvas.leaflet-ready {
+  min-height: 540px;
+  background: #0b1f43 !important;
+  overflow: hidden;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+  border-radius: 8px;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.leaflet-tile-pane {
+  filter: saturate(1.12) contrast(1.04) brightness(0.94);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #ffffff;
+  color: #102040;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.leaflet-control-zoom a {
+  color: #102040 !important;
+}
+
+@media (max-width: 760px) {
+  .map-canvas.leaflet-ready,
+  .leaflet-container {
+    min-height: 430px;
+  }
+}
+
+
+/* Estadias Urbanas remove top hero photo */
+.hero.section::before {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(101, 255, 191, 0.18), transparent 26%),
+    radial-gradient(circle at 78% 18%, rgba(77, 163, 255, 0.2), transparent 28%),
+    linear-gradient(135deg, rgba(6, 20, 46, 0.98) 0%, rgba(12, 45, 104, 0.96) 54%, rgba(6, 20, 46, 0.98) 100%) !important;
+  opacity: 1 !important;
+}
+
+.hero-search::before {
+  display: none !important;
+}
+
+.search-panel {
+  padding-top: clamp(22px, 3vw, 30px) !important;
+}
+
+.hero-toolbox {
+  display: none !important;
+}
+
+
+/* Estadias Urbanas booking-style property options */
+.property-entry {
+  cursor: pointer;
+}
+
+.property-entry::after {
+  content: "Ver opciones";
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #102040;
+  font-size: 0.82rem;
+  font-weight: 850;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.property-modal-card {
+  width: min(1080px, 96%) !important;
+}
+
+.property-modal-options {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.booking-options-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 4px;
+}
+
+.booking-options-head span {
+  color: var(--vivid-mint, #65ffbf);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.booking-options-head strong {
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.property-option-card {
+  display: grid;
+  grid-template-columns: 138px minmax(0, 1fr) 170px;
+  gap: 16px;
+  align-items: stretch;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.property-option-card img {
+  width: 100%;
+  height: 118px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.property-option-info {
+  display: grid;
+  gap: 8px;
+}
+
+.property-option-info h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.property-option-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.property-option-meta span {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(247, 251, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.property-option-info ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  margin: 0 !important;
+  padding-left: 18px !important;
+  color: rgba(247, 251, 255, 0.78);
+}
+
+.property-option-action {
+  display: grid;
+  align-content: center;
+  justify-items: end;
+  gap: 8px;
+  text-align: right;
+}
+
+.property-option-action small {
+  color: rgba(247, 251, 255, 0.66);
+}
+
+.property-option-action strong {
+  color: var(--vivid-mint, #65ffbf);
+  font-size: 1.35rem;
+}
+
+@media (max-width: 760px) {
+  .property-option-card {
+    grid-template-columns: 1fr;
+  }
+
+  .property-option-card img {
+    height: 190px;
+  }
+
+  .property-option-action {
+    justify-items: stretch;
+    text-align: left;
+  }
+}
+
+
+/* Estadias Urbanas Mercado Pago checkout */
+.option-pay,
+.option-reserve {
+  width: 100%;
+}
+
+.option-reserve {
+  min-height: 38px;
+  font-size: 0.84rem;
+}
+
+.payment-status {
+  min-height: 22px;
+  margin: 4px 0 18px;
+  color: #ffffff;
+  font-weight: 750;
+  padding: 10px 12px;
+  border: 1px solid rgba(67, 223, 255, 0.54);
+  border-radius: 8px;
+  background: rgba(5, 18, 42, 0.58);
+}
+
+.payment-status.error {
+  color: #ffffff;
+  border-color: rgba(255, 74, 74, 0.84);
+  background: rgba(142, 20, 20, 0.34);
+}
+
+.payment-return-banner {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #6ca9ff, #43dfff);
+  color: #ffffff;
+  font-weight: 850;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+}
+
+.payment-return-banner.error {
+  background: linear-gradient(135deg, #0b2a5b, #43dfff);
+}
+
+.option-pay:disabled {
+  cursor: wait;
+  opacity: 0.78;
+  filter: saturate(0.85);
+}
+
+#reservation-msg {
+  min-height: 24px;
+  margin-top: 10px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+#reservation-msg a {
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6ca9ff, #43dfff);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+/* Host intranet */
+.host-panel-section {
+  border-color: rgba(67, 223, 255, 0.7) !important;
+}
+
+.host-property-list {
+  display: grid;
+  gap: 14px;
+}
+
+.host-property-card {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.42fr) 1fr;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid rgba(67, 223, 255, 0.48);
+  border-radius: 16px;
+  background: rgba(5, 18, 42, 0.64);
+}
+
+.host-property-media {
+  min-height: 150px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(108, 169, 255, 0.25), rgba(67, 223, 255, 0.14));
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.host-property-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.host-property-content h5 {
+  margin: 8px 0;
+  color: #ffffff;
+  font-size: 1.08rem;
+}
+
+.host-property-content p,
+.host-property-content small {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.host-status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(67, 223, 255, 0.18);
+  border: 1px solid rgba(67, 223, 255, 0.5);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.host-property-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.host-property-metrics div {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.host-property-metrics dt {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.host-property-metrics dd {
+  margin: 4px 0 0;
+  color: #ffffff;
+  font-weight: 950;
+}
+
+@media (max-width: 760px) {
+  .host-property-card,
+  .host-property-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-option-action {
+  align-content: start;
+}
+
+
+/* Estadias Urbanas locale controls polish */
+.topbar-utils-wrap {
+  justify-content: flex-end;
+}
+
+.locale-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.locale-controls select,
+.topbar .locale-controls select {
+  min-height: 36px;
+  width: auto;
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(135deg, rgba(101, 255, 191, 0.14), rgba(77, 163, 255, 0.12)),
+    rgba(6, 20, 46, 0.84) !important;
+  color: #f7fbff !important;
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1;
+  padding: 9px 34px 9px 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8dd8ff 50%),
+    linear-gradient(135deg, #8dd8ff 50%, transparent 50%),
+    linear-gradient(135deg, rgba(67, 223, 255, 0.18), rgba(77, 163, 255, 0.12));
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 13px) 50%,
+    0 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    100% 100%;
+  background-repeat: no-repeat;
+}
+
+.locale-controls select:hover,
+.topbar .locale-controls select:hover {
+  border-color: rgba(101, 255, 191, 0.42) !important;
+  background-color: rgba(12, 45, 104, 0.92) !important;
+}
+
+.locale-controls select:focus,
+.topbar .locale-controls select:focus {
+  outline: 2px solid rgba(101, 255, 191, 0.34);
+  outline-offset: 2px;
+}
+
+.locale-controls option {
+  color: #102040;
+  background: #ffffff;
+}
+
+@media (max-width: 760px) {
+  .locale-controls {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .locale-controls select,
+  .topbar .locale-controls select {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+
+/* Estadias Urbanas pay-ready booking strip */
+.property-booking-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+  padding: 12px;
+  border: 1px solid rgba(101, 255, 191, 0.2);
+  border-radius: 8px;
+  background: rgba(101, 255, 191, 0.08);
+}
+
+.property-booking-strip label {
+  display: grid;
+  gap: 6px;
+  color: rgba(247, 251, 255, 0.82);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.property-booking-strip input,
+.property-booking-strip select {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #102040;
+  padding: 9px 10px;
+  font-weight: 750;
+}
+
+@media (max-width: 760px) {
+  .property-booking-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Estadias Urbanas remove harsh hero band */
+body {
+  background:
+    radial-gradient(circle at 16% 9%, rgba(77, 163, 255, 0.24), transparent 24%),
+    radial-gradient(circle at 84% 8%, rgba(101, 255, 191, 0.12), transparent 24%),
+    linear-gradient(135deg, #071833 0%, #123d8f 45%, #081a37 100%) !important;
+}
+
+.hero.section::before {
+  inset: 0 0 auto !important;
+  height: 100% !important;
+  min-height: 650px;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(101, 255, 191, 0.10), transparent 26%),
+    radial-gradient(circle at 84% 14%, rgba(77, 163, 255, 0.16), transparent 28%),
+    linear-gradient(135deg, rgba(7, 24, 51, 0.99) 0%, rgba(15, 48, 113, 0.98) 58%, rgba(8, 26, 55, 0.99) 100%) !important;
+  border-bottom: 0 !important;
+}
+
+.hero.section {
+  overflow: hidden;
+}
+
+.hero.section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 160px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 26, 55, 0), rgba(8, 26, 55, 0.98));
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.property-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 14px;
+  align-items: end;
+  margin: 24px 0 14px;
+  padding: clamp(16px, 3vw, 22px);
+  border: 1px solid rgba(101, 255, 191, 0.22);
+  border-radius: 12px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045)),
+    rgba(14, 38, 86, 0.78);
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.18);
+}
+
+.booking-search-panel {
+  position: relative;
+  z-index: 5;
+  padding: clamp(18px, 3vw, 28px) !important;
+  border: 1px solid rgba(101, 255, 191, 0.24) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
+    rgba(14, 38, 86, 0.82) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09) !important;
+  padding-bottom: clamp(24px, 4vw, 36px) !important;
+}
+
+.booking-search-box {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.booking-search-field {
+  position: relative;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(6, 20, 46, 0.72);
+  color: #f7fbff;
+  padding: 0 16px;
+  border: 1px solid rgba(178, 207, 255, 0.34);
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.booking-search-field:focus-within {
+  border-color: rgba(101, 255, 191, 0.78);
+  box-shadow: 0 0 0 4px rgba(101, 255, 191, 0.14);
+  background: rgba(6, 20, 46, 0.88);
+}
+
+.booking-search-icon {
+  color: rgba(101, 255, 191, 0.92);
+  font-size: 1.25rem;
+}
+
+.booking-search-field select,
+.booking-search-field input,
+.guest-picker-toggle {
+  width: 100%;
+  min-height: 40px;
+  border: 0;
+  background: transparent;
+  color: #f7fbff;
+  font-weight: 800;
+  outline: none;
+}
+
+.booking-search-field select option {
+  background: #0b2f6f;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.booking-search-field select option:checked,
+.booking-search-field select option:hover {
+  background: #006ce4;
+  color: #ffffff;
+}
+
+.booking-date-group {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.booking-date-group input {
+  min-width: 0;
+}
+
+.guest-picker-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.booking-search-submit {
+  min-height: 56px;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #65ffbf 0%, #43dfff 52%, #7ca8ff 100%);
+  color: #041b2d;
+  font-size: 1.05rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(67, 223, 255, 0.16);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.booking-search-panel .booking-search-submit {
+  width: 100%;
+}
+
+.booking-search-submit:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+  box-shadow: 0 18px 38px rgba(67, 223, 255, 0.22);
+}
+
+.guest-picker-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  bottom: auto;
+  right: 0;
+  z-index: 20;
+  width: min(318px, 92vw);
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding: 14px;
+  border: 1px solid rgba(101, 255, 191, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)),
+    #0b2a5b;
+  color: #f7fbff;
+  font-size: 0.8rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+}
+
+.guest-picker-popover[hidden] {
+  display: none !important;
+}
+
+.booking-search-panel {
+  overflow: visible !important;
+}
+
+.hero.section,
+.hero-grid {
+  overflow: visible !important;
+}
+
+.guest-row,
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.guest-row span,
+.toggle-row span,
+.popover-field span {
+  color: #f7fbff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: 28px 36px 28px;
+  width: 92px;
+  border: 1px solid rgba(178, 207, 255, 0.38);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.stepper button {
+  border: 0;
+  background: rgba(6, 20, 46, 0.66);
+  color: #65ffbf;
+  font-size: 1.25rem;
+  min-width: 28px;
+  min-height: 31px;
+  padding: 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.stepper strong {
+  display: grid;
+  place-items: center;
+  min-height: 31px;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.86rem;
+}
+
+.popover-field {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+.popover-field input,
+.popover-field select {
+  min-height: 34px;
+  border: 1px solid rgba(178, 207, 255, 0.38);
+  border-radius: 4px;
+  padding: 0 10px;
+  color: #ffffff;
+  background: rgba(6, 20, 46, 0.66);
+}
+
+.popover-field input::placeholder {
+  color: rgba(247, 251, 255, 0.68);
+}
+
+.popover-field select option {
+  background: #0b2a5b;
+  color: #ffffff;
+}
+
+.toggle-row input {
+  width: 22px;
+  height: 22px;
+}
+
+.guest-done-btn {
+  width: 100%;
+  min-height: 38px;
+  margin-top: 6px;
+  border: 1px solid rgba(101, 255, 191, 0.72);
+  border-radius: 4px;
+  background: rgba(101, 255, 191, 0.12);
+  color: #65ffbf;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.guest-picker-popover .guest-row:nth-child(1),
+.guest-picker-popover .guest-row:nth-child(2),
+.guest-picker-popover .guest-row:nth-child(3),
+.guest-picker-popover .guest-row:nth-child(4) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px;
+  align-items: center;
+}
+
+.guest-picker-popover .popover-field {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .guest-picker-popover {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px 12px;
+  }
+
+  .guest-picker-popover .guest-row:nth-child(1),
+  .guest-picker-popover .guest-row:nth-child(2),
+  .guest-picker-popover .guest-row:nth-child(3),
+  .guest-picker-popover .guest-row:nth-child(4) {
+    grid-template-columns: minmax(0, 1fr) 92px;
+  }
+
+  .guest-picker-popover .guest-row,
+  .guest-picker-popover .popover-field,
+  .guest-picker-popover .toggle-row {
+    margin-bottom: 0;
+  }
+
+}
+
+.booking-search-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  color: rgba(247, 251, 255, 0.88);
+}
+
+.booking-search-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.booking-search-options input {
+  width: 20px;
+  height: 20px;
+  accent-color: #006ce4;
+}
+
+@media (max-width: 980px) {
+  .booking-search-box {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-search-field {
+    border-right: 1px solid rgba(178, 207, 255, 0.34);
+    border-bottom: 1px solid rgba(178, 207, 255, 0.34);
+  }
+
+  .guest-picker-popover {
+    left: 0;
+    right: auto;
+  }
+}
+
+.property-filters label {
+  display: grid;
+  gap: 7px;
+}
+
+.property-filters span {
+  color: rgba(247, 251, 255, 0.82);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.property-filters input,
+.property-filters select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(178, 207, 255, 0.34);
+  border-radius: 8px;
+  background: rgba(6, 20, 46, 0.74);
+  color: #f7fbff;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.property-filters input:focus,
+.property-filters select:focus {
+  border-color: rgba(101, 255, 191, 0.78);
+  box-shadow: 0 0 0 4px rgba(101, 255, 191, 0.14);
+  outline: none;
+}
+
+.property-filters .btn {
+  min-height: 44px;
+  border-radius: 8px;
+}
+
+.property-filter-summary {
+  min-height: 24px;
+  margin: 0 0 18px;
+  color: rgba(247, 251, 255, 0.74);
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .property-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .property-filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estadias Urbanas visual polish */
+:root {
+  --chile-red: #43dfff;
+  --chile-blue: #6ca9ff;
+  --chile-white: #ffffff;
+}
+
+body {
+  color: #f8fbff;
+}
+
+.section {
+  padding-block: clamp(46px, 7vw, 86px);
+}
+
+.topbar {
+  background: rgba(5, 18, 42, 0.88) !important;
+  border-bottom: 2px solid rgba(67, 223, 255, 0.72) !important;
+}
+
+.topbar::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--chile-white), var(--chile-red), transparent);
+  opacity: 0.78;
+}
+
+.brand-logo {
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.24));
+}
+
+.brand {
+  position: relative;
+  border-radius: 10px;
+  padding: 6px 10px !important;
+  background: rgba(5, 18, 42, 0.88) !important;
+}
+
+.brand::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffffff 0 28%, #6ca9ff 28% 64%, #43dfff 64% 100%);
+  opacity: 0.92;
+}
+
+.brand::after {
+  content: none !important;
+}
+
+.brand-logo {
+  filter:
+    brightness(0) invert(1)
+    drop-shadow(2px 0 0 rgba(108, 169, 255, 0.86))
+    drop-shadow(-2px 0 0 rgba(67, 223, 255, 0.78))
+    drop-shadow(0 8px 18px rgba(0, 0, 0, 0.3));
+}
+
+.register-header-btn,
+.auth-action.register-header-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #6ca9ff 54%, #43dfff 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 10px 24px rgba(67, 223, 255, 0.18) !important;
+}
+
+/* Chile red accent override: remove remaining green/mint UI accents */
+:root {
+  --vivid-mint: #43dfff !important;
+  --urban-mint: #43dfff !important;
+  --success: #43dfff !important;
+}
+
+.kicker,
+.section-eyebrow,
+.booking-search-icon,
+.stepper button,
+.guest-done-btn,
+.property-card-pro .price strong,
+.property-modal-footer strong,
+.property-option-action strong,
+.loyalty-card strong,
+.map-insight strong,
+.footer-policy-link:hover,
+.menu a:hover,
+.auth-link:hover {
+  color: #8dd8ff !important;
+}
+
+.booking-search-panel,
+.search-panel,
+.hero-search,
+.contact-form-wrap,
+.newsletter,
+.property-card-pro,
+.property-filters,
+.guest-picker-popover,
+.locale-controls select,
+.topbar .locale-controls select,
+.contact-form input:focus,
+.contact-form textarea:focus,
+.search-box input:focus,
+.search-box select:focus,
+.newsletter-form input:focus,
+.booking-search-field:focus-within {
+  border-color: rgba(67, 223, 255, 0.74) !important;
+  box-shadow: 0 0 0 3px rgba(67, 223, 255, 0.16) !important;
+}
+
+.menu a::after,
+.guest-done-btn,
+.stepper button,
+.property-badge,
+.register-header-btn,
+.btn-primary,
+.booking-search-submit,
+.btn-reservar,
+.mobile-booking-bar a:last-child {
+  background: linear-gradient(135deg, #ffffff 0%, #6ca9ff 54%, #43dfff 100%) !important;
+}
+
+.guest-done-btn,
+.stepper button {
+  border-color: rgba(67, 223, 255, 0.78) !important;
+}
+
+.stepper button {
+  color: #ffffff !important;
+}
+
+.booking-search-field:focus-within,
+.contact-form input:focus,
+.contact-form textarea:focus,
+.newsletter-form input:focus {
+  outline-color: rgba(67, 223, 255, 0.74) !important;
+}
+
+* {
+  scrollbar-color: rgba(67, 223, 255, 0.78) rgba(255, 255, 255, 0.12);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6ca9ff, #43dfff) !important;
+}
+
+.topbar .locale-controls select,
+.locale-controls select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8dd8ff 50%),
+    linear-gradient(135deg, #8dd8ff 50%, transparent 50%),
+    linear-gradient(135deg, rgba(67, 223, 255, 0.18), rgba(77, 163, 255, 0.12)) !important;
+}
+
+.menu a,
+.auth-link,
+.auth-action {
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.menu a:hover,
+.auth-link:hover,
+.auth-action:hover {
+  transform: translateY(-1px);
+}
+
+.hero-content h1 {
+  max-width: 820px;
+  text-wrap: balance;
+  color: #ffffff !important;
+}
+
+.hero-content > p,
+.section-heading p,
+.host-form-intro {
+  text-wrap: pretty;
+}
+
+.hero-content > p,
+.section-heading p,
+.muted,
+.host-form-intro,
+.property-card-pro .info p {
+  color: rgba(248, 251, 255, 0.82) !important;
+}
+
+.section-heading h2,
+.card h2,
+.card h3,
+#faq summary {
+  color: #ffffff !important;
+}
+
+.search-panel,
+.contact-form-wrap,
+.property-card-pro,
+.trust-strip,
+.experience-rail,
+.newsletter {
+  border-radius: 12px !important;
+}
+
+.search-panel {
+  padding: clamp(18px, 3vw, 28px) !important;
+}
+
+.booking-search-panel,
+.contact-form-wrap,
+.newsletter,
+.property-card-pro {
+  border-top: 2px solid rgba(67, 223, 255, 0.58) !important;
+}
+
+.search-box,
+.contact-form {
+  gap: 16px !important;
+}
+
+.contact-form-wrap {
+  max-width: 920px !important;
+  padding: clamp(22px, 4vw, 34px) !important;
+  border-color: rgba(101, 255, 191, 0.22) !important;
+}
+
+.contact-form-wrap h2 {
+  margin-bottom: 8px !important;
+}
+
+.host-form-intro {
+  max-width: 720px;
+  margin: 0 0 22px;
+  color: rgba(247, 251, 255, 0.74);
+  line-height: 1.65;
+}
+
+.contact-form label span,
+.search-box label span,
+.booking-label {
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form textarea,
+.search-box input,
+.search-box select,
+.newsletter-form input {
+  min-height: 46px;
+  border-radius: 8px !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.contact-form textarea {
+  min-height: 118px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.search-box input:focus,
+.search-box select:focus,
+.newsletter-form input:focus {
+  border-color: rgba(101, 255, 191, 0.78) !important;
+  box-shadow: 0 0 0 4px rgba(101, 255, 191, 0.14) !important;
+  outline: none;
+}
+
+.btn-primary,
+.booking-primary-btn,
+.property-card-pro .btn-ver {
+  border-radius: 8px !important;
+  box-shadow: 0 14px 32px rgba(67, 223, 255, 0.16);
+}
+
+.btn-primary,
+.booking-search-submit,
+.register-header-btn,
+.guest-done-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f7fbff 18%, #6ca9ff 52%, #43dfff 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+.btn-primary:hover,
+.booking-search-submit:hover,
+.register-header-btn:hover,
+.guest-done-btn:hover {
+  filter: saturate(1.08) brightness(1.04);
+}
+
+.btn-ghost,
+.auth-action-secondary,
+.login-btn {
+  border-color: rgba(67, 223, 255, 0.48) !important;
+}
+
+.btn-primary:hover,
+.booking-primary-btn:hover,
+.property-card-pro .btn-ver:hover {
+  box-shadow: 0 18px 38px rgba(67, 223, 255, 0.22);
+}
+
+.property-card-pro {
+  border-radius: 14px !important;
+}
+
+.property-card-pro .info {
+  padding: clamp(18px, 3vw, 24px) !important;
+}
+
+.property-card-pro .features span {
+  border-radius: 8px !important;
+}
+
+.trust-strip {
+  padding: clamp(16px, 3vw, 24px) !important;
+}
+
+.footer {
+  background: rgba(4, 16, 36, 0.62);
+  border-top: 2px solid rgba(67, 223, 255, 0.7);
+}
+
+.footer-policy-link,
+.footer-brand small {
+  color: rgba(247, 251, 255, 0.72);
+}
+
+.whatsapp-float {
+  box-shadow: 0 18px 42px rgba(38, 211, 102, 0.26) !important;
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding-block: 42px;
+  }
+
+  .contact-form-wrap {
+    padding: 20px !important;
+  }
+
+  .host-form-intro {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero.section::before {
+    min-height: 900px;
+  }
+}
+
+
+/* Estadias Urbanas reservation close polish */
+#reservation-close {
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  padding: 0 !important;
+  border: 2px solid rgba(101, 255, 191, 0.48) !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+#reservation-close:hover {
+  background: rgba(101, 255, 191, 0.18) !important;
+  transform: translateY(-1px);
+}
+
+.auth-modal.open {
+  cursor: pointer;
+}
+
+.auth-modal.open .auth-panel {
+  cursor: default;
+}
+
+
+/* Estadias Urbanas property modal scroll fix */
+.property-modal {
+  align-items: start !important;
+  padding: 18px !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+}
+
+.property-modal.open {
+  display: grid !important;
+}
+
+.property-modal-card {
+  max-height: calc(100vh - 36px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  margin: 0 auto !important;
+  padding-bottom: 28px !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(101, 255, 191, 0.75) rgba(255, 255, 255, 0.12);
+}
+
+.property-modal-card::-webkit-scrollbar {
+  width: 10px;
+}
+
+.property-modal-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.property-modal-card::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #65ffbf, #43dfff);
+  border-radius: 999px;
+}
+
+.property-modal-close {
+  position: sticky !important;
+  top: 12px !important;
+  z-index: 20 !important;
+  margin-left: auto;
+  float: right;
+}
+
+.property-modal-img {
+  max-height: min(360px, 38vh) !important;
+}
+
+.property-modal-options {
+  padding-bottom: 18px;
+}
+
+@media (max-width: 760px) {
+  .property-modal {
+    padding: 10px !important;
+  }
+
+  .property-modal-card {
+    max-height: calc(100vh - 20px) !important;
+  }
+
+  .property-modal-img {
+    max-height: 260px !important;
+  }
+}
+
+
+/* Estadias Urbanas header locale placement */
+.topbar-utils {
+  display: none !important;
+}
+
+.nav-wrap {
+  min-height: 74px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.top-actions .locale-controls {
+  order: 3;
+  padding: 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.top-actions .locale-controls select,
+.topbar .top-actions .locale-controls select {
+  min-height: 38px;
+  max-width: 132px;
+}
+
+@media (max-width: 1180px) {
+  .top-actions .locale-controls select,
+  .topbar .top-actions .locale-controls select {
+    max-width: 112px;
+  }
+}
+
+@media (max-width: 960px) {
+  .top-actions {
+    display: none !important;
+  }
+}
+
+.topbar .top-actions > a,
+.mobile-booking-bar {
+  display: none !important;
+}
+
+
+/* Estadias Urbanas clean selects */
+.top-actions .locale-controls,
+.topbar .top-actions .locale-controls {
+  gap: 6px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.top-actions .locale-controls select,
+.topbar .top-actions .locale-controls select {
+  height: 38px !important;
+  min-height: 38px !important;
+  width: auto !important;
+  min-width: 74px !important;
+  max-width: none !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(101, 255, 191, 0.24) !important;
+  background:
+    linear-gradient(180deg, rgba(17, 48, 91, 0.98), rgba(8, 27, 58, 0.98)) !important;
+  color: #f7fbff !important;
+  font-size: 0.83rem !important;
+  font-weight: 850 !important;
+  line-height: 1 !important;
+  padding: 0 28px 0 13px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #65ffbf 50%),
+    linear-gradient(135deg, #65ffbf 50%, transparent 50%),
+    linear-gradient(180deg, rgba(17, 48, 91, 0.98), rgba(8, 27, 58, 0.98)) !important;
+  background-position:
+    calc(100% - 15px) 50%,
+    calc(100% - 10px) 50%,
+    0 0 !important;
+  background-size:
+    5px 5px,
+    5px 5px,
+    100% 100% !important;
+  background-repeat: no-repeat !important;
+}
+
+.top-actions #language-select {
+  min-width: 98px !important;
+}
+
+.top-actions #currency-select {
+  min-width: 76px !important;
+}
+
+.hero-search select,
+.property-booking-strip select,
+.auth-form select {
+  border: 1px solid rgba(101, 255, 191, 0.25) !important;
+  background-color: #071832 !important;
+  color: #f7fbff !important;
+  font-weight: 750;
+}
+
+.hero-search select option,
+.property-booking-strip select option,
+.auth-form select option,
+.locale-controls select option {
+  background: #071832 !important;
+  color: #f7fbff !important;
+}
+
+
+/* Estadias Urbanas refund policy */
+.footer-policy-link {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 8px;
+  color: #65ffbf;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.footer-policy-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.policy-page {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(101, 255, 191, 0.16), transparent 26%),
+    linear-gradient(180deg, #071833 0%, #0b1f43 100%);
+  min-height: 70vh;
+}
+
+.policy-hero {
+  padding: clamp(56px, 8vw, 92px) 0 28px;
+}
+
+.policy-hero h1 {
+  max-width: 860px;
+  margin: 10px 0 16px;
+  color: #f7fbff;
+  font-size: clamp(2.4rem, 7vw, 5.2rem);
+  line-height: 0.95;
+}
+
+.policy-hero p {
+  max-width: 830px;
+  color: rgba(247, 251, 255, 0.78);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.policy-content {
+  display: grid;
+  gap: 14px;
+  padding-bottom: clamp(52px, 8vw, 92px);
+}
+
+.policy-content article {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: clamp(18px, 3vw, 26px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045)),
+    rgba(13, 38, 82, 0.88);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
+}
+
+.policy-content h2 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+}
+
+.policy-content p {
+  margin: 0;
+  color: rgba(247, 251, 255, 0.78);
+  line-height: 1.65;
+}
+
+.policy-content p + p {
+  margin-top: 10px;
+}
+
+.policy-content a {
+  color: #65ffbf;
+  font-weight: 800;
+}
+
+.policy-note {
+  border-color: rgba(101, 255, 191, 0.28) !important;
+  background:
+    linear-gradient(135deg, rgba(101, 255, 191, 0.12), transparent 38%),
+    rgba(13, 38, 82, 0.9) !important;
+}
+
+.policy-note a {
+  display: inline-flex;
+  margin-top: 12px;
+  margin-right: 14px;
+}
+
+.policy-menu {
+  margin-left: auto;
+}
+
+
+/* Estadias Urbanas hero title scale */
+.hero-content h1 {
+  font-size: clamp(3.1rem, 6.7vw, 6.25rem) !important;
+  line-height: 0.98 !important;
+}
+
+@media (max-width: 760px) {
+  .hero-content h1 {
+    font-size: clamp(2.05rem, 8.2vw, 3rem) !important;
+    line-height: 1.04 !important;
+  }
+}
+
+
+/* Estadias Urbanas crisp controls and room galleries */
+.save-property,
+.property-modal-close,
+#reservation-close {
+  transform: none !important;
+  backface-visibility: hidden;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.save-property:hover,
+.property-modal-close:hover,
+#reservation-close:hover,
+.property-gallery-thumb:hover,
+.option-gallery-thumb:hover {
+  transform: none !important;
+}
+
+.save-property {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
+.save-property .heart-icon {
+  display: block;
+  width: 23px;
+  height: 23px;
+  fill: currentColor;
+  transform: translateY(1px);
+}
+
+.property-modal-close,
+#reservation-close {
+  display: inline-grid !important;
+  place-items: center;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
+.property-modal-close {
+  width: 42px !important;
+  height: 42px !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  border-radius: 999px !important;
+  background: rgba(6, 20, 46, 0.94) !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28) !important;
+}
+
+.property-modal-close:hover {
+  background: rgba(14, 38, 82, 0.98) !important;
+  border-color: rgba(101, 255, 191, 0.48) !important;
+}
+
+.close-icon {
+  display: block;
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  shape-rendering: geometricPrecision;
+}
+
+#reservation-close .close-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.property-option-photo {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+
+.property-option-main-image {
+  display: block;
+  width: 100%;
+  height: 118px !important;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.property-option-gallery {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 42px;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 0 0 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(101, 255, 191, 0.72) rgba(255, 255, 255, 0.12);
+}
+
+.option-gallery-thumb {
+  width: 42px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 !important;
+  border: 2px solid transparent !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.option-gallery-thumb.active {
+  border-color: #65ffbf !important;
+}
+
+.option-gallery-thumb img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  object-fit: cover;
+}
+
+@media (max-width: 760px) {
+  .property-option-main-image {
+    height: 190px !important;
+  }
+
+  .property-option-gallery {
+    grid-auto-columns: 52px;
+  }
+
+  .option-gallery-thumb {
+    width: 52px !important;
+    height: 42px !important;
+  }
+}
+
+
+/* Estadias Urbanas account access */
+.auth-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-action,
+.auth-link,
+.auth-switch button {
+  border: 1px solid rgba(101, 255, 191, 0.24) !important;
+  border-radius: 999px !important;
+  cursor: pointer;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.auth-action {
+  min-height: 34px;
+  padding: 0 11px !important;
+  font-size: 0.72rem !important;
+}
+
+.auth-action-primary {
+  background: linear-gradient(135deg, #65ffbf 0%, #43dfff 100%) !important;
+  color: #04152f !important;
+}
+
+.auth-action-secondary,
+.auth-link,
+.auth-switch button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f7fbff !important;
+}
+
+.auth-action:hover,
+.auth-link:hover,
+.auth-switch button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(101, 255, 191, 0.52) !important;
+}
+
+.menu-auth-actions {
+  display: none;
+}
+
+.auth-panel {
+  width: min(480px, 92%) !important;
+  font-size: 0.9rem;
+}
+
+#auth-close {
+  display: inline-grid !important;
+  width: 42px !important;
+  height: 42px !important;
+  place-items: center;
+  padding: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  border-radius: 999px !important;
+  background: rgba(6, 20, 46, 0.94) !important;
+  color: #ffffff !important;
+  line-height: 0 !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28) !important;
+}
+
+#auth-close:hover {
+  transform: none !important;
+  background: rgba(14, 38, 82, 0.98) !important;
+  border-color: rgba(101, 255, 191, 0.48) !important;
+}
+
+.auth-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.auth-switch button {
+  min-height: 34px;
+  padding: 0 11px !important;
+  font-size: 0.74rem !important;
+}
+
+#auth-msg:empty {
+  display: none;
+}
+
+.auth-password-hint {
+  margin: 7px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+#auth-msg {
+  border-radius: 10px;
+  line-height: 1.35;
+}
+
+@media (max-width: 1000px) {
+  .menu.open .menu-auth-actions {
+    display: grid;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .auth-link {
+    min-height: 34px;
+    padding: 0 11px !important;
+    font-size: 0.74rem !important;
+    text-align: center;
+  }
+}
+
+
+/* Estadias Urbanas complete photo view */
+.property-modal-img {
+  height: clamp(230px, 42vh, 380px) !important;
+  max-height: clamp(230px, 42vh, 380px) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  background:
+    linear-gradient(135deg, rgba(6, 20, 46, 0.96), rgba(13, 38, 82, 0.92)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.property-option-main-image {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: rgba(6, 20, 46, 0.92) !important;
+}
+
+.property-gallery-thumb img,
+.option-gallery-thumb img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: rgba(6, 20, 46, 0.9) !important;
+}
+
+@media (max-width: 760px) {
+  .property-modal-img {
+    height: 250px !important;
+    max-height: 250px !important;
+  }
+}
+
+
+/* Estadias Urbanas larger option photos */
+.property-option-card {
+  grid-template-columns: 190px minmax(0, 1fr) 150px !important;
+  gap: 14px !important;
+  align-items: start !important;
+}
+
+.property-option-photo {
+  gap: 7px !important;
+}
+
+.property-option-main-image {
+  height: 150px !important;
+}
+
+.property-option-gallery {
+  grid-auto-columns: 48px !important;
+}
+
+.option-gallery-thumb {
+  width: 48px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+}
+
+.property-option-info {
+  align-content: start;
+  gap: 7px !important;
+}
+
+.property-option-meta {
+  gap: 6px !important;
+}
+
+.property-option-meta span {
+  padding: 6px 7px !important;
+  font-size: 0.74rem !important;
+}
+
+.property-option-info ul {
+  gap: 6px 12px !important;
+  padding-left: 16px !important;
+}
+
+.property-option-action {
+  align-content: start !important;
+  gap: 7px !important;
+}
+
+.property-option-action strong {
+  font-size: 1.22rem !important;
+}
+
+@media (max-width: 900px) {
+  .property-option-card {
+    grid-template-columns: 170px minmax(0, 1fr) 138px !important;
+  }
+
+  .property-option-main-image {
+    height: 138px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .property-option-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .property-option-main-image {
+    height: 220px !important;
+  }
+
+  .property-option-action {
+    justify-items: stretch !important;
+    text-align: left !important;
+  }
+}
+
+
+/* Estadias Urbanas compact property cards */
+.property-card-pro {
+  border-radius: 8px !important;
+}
+
+.property-card-pro .img-wrap {
+  height: clamp(190px, 22vw, 260px) !important;
+}
+
+.property-card-pro .info {
+  gap: 6px !important;
+  padding: 16px 20px 18px !important;
+}
+
+.property-entry::after,
+.property-card-pro .features,
+.property-card-pro .info p {
+  display: none !important;
+}
+
+.property-badge {
+  padding: 7px 10px !important;
+  border-radius: 6px !important;
+  font-size: 0.72rem !important;
+}
+
+.property-type-line {
+  font-size: 0.76rem !important;
+}
+
+.property-card-pro .info h3 {
+  margin: 4px 0 2px !important;
+  font-size: clamp(1.28rem, 2.2vw, 1.65rem) !important;
+  line-height: 1.08 !important;
+}
+
+.property-card-pro .location {
+  font-size: 0.86rem !important;
+}
+
+.review-row {
+  gap: 7px !important;
+  font-size: 0.82rem !important;
+}
+
+.review-score {
+  min-width: 31px !important;
+  height: 28px !important;
+  border-radius: 7px 7px 7px 2px !important;
+}
+
+.distance-row {
+  font-size: 0.84rem !important;
+}
+
+.distance-row span {
+  width: 20px !important;
+  height: 20px !important;
+  font-size: 0.78rem !important;
+}
+
+.property-card-pro .footer {
+  margin-top: 8px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.property-card-pro .price strong {
+  font-size: 1.26rem !important;
+}
+
+.property-card-actions .btn-ver,
+.property-card-actions .btn-reservar {
+  min-height: 38px !important;
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+  font-size: 0.84rem !important;
+}
+
+@media (max-width: 900px) {
+  .property-card-pro .img-wrap {
+    height: 190px !important;
+  }
+}
+
+
+/* Estadias Urbanas calmer hero title */
+.hero-content h1 {
+  font-size: clamp(2.45rem, 5.35vw, 4.85rem) !important;
+  line-height: 1.02 !important;
+}
+
+@media (max-width: 760px) {
+  .hero-content h1 {
+    font-size: clamp(1.9rem, 7.2vw, 2.65rem) !important;
+    line-height: 1.06 !important;
+  }
+}
+
+
+/* Estadias Urbanas booking-like compact cards */
+#propiedades-lista {
+  gap: 18px !important;
+}
+
+.property-card-pro {
+  display: grid !important;
+  grid-template-columns: 178px minmax(0, 1fr) !important;
+  min-height: 178px !important;
+  overflow: hidden !important;
+}
+
+.property-card-pro[hidden],
+.property-card-pro.is-filtered-out {
+  display: none !important;
+}
+
+.property-card-pro .img-wrap {
+  height: 100% !important;
+  min-height: 178px !important;
+}
+
+.property-card-pro .img-wrap img {
+  height: 100% !important;
+}
+
+.property-card-pro .info {
+  display: grid !important;
+  align-content: start !important;
+  gap: 5px !important;
+  padding: 14px 16px !important;
+}
+
+.property-card-pro .property-badge {
+  display: none !important;
+}
+
+.property-badge {
+  left: 10px !important;
+  top: 10px !important;
+  max-width: calc(100% - 20px);
+  padding: 6px 8px !important;
+  font-size: 0.68rem !important;
+}
+
+.property-top-actions {
+  top: 10px !important;
+  right: 10px !important;
+  gap: 6px !important;
+}
+
+.property-card-pro .rating-stars {
+  min-height: 32px !important;
+  padding: 6px 8px !important;
+}
+
+.property-card-pro .stars {
+  font-size: 0.72rem !important;
+}
+
+.save-property {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.save-property .heart-icon {
+  width: 21px !important;
+  height: 21px !important;
+}
+
+.property-type-line {
+  display: none !important;
+}
+
+.property-card-pro .location {
+  font-size: 0.78rem !important;
+  margin: 0 !important;
+}
+
+.property-card-pro .info h3 {
+  margin: 0 !important;
+  font-size: clamp(1.05rem, 1.55vw, 1.28rem) !important;
+  line-height: 1.12 !important;
+}
+
+.review-row {
+  gap: 6px !important;
+  font-size: 0.76rem !important;
+}
+
+.review-row small {
+  font-size: 0.7rem !important;
+}
+
+.review-score {
+  min-width: 29px !important;
+  height: 26px !important;
+}
+
+.distance-row {
+  font-size: 0.76rem !important;
+  gap: 6px !important;
+}
+
+.distance-row span {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.property-card-pro .footer {
+  margin-top: 6px !important;
+  padding-top: 10px !important;
+  gap: 10px !important;
+}
+
+.property-card-pro .price small {
+  font-size: 0.72rem !important;
+  margin-bottom: 0 !important;
+}
+
+.property-card-pro .price strong {
+  font-size: 1.1rem !important;
+}
+
+.property-card-pro .currency-label {
+  font-size: 0.78rem !important;
+}
+
+.property-card-actions {
+  gap: 8px !important;
+}
+
+.property-card-actions .btn-ver,
+.property-card-actions .btn-reservar {
+  min-height: 34px !important;
+  padding: 8px 11px !important;
+  font-size: 0.76rem !important;
+}
+
+@media (max-width: 1020px) {
+  #propiedades-lista {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .property-card-pro {
+    grid-template-columns: 1fr !important;
+  }
+
+  .property-card-pro .img-wrap {
+    height: 180px !important;
+    min-height: 180px !important;
+  }
+}
+
+
+/* Estadias Urbanas tighter vertical rhythm */
+.section {
+  padding: clamp(28px, 4.2vw, 46px) 0 !important;
+}
+
+.section-heading {
+  margin-bottom: 14px !important;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.28rem, 2vw, 1.72rem) !important;
+  margin-bottom: 6px !important;
+}
+
+.section-heading p {
+  margin-top: 0 !important;
+  font-size: 0.92rem !important;
+}
+
+.hero.section {
+  padding-top: clamp(28px, 4vw, 46px) !important;
+  padding-bottom: clamp(26px, 4vw, 44px) !important;
+}
+
+.hero.section::before {
+  inset: 0 0 auto !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+.hero-grid {
+  gap: clamp(18px, 3vw, 28px) !important;
+  align-items: center !important;
+}
+
+.hero-content h1 {
+  max-width: 660px !important;
+  font-size: clamp(2.1rem, 4.35vw, 4rem) !important;
+  line-height: 1.04 !important;
+  margin-bottom: 14px !important;
+}
+
+.hero-content > p {
+  max-width: 600px !important;
+  font-size: clamp(0.96rem, 1.5vw, 1.06rem) !important;
+  line-height: 1.45 !important;
+  margin: 0 0 18px !important;
+}
+
+.kicker {
+  margin-bottom: 10px !important;
+  font-size: 0.92rem !important;
+}
+
+.hero-kpis {
+  gap: 10px !important;
+  margin-top: 10px !important;
+}
+
+.hero-kpis .kpi {
+  min-height: 0 !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+}
+
+.hero-kpis .kpi strong {
+  font-size: 0.92rem !important;
+}
+
+.hero-kpis .kpi span {
+  font-size: 0.86rem !important;
+  line-height: 1.3 !important;
+}
+
+.search-panel {
+  padding: clamp(18px, 2.4vw, 24px) !important;
+}
+
+.search-panel h2 {
+  font-size: clamp(1.55rem, 2.4vw, 2rem) !important;
+  margin-bottom: 10px !important;
+}
+
+.search-box {
+  gap: 10px !important;
+}
+
+.date-row {
+  gap: 10px !important;
+}
+
+.search-panel input,
+.search-panel select {
+  min-height: 42px !important;
+  padding: 9px 12px !important;
+}
+
+.search-panel .btn {
+  min-height: 42px !important;
+  padding: 10px 14px !important;
+}
+
+#search-msg {
+  margin-top: 6px !important;
+}
+
+#propiedades {
+  padding-top: clamp(24px, 3.2vw, 36px) !important;
+}
+
+.map-controls {
+  min-height: 0 !important;
+  gap: 12px !important;
+}
+
+.map-controls .muted {
+  margin: 2px 0 !important;
+  font-size: 0.95rem !important;
+}
+
+.map-insights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.map-insight {
+  min-height: 74px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.map-insight span {
+  display: block;
+  color: rgba(247, 251, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 750;
+  margin-bottom: 7px;
+}
+
+.map-insight strong {
+  display: block;
+  color: #f7fbff;
+  font-size: 1rem;
+  line-height: 1.18;
+}
+
+.map-insight-wide {
+  grid-column: 1 / -1;
+  min-height: 0;
+}
+
+.map-insight-wide strong {
+  color: var(--vivid-mint);
+  font-size: 0.95rem;
+}
+
+.form-trap {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 900px) {
+  .hero-content h1 {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+  }
+}
+
+/* Loyalty and map spacing */
+.loyalty-section {
+  background: rgba(6, 20, 46, 0.34);
+}
+
+.loyalty-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.loyalty-copy {
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid rgba(101, 255, 191, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(101, 255, 191, 0.14), transparent 38%),
+    rgba(11, 31, 67, 0.76);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
+}
+
+.loyalty-copy p {
+  color: rgba(247, 251, 255, 0.76);
+  margin-bottom: 0;
+}
+
+.loyalty-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.loyalty-card {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  min-height: 150px;
+  text-align: center;
+}
+
+.loyalty-card strong {
+  color: var(--vivid-mint);
+  font-size: clamp(1.65rem, 3vw, 2.45rem);
+  line-height: 1;
+}
+
+.loyalty-card span {
+  color: rgba(247, 251, 255, 0.75);
+  font-weight: 750;
+}
+
+.map-canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px !important;
+}
+
+.map-canvas-wrap .map-canvas {
+  margin-bottom: 0;
+}
+
+.map-legend {
+  align-self: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px !important;
+  margin-top: 4px !important;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(6, 20, 46, 0.72);
+  color: rgba(247, 251, 255, 0.82) !important;
+}
+
+.map-legend span {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .loyalty-grid,
+  .loyalty-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .loyalty-card {
+    min-height: 118px;
+  }
+
+  .map-legend {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .map-insights {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Final Chile polish requested in preview */
+.topbar .brand,
+.brand {
+  background: rgba(5, 18, 42, 0.88) !important;
+  box-shadow: none !important;
+}
+
+.section-eyebrow,
+.loyalty-card strong {
+  color: #ffffff !important;
+}
+
+.loyalty-copy,
+.loyalty-card {
+  border-color: rgba(67, 223, 255, 0.86) !important;
+  box-shadow: 0 0 0 1px rgba(67, 223, 255, 0.12), 0 22px 60px rgba(0, 0, 0, 0.2) !important;
+}
+
+.loyalty-copy {
+  background:
+    linear-gradient(135deg, rgba(67, 223, 255, 0.12), transparent 38%),
+    rgba(11, 31, 67, 0.76) !important;
+}
+
+/* Professional typography pass */
+body,
+button,
+input,
+select,
+textarea {
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+.brand,
+.brand-fallback,
+.menu a,
+.auth-link,
+.auth-action,
+.btn,
+.btn-primary,
+.booking-search-submit,
+.guest-done-btn,
+.section-heading h2,
+.property-card-pro h3,
+.loyalty-card strong {
+  color: #ffffff !important;
+  font-weight: 850 !important;
+  letter-spacing: 0 !important;
+}
+
+p,
+li,
+summary,
+label,
+.muted,
+.section-heading p,
+.hero-content > p,
+.property-card-pro .info p,
+.footer-brand small,
+.footer-policy-link {
+  color: rgba(255, 255, 255, 0.86) !important;
+  font-weight: 560;
+}
+
+.footer-button-link {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.reservation-lookup-panel {
+  border: 1px solid rgba(67, 223, 255, 0.64) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+  max-width: 560px;
+}
+
+.reservation-lookup-form {
+  margin-bottom: 16px;
+}
+
+.reservation-lookup-result {
+  display: grid;
+  gap: 10px;
+}
+
+.reservation-lookup-card {
+  border: 1px solid rgba(67, 223, 255, 0.48);
+  border-radius: 10px;
+  background: rgba(5, 18, 42, 0.72);
+  color: #ffffff;
+  padding: 14px;
+}
+
+.reservation-lookup-card div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reservation-lookup-card strong {
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.reservation-lookup-card span,
+.reservation-lookup-card p,
+.reservation-lookup-empty {
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 650;
+}
+
+.reservation-lookup-card p,
+.reservation-lookup-empty {
+  margin: 8px 0 0;
+}
+
+@media (max-width: 560px) {
+  .reservation-lookup-card div {
+    display: grid;
+  }
+}
+
+.account-summary-bar {
+  position: sticky;
+  top: var(--topbar-height, 72px);
+  z-index: 900;
+  border-top: 1px solid rgba(67, 223, 255, 0.58);
+  border-bottom: 1px solid rgba(67, 223, 255, 0.58);
+  background: rgba(5, 18, 42, 0.96);
+  backdrop-filter: blur(14px);
+  color: #ffffff;
+}
+
+.account-summary-inner {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+}
+
+.account-summary-eyebrow {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+#account-summary-title {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.account-summary-stats {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+}
+
+.account-summary-stats div {
+  min-width: 88px;
+  padding: 8px 10px;
+  border: 1px solid rgba(67, 223, 255, 0.44);
+  border-radius: 10px;
+  background: rgba(15, 42, 87, 0.7);
+}
+
+.account-summary-stats dt,
+.account-summary-stats dd {
+  margin: 0;
+}
+
+.account-summary-stats dt {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.account-summary-stats dd {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.account-summary-link {
+  min-height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff 0%, #6ca9ff 54%, #43dfff 100%);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+  padding: 0 16px;
+}
+
+.account-summary-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.account-summary-link-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(67, 223, 255, 0.58);
+}
+
+.account-panel-card {
+  width: min(720px, calc(100vw - 28px));
+  max-height: min(86vh, 780px);
+  overflow: auto;
+  border: 1px solid rgba(67, 223, 255, 0.68) !important;
+  background: linear-gradient(180deg, rgba(15, 42, 87, 0.98), rgba(5, 18, 42, 0.98)) !important;
+}
+
+.account-panel-body {
+  display: grid;
+  gap: 16px;
+}
+
+.account-panel-hero {
+  border: 1px solid rgba(67, 223, 255, 0.52);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(108, 169, 255, 0.6), rgba(67, 223, 255, 0.24));
+  padding: 18px;
+}
+
+.account-panel-hero span,
+.account-panel-grid span,
+.account-reservation-row span {
+  display: block;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.account-panel-hero strong {
+  display: block;
+  color: #ffffff;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  font-weight: 950;
+  line-height: 1.05;
+  margin-top: 4px;
+}
+
+.account-panel-hero p,
+.account-reservation-row p,
+.account-panel-empty {
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 650;
+  margin: 8px 0 0;
+}
+
+.account-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.account-panel-grid article {
+  border: 1px solid rgba(67, 223, 255, 0.44);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 14px;
+}
+
+.account-panel-grid strong {
+  display: block;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 950;
+  margin-top: 4px;
+}
+
+.account-panel-section {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(5, 18, 42, 0.58);
+}
+
+.account-panel-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.account-panel-section-head h4 {
+  color: #ffffff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.account-inline-link {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.account-panel-reservations {
+  display: grid;
+  gap: 10px;
+}
+
+.account-reservation-row {
+  border: 1px solid rgba(67, 223, 255, 0.38);
+  border-radius: 10px;
+  background: rgba(15, 42, 87, 0.62);
+  padding: 12px;
+}
+
+.account-reservation-row div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.account-reservation-row strong {
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.account-panel-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 760px) {
+  .account-summary-bar {
+    top: 64px;
+  }
+
+  .account-summary-inner {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px 18px;
+  }
+
+  .account-summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .account-summary-stats div {
+    min-width: 0;
+  }
+
+  .account-summary-link {
+    width: 100%;
+  }
+
+  .account-summary-actions,
+  .account-panel-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .account-panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-reservation-row div {
+    display: grid;
+  }
+}
+
+.booking-search-field,
+.guest-picker-popover,
+.search-box input,
+.search-box select,
+.contact-form input,
+.contact-form textarea,
+.newsletter-form input,
+.property-filters input,
+.property-filters select {
+  border-color: rgba(67, 223, 255, 0.78) !important;
+}
+
+.booking-search-field select,
+.booking-search-field input,
+.booking-date-group,
+.guest-picker-toggle,
+.guest-picker-toggle span,
+.guest-row,
+.guest-row span,
+.stepper strong,
+.popover-field span,
+.popover-field input,
+.popover-field select,
+.toggle-row,
+.booking-search-options,
+.booking-search-options label {
+  color: #ffffff !important;
+  font-weight: 820 !important;
+  letter-spacing: 0 !important;
+}
+
+.booking-search-field input,
+.booking-search-field select,
+.guest-picker-toggle,
+.popover-field input,
+.popover-field select,
+.stepper strong {
+  font-size: 0.96rem !important;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1, "case" 1;
+}
+
+.booking-date-group {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100%;
+}
+
+.booking-date-group input[type="date"] {
+  min-width: 0 !important;
+  text-align: center;
+  color-scheme: dark;
+}
+
+.booking-date-group input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.2) sepia(1) saturate(5) hue-rotate(330deg);
+  opacity: 0.95;
+}
+
+.booking-search-icon {
+  color: #8dd8ff !important;
+  font-weight: 900 !important;
+}
+
+.booking-search-field::placeholder,
+.booking-search-field input::placeholder,
+.popover-field input::placeholder {
+  color: rgba(255, 255, 255, 0.76) !important;
+  font-weight: 780 !important;
+}
+
+.property-card-pro .price strong,
+.review-score,
+.rating strong,
+.hero-kpis .kpi strong,
+.map-insight strong {
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.account-billing-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.account-billing-form label {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.account-billing-form label span,
+.account-secure-note {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.account-billing-form input,
+.account-billing-form select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(67, 223, 255, 0.68);
+  border-radius: 10px;
+  background: rgba(3, 16, 38, 0.9);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 750;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.account-billing-form input:focus,
+.account-billing-form select:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(67, 223, 255, 0.28);
+}
+
+.account-field-wide,
+.account-payment-warning,
+.account-billing-msg {
+  grid-column: 1 / -1;
+}
+
+.account-payment-warning {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0;
+  padding: 10px 12px;
+}
+
+.account-billing-msg {
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 850;
+  min-height: 1.2em;
+  margin: 0;
+}
+
+.account-billing-msg.ok {
+  color: #ffffff;
+}
+
+.account-billing-msg.error {
+  color: #ffb4ad;
+}
+
+@media (max-width: 760px) {
+  .account-billing-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Professional visual polish */
+:root {
+  --eu-radius: 8px;
+  --eu-border-soft: rgba(255, 255, 255, 0.14);
+  --eu-border-red: rgba(67, 223, 255, 0.52);
+  --eu-glass: rgba(8, 26, 58, 0.78);
+  --eu-shadow: 0 24px 70px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.card,
+.newsletter,
+.contact-form-wrap,
+.property-card-pro,
+.auth-panel,
+.property-modal-card,
+.booking-search-panel,
+.trust-strip,
+.experience-rail,
+.map-controls,
+.map-canvas-wrap,
+.account-panel-card,
+.account-panel-section,
+.account-panel-grid article,
+.account-reservation-row,
+.reservation-lookup-card {
+  border-radius: var(--eu-radius) !important;
+  border-color: var(--eu-border-red) !important;
+  box-shadow: var(--eu-shadow) !important;
+}
+
+.booking-search-panel,
+.auth-panel,
+.property-modal-card,
+.account-panel-card {
+  background:
+    linear-gradient(180deg, rgba(15, 42, 87, 0.96), rgba(5, 18, 42, 0.97)) !important;
+  backdrop-filter: blur(18px);
+}
+
+.booking-search-field,
+.guest-picker-popover,
+.account-billing-form input,
+.account-billing-form select,
+.auth-form input,
+.reservation-lookup-form input,
+.contact-form input,
+.contact-form textarea,
+.newsletter-form input {
+  border-radius: var(--eu-radius) !important;
+  border-color: rgba(67, 223, 255, 0.62) !important;
+  background: rgba(4, 16, 38, 0.9) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.booking-search-field:focus-within,
+.account-billing-form input:focus,
+.account-billing-form select:focus,
+.auth-form input:focus,
+.reservation-lookup-form input:focus,
+.contact-form input:focus,
+.contact-form textarea:focus,
+.newsletter-form input:focus {
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 0 0 3px rgba(67, 223, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+.btn-primary,
+.btn-reservar,
+.booking-search-submit,
+.guest-done-btn,
+.account-summary-link,
+.auth-action.register-header-btn,
+.mobile-booking-bar a:last-child {
+  border-radius: var(--eu-radius) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #6ca9ff 48%, #43dfff 100%) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 16px 38px rgba(108, 169, 255, 0.24), 0 10px 26px rgba(67, 223, 255, 0.2) !important;
+}
+
+.btn-ghost,
+.btn-ver,
+.account-summary-link-secondary,
+.auth-action.auth-action-secondary {
+  border-radius: var(--eu-radius) !important;
+  border-color: rgba(67, 223, 255, 0.58) !important;
+  background: rgba(8, 26, 58, 0.62) !important;
+  color: #ffffff !important;
+}
+
+.property-card-pro {
+  background:
+    linear-gradient(180deg, rgba(20, 50, 101, 0.88), rgba(7, 21, 47, 0.95)) !important;
+}
+
+.property-card-pro:hover,
+.card:hover,
+.account-panel-grid article:hover {
+  border-color: rgba(255, 255, 255, 0.34) !important;
+  transform: translateY(-2px);
+}
+
+.account-summary-bar {
+  border-bottom: 1px solid rgba(67, 223, 255, 0.6);
+  background: rgba(4, 16, 38, 0.94) !important;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+}
+
+.account-panel-card {
+  width: min(860px, calc(100vw - 28px));
+}
+
+.account-panel-hero,
+.account-panel-section,
+.account-panel-grid article {
+  background:
+    linear-gradient(135deg, rgba(108, 169, 255, 0.38), rgba(67, 223, 255, 0.14)),
+    rgba(5, 18, 42, 0.72) !important;
+}
+
+.account-panel-empty,
+.reservation-lookup-empty {
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  border-radius: var(--eu-radius);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9) !important;
+  padding: 12px;
+}
+
+.account-billing-form button[type="submit"],
+.reservation-lookup-form .btn {
+  min-height: 46px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .property-card-pro:hover,
+  .card:hover,
+  .account-panel-grid article:hover,
+  .btn-primary:hover,
+  .btn-reservar:hover {
+    transform: none !important;
+  }
+}
+
+/* Compact layout pass */
+.section {
+  padding-top: clamp(20px, 2.8vw, 34px) !important;
+  padding-bottom: clamp(20px, 2.8vw, 34px) !important;
+}
+
+.section + .section,
+.section + .servicios,
+.servicios + .section {
+  margin-top: 0 !important;
+}
+
+.experience-rail {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 14px 18px !important;
+}
+
+.experience-item {
+  padding: 12px !important;
+}
+
+.experience-item h3 {
+  margin-bottom: 6px !important;
+}
+
+.experience-item p {
+  line-height: 1.38 !important;
+}
+
+.servicios {
+  padding: clamp(28px, 3vw, 42px) 20px !important;
+}
+
+.servicios h2 {
+  margin-bottom: 18px !important;
+}
+
+.servicios-box {
+  padding: 24px 34px !important;
+}
+
+.servicios-box li {
+  line-height: 1.55 !important;
+  margin-bottom: 8px !important;
+}
+
+.trust-strip,
+.conversion-grid,
+.experience-rail,
+.grid,
+.map-layout {
+  gap: 14px !important;
+}
+
+#servicios {
+  scroll-margin-top: 92px;
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .servicios {
+    padding: 24px 16px !important;
+  }
+
+  .servicios-box {
+    padding: 18px 20px !important;
+  }
+
+  .experience-rail {
+    padding: 12px !important;
+  }
+}
+
+/* Account panel scroll guard and official payment logo */
+.account-panel-modal.auth-modal.open {
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding: calc(var(--topbar-height, 72px) + 20px) 14px 28px !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+}
+
+.account-panel-modal .account-panel-card {
+  width: min(760px, calc(100vw - 28px)) !important;
+  max-height: calc(100vh - var(--topbar-height, 72px) - 56px) !important;
+  max-height: calc(100dvh - var(--topbar-height, 72px) - 56px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
+  scrollbar-gutter: stable;
+}
+
+.account-panel-modal .account-panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: 0 0 12px;
+  background: linear-gradient(180deg, rgba(13, 35, 75, 0.98), rgba(13, 35, 75, 0.9));
+  backdrop-filter: blur(12px);
+}
+
+.account-panel-modal .account-panel-body {
+  padding-bottom: 18px !important;
+}
+
+.account-billing-form button[type="submit"] {
+  margin-top: 6px !important;
+}
+
+.pay-chip--mercadopago {
+  background: #ffffff !important;
+  border-color: rgba(0, 158, 227, 0.38) !important;
+}
+
+.pay-chip img.payment-logo {
+  display: block;
+  width: 108px;
+  max-width: 100%;
+  max-height: 30px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 760px) {
+  .account-panel-modal.auth-modal.open {
+    padding: calc(env(safe-area-inset-top) + 78px) 10px max(18px, env(safe-area-inset-bottom)) !important;
+  }
+
+  .account-panel-modal .account-panel-card {
+    width: min(100%, 520px) !important;
+    max-height: calc(100vh - 96px) !important;
+    max-height: calc(100dvh - 96px) !important;
+    border-radius: 18px !important;
+  }
+}
+
+/* Restore original cyan visual system */
+:root {
+  --vivid-mint: #65ffbf !important;
+  --urban-mint: #25d987 !important;
+  --success: #25d987 !important;
+  --eu-border-red: rgba(101, 255, 191, 0.42) !important;
+}
+
+.topbar::after {
+  background: linear-gradient(90deg, transparent, #65ffbf, #43dfff, transparent) !important;
+}
+
+.brand,
+.topbar .brand,
+.brand-logo {
+  background: #071833 !important;
+  border-color: rgba(101, 255, 191, 0.18) !important;
+  box-shadow: none !important;
+}
+
+.brand::before {
+  background: linear-gradient(90deg, #65ffbf 0 38%, #43dfff 38% 72%, #7ca8ff 72% 100%) !important;
+}
+
+.brand::after {
+  display: none !important;
+}
+
+.brand-title,
+.brand-fallback,
+.footer-brand strong {
+  color: #65ffbf !important;
+  text-shadow: 0 0 18px rgba(67, 223, 255, 0.22) !important;
+}
+
+.btn-primary,
+.booking-search-submit,
+.btn-reservar,
+.auth-action.register-header-btn,
+.register-header-btn,
+.account-billing-form button[type="submit"],
+.newsletter-form .btn,
+.contact-form .btn {
+  background: linear-gradient(135deg, #65ffbf 0%, #43dfff 52%, #7ca8ff 100%) !important;
+  color: #071833 !important;
+  border-color: rgba(101, 255, 191, 0.38) !important;
+}
+
+.btn-primary:hover,
+.booking-search-submit:hover,
+.btn-reservar:hover,
+.auth-action.register-header-btn:hover,
+.register-header-btn:hover {
+  background: linear-gradient(135deg, #7affc9 0%, #5fe7ff 52%, #91b8ff 100%) !important;
+  color: #071833 !important;
+}
+
+.topbar .locale-controls select,
+.topbar .top-actions .locale-controls select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, #65ffbf 50%),
+    linear-gradient(135deg, #65ffbf 50%, transparent 50%),
+    linear-gradient(180deg, rgba(17, 48, 91, 0.98), rgba(8, 27, 58, 0.98)) !important;
+}
+
+.booking-date-group input[type="date"]::-webkit-calendar-picker-indicator,
+.date-row input[type="date"]::-webkit-calendar-picker-indicator,
+.auth-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(2) contrast(1.2) !important;
+  opacity: 1 !important;
+}
+
+.account-panel-modal.auth-modal.open {
+  z-index: 3200 !important;
+  padding-top: calc(var(--topbar-height, 72px) + 42px) !important;
+}
+
+.account-panel-modal .account-panel-card {
+  max-height: calc(100vh - var(--topbar-height, 72px) - 92px) !important;
+  max-height: calc(100dvh - var(--topbar-height, 72px) - 92px) !important;
+}
+
+/* Final return to cyan brand */
+:root {
+  --brand: #43dfff !important;
+  --brand-dark: #2fc7ef !important;
+  --vivid-mint: #65ffbf !important;
+  --urban-mint: #65ffbf !important;
+}
+
+.topbar {
+  border-bottom-color: rgba(67, 223, 255, 0.24) !important;
+}
+
+.brand,
+.topbar .brand {
+  min-width: 238px !important;
+  min-height: 54px !important;
+  padding: 0 18px !important;
+  border-radius: 10px !important;
+  background: #071833 !important;
+}
+
+.brand-logo {
+  display: none !important;
+}
+
+.brand-fallback {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  clip: auto !important;
+  overflow: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  color: #43dfff !important;
+  font-size: clamp(1.02rem, 1.45vw, 1.35rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 16px rgba(67, 223, 255, 0.34) !important;
+}
+
+.brand::before {
+  background: linear-gradient(90deg, #65ffbf 0 45%, #43dfff 45% 100%) !important;
+}
+
+.brand::after {
+  display: none !important;
+}
+
+.auth-action.register-header-btn,
+.register-header-btn,
+.btn-primary,
+.booking-search-submit,
+.btn-reservar,
+.account-billing-form button[type="submit"],
+.newsletter-form .btn,
+.contact-form .btn {
+  background: linear-gradient(135deg, #65ffbf 0%, #43dfff 55%, #6ca9ff 100%) !important;
+  color: #071833 !important;
+  border: 1px solid rgba(67, 223, 255, 0.32) !important;
+  box-shadow: 0 14px 28px rgba(67, 223, 255, 0.16) !important;
+}
+
+.auth-action.auth-action-secondary,
+.login-btn,
+.btn-ghost {
+  border-color: rgba(67, 223, 255, 0.38) !important;
+  color: #eaf8ff !important;
+}
+
+.section-eyebrow,
+.account-secure-note,
+.property-card-pro .price strong {
+  color: #43dfff !important;
+}
+
+/* Remove Chile color palette leftovers */
+:root {
+  --chile-red: #43dfff !important;
+  --chile-blue: #0b2a5b !important;
+  --chile-white: #65ffbf !important;
+  --eu-border-red: rgba(67, 223, 255, 0.36) !important;
+}
+
+.topbar::after {
+  background: linear-gradient(90deg, transparent, #43dfff, #65ffbf, transparent) !important;
+}
+
+[class*="red"],
+.host-property-card,
+.account-panel-section,
+.account-panel-card,
+.account-summary-card,
+.reservation-lookup-panel,
+.reservation-lookup-card,
+.auth-panel,
+.card {
+  border-color: rgba(67, 223, 255, 0.28) !important;
+}
+
+.save-property.is-saved {
+  background: #43dfff !important;
+  border-color: #43dfff !important;
+  color: #071833 !important;
+}
+
+.property-card-pro .btn-reservar,
+.option-pay,
+.option-reserve,
+.property-modal-reserve,
+.btn-reservar,
+.btn-primary,
+.register-header-btn,
+.auth-action.register-header-btn {
+  background: linear-gradient(135deg, #65ffbf 0%, #43dfff 55%, #6ca9ff 100%) !important;
+  color: #071833 !important;
+}
+
+.topbar .locale-controls select,
+.topbar .top-actions .locale-controls select {
+  border-color: rgba(67, 223, 255, 0.44) !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #65ffbf 50%),
+    linear-gradient(135deg, #65ffbf 50%, transparent 50%),
+    linear-gradient(180deg, rgba(17, 48, 91, 0.98), rgba(8, 27, 58, 0.98)) !important;
+}
+
+.section-eyebrow,
+.account-secure-note,
+.host-status,
+.review-score,
+.property-card-pro .price strong,
+.footer-policy-link:hover,
+.footer-button-link:hover {
+  color: #43dfff !important;
+}
+
+/* Pure sky-blue restore: no Chile palette, no green dominance */
+:root {
+  --brand: #6ca9ff !important;
+  --brand-dark: #43dfff !important;
+  --vivid-mint: #43dfff !important;
+  --urban-mint: #43dfff !important;
+  --success: #43dfff !important;
+  --eu-border-red: rgba(108, 169, 255, 0.42) !important;
+}
+
+.topbar::after,
+.brand::before {
+  background: linear-gradient(90deg, transparent, #43dfff, #8dd8ff, #6ca9ff, transparent) !important;
+}
+
+.brand,
+.topbar .brand {
+  background: #071833 !important;
+  border: 1px solid rgba(108, 169, 255, 0.22) !important;
+}
+
+.brand-logo {
+  display: none !important;
+}
+
+.brand-fallback {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  clip: auto !important;
+  clip-path: none !important;
+  overflow: visible !important;
+  display: inline-flex !important;
+  color: #8dd8ff !important;
+  -webkit-text-fill-color: #8dd8ff !important;
+  text-shadow: 0 0 18px rgba(141, 216, 255, 0.42) !important;
+}
+
+.btn-primary,
+.booking-search-submit,
+.btn-reservar,
+.property-card-pro .btn-reservar,
+.auth-action.register-header-btn,
+.register-header-btn,
+.account-billing-form button[type="submit"],
+.newsletter-form .btn,
+.contact-form .btn,
+.option-pay,
+.property-modal-reserve {
+  background: linear-gradient(135deg, #8dd8ff 0%, #43dfff 52%, #6ca9ff 100%) !important;
+  color: #06142e !important;
+  border-color: rgba(141, 216, 255, 0.5) !important;
+  box-shadow: 0 14px 28px rgba(67, 223, 255, 0.18) !important;
+}
+
+.btn-primary:hover,
+.booking-search-submit:hover,
+.btn-reservar:hover,
+.property-card-pro .btn-reservar:hover,
+.auth-action.register-header-btn:hover,
+.register-header-btn:hover {
+  background: linear-gradient(135deg, #b9ecff 0%, #64e8ff 52%, #87b9ff 100%) !important;
+}
+
+.section-eyebrow,
+.account-secure-note,
+.host-status,
+.review-score,
+.property-card-pro .price strong,
+.footer-brand strong,
+.footer-policy-link:hover,
+.footer-button-link:hover {
+  color: #8dd8ff !important;
+}
+
+.card,
+.auth-panel,
+.account-panel-card,
+.account-panel-section,
+.property-card-pro,
+.reservation-lookup-panel,
+.reservation-lookup-card,
+.host-property-card {
+  border-color: rgba(108, 169, 255, 0.32) !important;
+}
+
+.topbar .locale-controls select,
+.topbar .top-actions .locale-controls select {
+  border-color: rgba(141, 216, 255, 0.48) !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8dd8ff 50%),
+    linear-gradient(135deg, #8dd8ff 50%, transparent 50%),
+    linear-gradient(180deg, rgba(17, 48, 91, 0.98), rgba(8, 27, 58, 0.98)) !important;
+}
+

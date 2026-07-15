@@ -1,0 +1,117 @@
+/* Tema celeste restaurado: este archivo se carga al final y gana sobre estilos antiguos. */
+:root {
+  --brand: #6ca9ff;
+  --brand-dark: #43dfff;
+  --vivid-mint: #43dfff;
+  --urban-mint: #43dfff;
+  --success: #43dfff;
+  --eu-line: rgba(108, 169, 255, 0.34);
+  --eu-line-soft: rgba(141, 216, 255, 0.24);
+}
+
+.topbar,
+.account-summary-bar {
+  border-color: var(--eu-line-soft) !important;
+  box-shadow: none !important;
+}
+
+.topbar::after,
+.brand::before {
+  background: linear-gradient(90deg, transparent, #43dfff, #8dd8ff, #6ca9ff, transparent) !important;
+}
+
+.brand,
+.topbar .brand {
+  min-width: 238px !important;
+  min-height: 54px !important;
+  padding: 0 18px !important;
+  border: 1px solid var(--eu-line-soft) !important;
+  border-radius: 10px !important;
+  background: #071833 !important;
+}
+
+.brand-logo {
+  display: none !important;
+}
+
+.brand-fallback {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  clip: auto !important;
+  clip-path: none !important;
+  overflow: visible !important;
+  display: inline-flex !important;
+  color: #8dd8ff !important;
+  -webkit-text-fill-color: #8dd8ff !important;
+  font-size: clamp(1.02rem, 1.45vw, 1.35rem) !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 18px rgba(141, 216, 255, 0.38) !important;
+}
+
+.card,
+.auth-panel,
+.hero-search,
+.account-summary-card,
+.account-panel-card,
+.account-panel-section,
+.property-card-pro,
+.kpi,
+.booking-date-group,
+.guest-selector-trigger,
+.hero-search select,
+.hero-search input,
+.auth-form input,
+.auth-form select,
+.account-billing-form input,
+.account-billing-form select,
+.contact-form input,
+.contact-form textarea {
+  border-color: var(--eu-line) !important;
+}
+
+.btn-primary,
+.booking-search-submit,
+.btn-reservar,
+.property-card-pro .btn-reservar,
+.auth-action.register-header-btn,
+.register-header-btn,
+.account-summary-link,
+.account-billing-form button[type="submit"],
+.newsletter-form .btn,
+.contact-form .btn,
+.option-pay,
+.property-modal-reserve {
+  background: linear-gradient(135deg, #8dd8ff 0%, #43dfff 52%, #6ca9ff 100%) !important;
+  color: #06142e !important;
+  border-color: rgba(141, 216, 255, 0.5) !important;
+  box-shadow: 0 14px 28px rgba(67, 223, 255, 0.18) !important;
+}
+
+.auth-action.auth-action-secondary,
+.login-btn,
+.btn-ghost,
+.footer-policy-link,
+.footer-button-link {
+  border-color: var(--eu-line) !important;
+}
+
+.section-eyebrow,
+.account-secure-note,
+.host-status,
+.review-score,
+.property-card-pro .price strong,
+.footer-brand strong {
+  color: #8dd8ff !important;
+}
+
+.topbar .locale-controls select,
+.topbar .top-actions .locale-controls select {
+  border-color: rgba(141, 216, 255, 0.48) !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8dd8ff 50%),
+    linear-gradient(135deg, #8dd8ff 50%, transparent 50%),
+    linear-gradient(180deg, rgba(17, 48, 91, 0.98), rgba(8, 27, 58, 0.98)) !important;
+}

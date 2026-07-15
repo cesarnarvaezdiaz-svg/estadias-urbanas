@@ -24,7 +24,7 @@ $tipo = host_clean($input['tipo_vivienda'] ?? '', 120);
 $capacidad = host_clean($input['capacidad'] ?? '', 120);
 $direccion = host_clean($input['direccion'] ?? '', 190);
 $mensaje = host_clean($input['mensaje'] ?? '', 1200);
-$fotosUrl = host_clean($input['fotos_url'] ?? '', 600);
+$fotosUrl = host_clean($input['fotos_url'] ?? '', 4000);
 $precio = trim((string)($input['precio_noche'] ?? ''));
 $precioNoche = $precio === '' ? null : round((float)$precio, 2);
 
@@ -58,7 +58,7 @@ try {
         capacidad VARCHAR(120) NOT NULL,
         direccion VARCHAR(190) NOT NULL,
         mensaje TEXT NOT NULL,
-        fotos_url VARCHAR(600) NULL,
+        fotos_url TEXT NULL,
         precio_noche_usd DECIMAL(10,2) NULL,
         estado VARCHAR(40) NOT NULL DEFAULT 'en_revision',
         comision_rate DECIMAL(5,4) NOT NULL DEFAULT 0.1100,
@@ -70,7 +70,7 @@ try {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
     $optional = [
-        "ALTER TABLE solicitudes_anfitrion ADD COLUMN fotos_url VARCHAR(600) NULL AFTER mensaje",
+        "ALTER TABLE solicitudes_anfitrion ADD COLUMN fotos_url TEXT NULL AFTER mensaje",
         "ALTER TABLE solicitudes_anfitrion ADD COLUMN precio_noche_usd DECIMAL(10,2) NULL AFTER fotos_url",
         "ALTER TABLE solicitudes_anfitrion ADD COLUMN comision_rate DECIMAL(5,4) NOT NULL DEFAULT 0.1100 AFTER estado",
         "ALTER TABLE solicitudes_anfitrion ADD COLUMN iva_rate DECIMAL(5,4) NOT NULL DEFAULT 0.1900 AFTER comision_rate",

@@ -470,10 +470,10 @@
             </div>
             <div class="grid grid-2">
               <label><span>Precio sugerido por noche (USD)</span><input name="precio_noche" type="number" min="0" step="0.01" placeholder="Ej: 70" /></label>
-              <label><span>Links de fotos</span><input name="fotos_url" placeholder="Pega links separados por coma o salto de linea" /></label>
+              <label><span>Fotos de la propiedad (hasta 15 URLs)</span><textarea name="fotos_url" rows="3" maxlength="4000" placeholder="Pega hasta 15 links de fotos, separados por coma o salto de linea"></textarea><small class="field-help">La primera foto sera la portada visible en propiedades.</small></label>
             </div>
             <label><span data-i18n="contactAddress">Dirección o sector del inmueble</span><input name="direccion" placeholder="No publiques datos sensibles si prefieres evaluación previa" required /></label>
-            <label><span data-i18n="contactMessage">Descripción del inmueble</span><textarea name="mensaje" rows="4" placeholder="Cuenta si está amoblado, servicios incluidos, disponibilidad, estacionamiento, fotos disponibles y condiciones para arrendarlo." required></textarea></label>
+            <label><span data-i18n="contactMessage">Descripción del inmueble</span><textarea name="mensaje" rows="4" maxlength="1200" placeholder="Cuenta si está amoblado, servicios incluidos, disponibilidad, estacionamiento y condiciones para arrendarlo." required></textarea></label>
             <button class="btn btn-primary" type="submit" data-i18n="contactButton">Enviar solicitud de anfitrión</button>
             <p id="contact-msg" class="msg" aria-live="polite"></p>
           </form>

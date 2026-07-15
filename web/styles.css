@@ -1387,7 +1387,7 @@ summary {
   }
 }
 
-/* ANIMACIÓN */
+/* ANIMACI聛0聢7N */
 @keyframes pulse-card {
   from {
     opacity: 0.55;
@@ -1511,7 +1511,7 @@ summary {
   z-index: 5;
 }
 
-/* Ajusté posiciones para Sudamérica */
+/* Ajust篓娄 posiciones para Sudam篓娄rica */
 
 
 .pin-dot {
@@ -1547,7 +1547,7 @@ summary {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 🔥 CLAVE */
+  object-fit: cover; /* 聰9忙7 CLAVE */
   z-index: 1;
 }
 .map-price-pin.guatavita {
@@ -2176,4 +2176,11 @@ button:hover {
 
 body:not(.is-authenticated) .session-notice {
   background: #334155;
+}
+
+.field-help {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted, #9fb2d8);
+  font-size: 0.82rem;
 }

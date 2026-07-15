@@ -376,6 +376,61 @@
     });
   }
 
+
+  function parseHostPhotoUrls(value) {
+    const seen = new Set();
+    return String(value || '')
+      .split(/[\n,]+/)
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .filter((item) => /^https?:\/\//i.test(item) || /^(assets|fotos\s+agustinas\s+plaza)\//i.test(item))
+      .filter((item) => {
+        const key = item.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, 15);
+  }
+
+  function publishHostPropertyPreview(payload, result = {}) {
+    const photos = parseHostPhotoUrls(payload.fotos_url);
+    const price = Number(payload.precio_noche);
+    const guests = Math.max(1, parseInt(String(payload.capacidad || '').match(/\d+/)?.[0] || '2', 10));
+    const listing = {
+      id: result.id || `local-${Date.now()}`,
+      title: `${payload.tipo_vivienda} en ${payload.ciudad}`,
+      city: payload.ciudad.split(',')[0].trim() || payload.ciudad,
+      location: payload.direccion,
+      price: Number.isFinite(price) && price > 0 ? price : 70,
+      minRooms: 1,
+      maxRooms: Math.max(1, parseInt(String(payload.capacidad || '').match(/(\d+)\s*(habitaci|hab)/i)?.[1] || '1', 10)),
+      minBeds: 1,
+      maxBeds: Math.max(1, guests),
+      image: photos[0] || 'assets/cities/santiago.jpg',
+      gallery: photos.length ? photos : ['assets/cities/santiago.jpg'],
+      description: payload.mensaje,
+      guests,
+      rating: 4.9,
+      reviews: 0,
+      type: payload.tipo_vivienda,
+      distance: 'Publicación ingresada por anfitrión',
+      distanceKm: '',
+      featured: true,
+      features: ['Reserva por fechas', 'Calendario disponible', 'Solicitud de anfitrión']
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('urban.hostProperties') || '[]');
+      saved.unshift(listing);
+      localStorage.setItem('urban.hostProperties', JSON.stringify(saved.slice(0, 30)));
+    } catch {
+      // noop
+    }
+
+    document.dispatchEvent(new CustomEvent('urban:host-property-created', { detail: listing }));
+  }
+
   function initContactForm() {
     const form = qs('#contact-form');
     const msg = qs('#contact-msg');
@@ -395,12 +450,22 @@
       const precioNoche = String(data.get('precio_noche') || '').trim();
       const fotosUrl = String(data.get('fotos_url') || '').trim();
 
+      const photos = parseHostPhotoUrls(fotosUrl);
+
       if (!nombre || !email || !telefono || !ciudad || !tipoVivienda || !capacidad || !direccion || !mensaje) {
         setMessage(msg, 'Completa los datos de propietario e inmueble para evaluar la publicación.', 'error');
         return;
       }
       if (!validateEmail(email)) {
         setMessage(msg, 'Email inválido para la solicitud de anfitrión.', 'error');
+        return;
+      }
+      if (photos.length === 0) {
+        setMessage(msg, 'Ingresa al menos una foto válida (URL http/https) para publicar la propiedad.', 'error');
+        return;
+      }
+      if (!precioNoche || Number(precioNoche) <= 0) {
+        setMessage(msg, 'Ingresa un precio por noche mayor a cero.', 'error');
         return;
       }
 
@@ -430,14 +495,16 @@
       try {
         const result = await postJsonEndpoint('solicitud_anfitrion.php', payload);
         persistContact({ ...payload, serverId: result.id, commission: result.commission });
-        setMessage(msg, result.message || 'Solicitud de anfitrión guardada. La verás en tu intranet con el mismo email.');
+        publishHostPropertyPreview(payload, result);
+        setMessage(msg, result.message || 'Solicitud de anfitrión guardada y propiedad publicada para reservas.');
         form.reset();
         document.dispatchEvent(new CustomEvent('urban:contact', { detail: { ...payload, result } }));
         document.dispatchEvent(new CustomEvent('urban:owner-lead', { detail: { ...payload, result } }));
         updateLiveStats();
       } catch (error) {
         persistContact(payload);
-        setMessage(msg, error.message || 'No se pudo guardar online. Intenta nuevamente.', 'error');
+        publishHostPropertyPreview(payload);
+        setMessage(msg, 'No se pudo guardar online, pero la propiedad quedó visible en este navegador para probar reservas.', 'error');
       } finally {
         if (button) {
           button.disabled = false;

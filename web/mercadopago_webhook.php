@@ -65,36 +65,57 @@ $paymentStatus = (string)($payment['status'] ?? '');
 $metadata = is_array($payment['metadata'] ?? null) ? $payment['metadata'] : [];
 $holdToken = preg_replace('/[^a-f0-9]/', '', (string)($metadata['hold_token'] ?? ''));
 
-function mp_update_reservation_status($holdToken, $status) {
-    if ($holdToken === '') return false;
-    try {
-        $pdo = estadias_get_db_connection();
-        if (!$pdo) return false;
-        estadias_bootstrap_booking_schema($pdo);
-        $stmt = $pdo->prepare("UPDATE reservas SET estado = :status, updated_at = UTC_TIMESTAMP() WHERE hold_token = :token");
-        $stmt->execute([':status' => $status, ':token' => $holdToken]);
-        return $stmt->rowCount() > 0;
-    } catch (Throwable $e) {
-        error_log('mp_update_reservation_status: ' . $e->getMessage());
-        return false;
-    }
-}
-
 if (in_array($paymentStatus, ['cancelled', 'rejected', 'refunded', 'charged_back'], true) && $holdToken !== '') {
     estadias_release_hold($holdToken);
-    mp_update_reservation_status($holdToken, 'cancelada');
+    try {
+        $pdo = estadias_get_db_connection();
+        if ($pdo) {
+            estadias_mark_reservation_payment($pdo, $holdToken, [
+                'status' => $paymentStatus,
+                'payment_id' => $paymentId,
+                'preference_id' => $payment['preference_id'] ?? null,
+            ]);
+        }
+    } catch (Throwable $e) {
+        error_log('mp_rejected_mark_payment: ' . $e->getMessage());
+    }
     echo json_encode(['status' => 'success', 'message' => 'Pago no aprobado; bloqueo liberado.']);
     exit;
 }
 
 if ($paymentStatus !== 'approved') {
+    if ($holdToken !== '') {
+        try {
+            $pdo = estadias_get_db_connection();
+            if ($pdo) {
+                estadias_mark_reservation_payment($pdo, $holdToken, [
+                    'status' => $paymentStatus,
+                    'payment_id' => $paymentId,
+                    'preference_id' => $payment['preference_id'] ?? null,
+                ]);
+            }
+        } catch (Throwable $e) {
+            error_log('mp_pending_mark_payment: ' . $e->getMessage());
+        }
+    }
     echo json_encode(['status' => 'success', 'message' => 'Pago recibido en estado ' . $paymentStatus . '.']);
     exit;
 }
 
 if ($holdToken !== '') {
     estadias_confirm_hold($holdToken);
-    mp_update_reservation_status($holdToken, 'pagada');
+    try {
+        $pdo = estadias_get_db_connection();
+        if ($pdo) {
+            estadias_mark_reservation_payment($pdo, $holdToken, [
+                'status' => $paymentStatus,
+                'payment_id' => $paymentId,
+                'preference_id' => $payment['preference_id'] ?? null,
+            ]);
+        }
+    } catch (Throwable $e) {
+        error_log('mp_approved_mark_payment: ' . $e->getMessage());
+    }
 }
 
 $payer = is_array($payment['payer'] ?? null) ? $payment['payer'] : [];

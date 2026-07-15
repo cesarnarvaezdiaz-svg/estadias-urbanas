@@ -564,6 +564,18 @@
 
   function socialLoginUrl(provider) {
     const cleanProvider = encodeURIComponent(provider);
+    if (provider === 'google') {
+      const googleClientId = '211056906904-j0fo6gmarci60n9g73f4ksrccua3ub23.apps.googleusercontent.com';
+      const redirectUri = 'https://www.estadiasurbanas.com/callback_google.php';
+      const params = new URLSearchParams({
+        client_id: googleClientId,
+        redirect_uri: redirectUri,
+        response_type: 'code',
+        scope: 'email profile',
+        prompt: 'select_account'
+      });
+      return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+    }
     const localHost = ['127.0.0.1', 'localhost', '::1'].includes(window.location.hostname);
     if (window.location.protocol === 'file:' || localHost) {
       return `https://www.estadiasurbanas.com/oauth_start.php?provider=${cleanProvider}`;
@@ -748,6 +760,7 @@
         oauth_state: 'No se pudo validar la sesión social. Intenta nuevamente.',
         oauth_token: 'No se pudo validar la cuenta social.',
         oauth_email: 'El proveedor no entregó un email verificable.',
+        oauth_db: 'No pudimos conectar con la base de datos. Revisa la configuración DB_* en HostGator.',
         oauth_provider: 'Proveedor no permitido.'
       };
       setAuthMessage(messages[authError] || 'No se pudo iniciar sesión social.', 'error');

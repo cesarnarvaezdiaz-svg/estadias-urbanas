@@ -125,5 +125,28 @@ if ($action === 'oauth_apple') {
     mobile_json_success($session + ['user' => mobile_user_payload($user)]);
 }
 
+if ($action === 'oauth_facebook') {
+    require_once __DIR__ . '/oauth_config.php';
+    $accessToken = trim((string)($input['access_token'] ?? ''));
+    $config = oauth_provider_config('facebook');
+    $appId = (string)($config['client_id'] ?? getenv('FACEBOOK_APP_ID') ?: '');
+    $appSecret = (string)($config['client_secret'] ?? getenv('FACEBOOK_APP_SECRET') ?: '');
+    if ($appId === '' || $appSecret === '') mobile_json_error('Facebook no esta configurado en el servidor.', 503);
+    if ($accessToken === '') mobile_json_error('Facebook no entrego una autorizacion valida.');
+
+    $debug = mobile_http_get_json('https://graph.facebook.com/debug_token?input_token=' . rawurlencode($accessToken) . '&access_token=' . rawurlencode($appId . '|' . $appSecret));
+    $debugData = is_array($debug['data'] ?? null) ? $debug['data'] : [];
+    if (empty($debugData['is_valid']) || (string)($debugData['app_id'] ?? '') !== $appId) {
+        mobile_json_error('Facebook rechazo la identidad de la aplicacion.', 401);
+    }
+
+    $profile = mobile_http_get_json('https://graph.facebook.com/me?fields=id,name,email&access_token=' . rawurlencode($accessToken));
+    $email = filter_var($profile['email'] ?? '', FILTER_VALIDATE_EMAIL);
+    if (!$email) mobile_json_error('Facebook no entrego un correo valido. Revisa que la app tenga permiso de email.', 401);
+    $user = mobile_find_or_create_oauth_user($pdo, $email, (string)($profile['name'] ?? 'Huésped'));
+    $session = mobile_issue_token($pdo, $user, $deviceName);
+    mobile_json_success($session + ['user' => mobile_user_payload($user)]);
+}
+
 mobile_json_error('Accion no reconocida.', 400);
 ?>

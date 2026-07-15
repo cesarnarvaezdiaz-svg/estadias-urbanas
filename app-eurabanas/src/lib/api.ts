@@ -56,7 +56,7 @@ export const api = {
     });
   },
 
-  oauth(provider: "google" | "apple", data: Record<string, string>) {
+  oauth(provider: "google" | "apple" | "facebook", data: Record<string, string>) {
     return apiRequest<AuthResponse>("mobile_auth.php", {
       method: "POST",
       body: JSON.stringify({ action: `oauth_${provider}`, ...data, device_name: "Estadías Urbanas App" }),

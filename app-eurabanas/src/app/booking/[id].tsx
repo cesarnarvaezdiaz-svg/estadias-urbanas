@@ -26,10 +26,12 @@ export default function BookingScreen() {
   const [email, setEmail] = useState(user?.email ?? "");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState<"reserve" | "payment" | null>(null);
+  const mercadoPagoReady = (process.env.EXPO_PUBLIC_ENABLE_MERCADO_PAGO || "true") !== "false";
 
   const nights = nightsBetween(checkIn, checkOut);
   const nightlyPrice = option?.priceUsd ?? property?.priceUsd ?? 0;
   const total = useMemo(() => nights * nightlyPrice, [nightlyPrice, nights]);
+  const canPay = mercadoPagoReady && nights > 0 && total > 0;
 
   if (!property) return <Screen><Text>Alojamiento no encontrado.</Text></Screen>;
   const selectedProperty = property;
@@ -82,8 +84,11 @@ export default function BookingScreen() {
     try {
       const availability = await api.availability(input);
       if (!availability.available) throw new Error(availability.message);
+      if (!canPay) throw new Error("Mercado Pago no está disponible o el total no es válido.");
       const result = await api.createPayment(input);
-      await WebBrowser.openBrowserAsync(result.init_point, {
+      const checkoutUrl = result.init_point || result.sandbox_init_point;
+      if (!checkoutUrl) throw new Error("Mercado Pago no entregó una URL de checkout válida.");
+      await WebBrowser.openBrowserAsync(checkoutUrl, {
         presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
         controlsColor: colors.navy,
       });
@@ -133,8 +138,16 @@ export default function BookingScreen() {
         <Text style={styles.total}>USD ${total}</Text>
       </View>
 
+      <View style={styles.paymentCard}>
+        <Text style={styles.paymentTitle}>Mercado Pago validado</Text>
+        <Text style={styles.paymentItem}>• Checkout Pro abre fuera de la app para cumplir buenas prácticas.</Text>
+        <Text style={styles.paymentItem}>• La disponibilidad se confirma antes de crear la preferencia.</Text>
+        <Text style={styles.paymentItem}>• El webhook del servidor actualiza el estado de pago en web y app.</Text>
+        {!mercadoPagoReady ? <Text style={styles.paymentWarning}>Mercado Pago está deshabilitado por configuración.</Text> : null}
+      </View>
+
       <View style={styles.actions}>
-        <AppButton label="Pagar con Mercado Pago" icon="card-outline" loading={loading === "payment"} disabled={Boolean(loading)} onPress={() => void pay()} />
+        <AppButton label="Pagar con Mercado Pago" icon="card-outline" loading={loading === "payment"} disabled={Boolean(loading) || !canPay} onPress={() => void pay()} />
         <AppButton label="Reservar y pagar después" variant="secondary" loading={loading === "reserve"} disabled={Boolean(loading)} onPress={() => void reserve()} />
       </View>
       <Text style={styles.secure}>Las fechas se bloquean en la misma base de datos utilizada por la web.</Text>
@@ -161,6 +174,10 @@ const styles = StyleSheet.create({
   totalLabel: { color: colors.text, fontWeight: "800" },
   totalHint: { color: colors.textMuted, fontSize: 11, maxWidth: 220, marginTop: 4 },
   total: { color: colors.navy, fontSize: 22, fontWeight: "900" },
+  paymentCard: { marginTop: spacing.md, padding: spacing.md, borderRadius: radius.md, backgroundColor: colors.successSoft, gap: 4 },
+  paymentTitle: { color: colors.success, fontWeight: "900" },
+  paymentItem: { color: colors.text, fontSize: 12, lineHeight: 18 },
+  paymentWarning: { color: colors.warning, fontSize: 12, fontWeight: "800", marginTop: 4 },
   actions: { gap: spacing.sm, marginTop: spacing.md },
   secure: { color: colors.textMuted, fontSize: 12, lineHeight: 18, textAlign: "center", marginTop: spacing.md },
 });

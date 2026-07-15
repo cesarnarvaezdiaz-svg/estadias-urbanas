@@ -8,7 +8,8 @@ Aplicación móvil para Android e iOS construida con React Native, Expo SDK 57, 
 - Búsqueda por destino y cantidad de huéspedes.
 - Ficha del alojamiento y tipos de departamento.
 - Registro e inicio de sesión tradicional.
-- Flujo OAuth con Google mediante PKCE.
+- Flujo OAuth con Google con validación de `id_token` en el servidor.
+- Inicio de sesión con Facebook validando `access_token` contra la App ID del servidor.
 - Inicio de sesión con Apple en iOS.
 - Sesión móvil protegida en `SecureStore`.
 - Consulta de puntos, nivel, noches y reservas.
@@ -41,9 +42,11 @@ EXPO_PUBLIC_GOOGLE_CLIENT_ID=CLIENT_ID_GENERAL_DE_GOOGLE
 EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID=CLIENT_ID_IOS_DE_GOOGLE
 EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID=CLIENT_ID_ANDROID_DE_GOOGLE
 EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=CLIENT_ID_WEB_DE_GOOGLE
+EXPO_PUBLIC_FACEBOOK_APP_ID=APP_ID_DE_FACEBOOK
+EXPO_PUBLIC_ENABLE_MERCADO_PAGO=true
 ```
 
-Google OAuth usa autorización nativa con PKCE y validación del `id_token` en el servidor. Apple intercambia el código de autorización en el servidor. Ambos requieren credenciales reales en los portales de Google y Apple; el código no inventa ni incorpora secretos.
+Google OAuth usa autorización nativa y validación del `id_token` en el servidor. Facebook abre el diálogo OAuth nativo, entrega un `access_token` y el servidor lo valida con `debug_token` antes de crear sesión. Apple intercambia el código de autorización en el servidor. Los tres proveedores requieren credenciales reales en sus portales; el código no inventa ni incorpora secretos.
 
 ## Sincronización con la web
 
@@ -98,3 +101,4 @@ server-sync/             endpoints PHP para compartir la web y MySQL
 - El servidor guarda únicamente el hash SHA-256 del token.
 - Las consultas de cuenta y reservas usan el correo del usuario autenticado; la app no puede solicitar los datos de otro correo.
 - Los precios se vuelven a validar en el servidor antes de crear la preferencia de Mercado Pago.
+- La app puede deshabilitar el botón de pago con `EXPO_PUBLIC_ENABLE_MERCADO_PAGO=false` sin tocar el backend.

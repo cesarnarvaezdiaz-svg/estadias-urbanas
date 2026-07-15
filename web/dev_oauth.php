@@ -3,7 +3,11 @@
 ini_set('display_errors', '0');
 error_reporting(E_ALL);
 require_once __DIR__ . '/security.php';
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/oauth_config.php';
+if (file_exists(__DIR__ . '/config.php')) {
+    require_once __DIR__ . '/config.php';
+}
+require_once __DIR__ . '/oauth_db.php';
 
 security_send_common_headers();
 security_no_store();
@@ -24,7 +28,14 @@ if (!$email) {
     exit;
 }
 
+$pdo = oauth_get_db_connection();
+if (!$pdo) {
+    header('Location: /index.html?auth_error=oauth_db');
+    exit;
+}
+
 try {
+    oauth_bootstrap_users_table($pdo);
     $usersTable = "`users`";
     $stmt = $pdo->prepare("SELECT id, name, email FROM $usersTable WHERE email = :email LIMIT 1");
     $stmt->execute([':email' => $email]);
@@ -50,7 +61,7 @@ try {
     exit;
 } catch (PDOException $e) {
     error_log('dev_oauth_error: ' . $e->getMessage());
-    header('Location: /index.html?auth_error=oauth_token');
+    header('Location: /index.html?auth_error=oauth_db');
     exit;
 }
 

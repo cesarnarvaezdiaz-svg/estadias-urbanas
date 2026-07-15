@@ -748,6 +748,7 @@
         oauth_state: 'No se pudo validar la sesión social. Intenta nuevamente.',
         oauth_token: 'No se pudo validar la cuenta social.',
         oauth_email: 'El proveedor no entregó un email verificable.',
+        oauth_db: 'No pudimos conectar con la base de datos. Revisa la configuración DB_* en HostGator.',
         oauth_provider: 'Proveedor no permitido.'
       };
       setAuthMessage(messages[authError] || 'No se pudo iniciar sesión social.', 'error');

@@ -1,0 +1,6 @@
+.env
+/web/.env
+/web/storage/
+/web/error_log
+.DS_Store
+node_modules/

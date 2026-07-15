@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as AppleAuthentication from "expo-apple-authentication";
+import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import { router } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
@@ -14,6 +15,15 @@ import { colors, radius, spacing } from "@/lib/theme";
 
 WebBrowser.maybeCompleteAuthSession();
 
+const discovery = {
+  authorizationEndpoint: "https://www.facebook.com/v20.0/dialog/oauth",
+  tokenEndpoint: "https://graph.facebook.com/v20.0/oauth/access_token",
+};
+
+function isConfigured(value: string) {
+  return Boolean(value && !value.toLowerCase().includes("not-configured") && !value.toLowerCase().includes("client_id"));
+}
+
 export default function AuthScreen() {
   const { login, register, completeOAuth } = useAuth();
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -26,7 +36,12 @@ export default function AuthScreen() {
   const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || googleClientId;
   const androidClientId = process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID || googleClientId;
   const webClientId = process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID || googleClientId;
+  const facebookClientId = process.env.EXPO_PUBLIC_FACEBOOK_APP_ID || "";
   const configuredGoogleId = useMemo(() => Platform.select({ ios: iosClientId, android: androidClientId, default: webClientId }) || "", [androidClientId, iosClientId, webClientId]);
+  const facebookRedirectUri = AuthSession.makeRedirectUri({ scheme: "estadiasurbanas", path: "auth/facebook" });
+  const googleReady = isConfigured(configuredGoogleId);
+  const facebookReady = isConfigured(facebookClientId);
+
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
       clientId: googleClientId || "not-configured.apps.googleusercontent.com",
@@ -36,6 +51,15 @@ export default function AuthScreen() {
       selectAccount: true,
     },
     { scheme: "estadiasurbanas" },
+  );
+  const [facebookRequest, facebookResponse, promptFacebookAsync] = AuthSession.useAuthRequest(
+    {
+      clientId: facebookClientId || "not-configured",
+      redirectUri: facebookRedirectUri,
+      responseType: AuthSession.ResponseType.Token,
+      scopes: ["public_profile", "email"],
+    },
+    discovery,
   );
 
   useEffect(() => {
@@ -48,6 +72,17 @@ export default function AuthScreen() {
       .catch((cause) => Alert.alert("Google", cause instanceof Error ? cause.message : "No se pudo iniciar sesión."))
       .finally(() => setLoading(null));
   }, [completeOAuth, response]);
+
+  useEffect(() => {
+    if (facebookResponse?.type !== "success") return;
+    const accessToken = facebookResponse.params.access_token || facebookResponse.authentication?.accessToken;
+    if (!accessToken) return;
+    setLoading("facebook");
+    completeOAuth("facebook", { access_token: accessToken })
+      .then(() => router.back())
+      .catch((cause) => Alert.alert("Facebook", cause instanceof Error ? cause.message : "No se pudo iniciar sesión."))
+      .finally(() => setLoading(null));
+  }, [completeOAuth, facebookResponse]);
 
   async function submit() {
     if (!/^\S+@\S+\.\S+$/.test(email.trim()) || password.length < 8) {
@@ -94,7 +129,7 @@ export default function AuthScreen() {
     <Screen>
       <Text style={styles.eyebrow}>UNA CUENTA, WEB Y APP</Text>
       <Text style={styles.title}>{mode === "login" ? "Bienvenido de vuelta" : "Crea tu cuenta"}</Text>
-      <Text style={styles.subtitle}>Tus reservas y puntos se guardan en la misma base de datos.</Text>
+      <Text style={styles.subtitle}>Tus reservas, pagos y puntos se guardan en la misma base de datos.</Text>
 
       <View style={styles.toggle}>
         {(["login", "register"] as const).map((item) => (
@@ -119,15 +154,31 @@ export default function AuthScreen() {
           icon="logo-google"
           variant="ghost"
           loading={loading === "google"}
-          disabled={Boolean(loading) || !request || !configuredGoogleId}
+          disabled={Boolean(loading) || !request || !googleReady}
           onPress={() => {
-            if (!configuredGoogleId) Alert.alert("Google pendiente", "Configura el Client ID de Google para esta plataforma.");
+            if (!googleReady) Alert.alert("Google pendiente", "Configura el Client ID real de Google para esta plataforma.");
             else void promptAsync();
+          }}
+        />
+        <AppButton
+          label="Facebook"
+          icon="logo-facebook"
+          variant="ghost"
+          loading={loading === "facebook"}
+          disabled={Boolean(loading) || !facebookRequest || !facebookReady}
+          onPress={() => {
+            if (!facebookReady) Alert.alert("Facebook pendiente", "Configura EXPO_PUBLIC_FACEBOOK_APP_ID y el proveedor en el servidor.");
+            else void promptFacebookAsync();
           }}
         />
         {Platform.OS === "ios" ? <AppButton label="Apple" icon="logo-apple" variant="ghost" loading={loading === "apple"} disabled={Boolean(loading)} onPress={() => void appleLogin()} /> : null}
       </View>
-      {!configuredGoogleId ? <Text style={styles.configNote}>Google quedará habilitado cuando agregues los Client ID reales para Android e iOS.</Text> : null}
+      <View style={styles.validationCard}>
+        <Text style={styles.validationTitle}>Validación de integraciones</Text>
+        <Text style={styles.validationItem}>• Google: {googleReady ? "configurado para esta plataforma" : "pendiente de Client ID"}</Text>
+        <Text style={styles.validationItem}>• Facebook: {facebookReady ? "App ID configurado" : "pendiente de App ID"}</Text>
+        <Text style={styles.validationItem}>• Apple: disponible en iOS con credenciales del servidor</Text>
+      </View>
     </Screen>
   );
 }
@@ -146,5 +197,7 @@ const styles = StyleSheet.create({
   line: { height: 1, backgroundColor: colors.border, flex: 1 },
   or: { color: colors.textMuted, fontSize: 12 },
   social: { gap: spacing.sm },
-  configNote: { color: colors.warning, backgroundColor: colors.warningSoft, padding: spacing.md, borderRadius: radius.md, fontSize: 12, lineHeight: 18, marginTop: spacing.md },
+  validationCard: { marginTop: spacing.md, padding: spacing.md, borderRadius: radius.md, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, gap: 4 },
+  validationTitle: { color: colors.navy, fontWeight: "900" },
+  validationItem: { color: colors.textMuted, fontSize: 12, lineHeight: 18 },
 });
